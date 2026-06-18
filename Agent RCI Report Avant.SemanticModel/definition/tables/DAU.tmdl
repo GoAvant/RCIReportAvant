@@ -1,0 +1,138 @@
+table DAU
+	lineageTag: 174b74c4-b5c4-41fd-a4b7-576fb269ed5a
+
+	measure _ActiveUserPeriod = DISTINCTCOUNTNOBLANK('DAU'[PeriodUserKey])
+		formatString: 0
+		lineageTag: 579bf373-4f1c-4f5e-8232-acc697d12159
+
+	measure _DailyActiveTAs = DISTINCTCOUNTNOBLANK('DAU'[SellerName])
+		formatString: 0
+		lineageTag: 124d0380-15ab-47a6-a9a6-7c2948fdc07c
+
+	measure _DAU = DISTINCTCOUNTNOBLANK('DAU'[AgentEmail])
+		formatString: 0
+		lineageTag: adcc16c1-b510-430d-b38b-15ad6678cce3
+
+	column PeriodId
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fc7942c6-16c6-4e99-9d15-77ffccba931a
+		summarizeBy: none
+		sourceColumn: PeriodId
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column SellerName
+		dataType: string
+		lineageTag: ebc53f13-18b8-4947-86cd-982410698c25
+		summarizeBy: none
+		sourceColumn: SellerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column SellerId
+		dataType: string
+		lineageTag: 37d4bae6-4191-4d07-ace6-a04886c4ab43
+		summarizeBy: none
+		sourceColumn: SellerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Server
+		dataType: string
+		lineageTag: df1e4c8d-7ec8-494b-8e88-0e425dfd353d
+		summarizeBy: none
+		sourceColumn: Server
+
+		annotation SummarizationSetBy = Automatic
+
+	column AgentFullName
+		dataType: string
+		lineageTag: c3f61690-2caf-4a4a-bc63-941581ea51e5
+		summarizeBy: none
+		sourceColumn: AgentFullName
+
+		annotation SummarizationSetBy = Automatic
+
+	column AgentEmail
+		dataType: string
+		lineageTag: cd48d2f2-4daa-45a2-82b6-bf935c29b17a
+		summarizeBy: none
+		sourceColumn: AgentEmail
+
+		annotation SummarizationSetBy = Automatic
+
+	column VisitorId
+		dataType: string
+		lineageTag: b0edd838-fc01-47a5-a142-df52a769bfec
+		summarizeBy: none
+		sourceColumn: VisitorId
+
+		annotation SummarizationSetBy = Automatic
+
+	column PeriodUserKey
+		dataType: string
+		lineageTag: e26fd3e4-ba12-4123-a629-e18cb26ef8b4
+		summarizeBy: none
+		sourceColumn: PeriodUserKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column _FirstLogin =
+			
+			CALCULATE(
+			    MIN('DAU'[PeriodId]),
+			    VAR CurrentUser = 'DAU'[AgentEmail]
+			    RETURN
+			        FILTER(
+			            'DAU',
+			            'DAU'[AgentEmail] = CurrentUser )
+			        )
+		formatString: General Date
+		lineageTag: aae397d5-2fff-4c7f-aae7-beddad91afcb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DAU = m
+		mode: import
+		source = ```
+				let
+				    // Step 1: Load data from dw
+				    Source = Sql.Database(
+				        "db-server-prod-eastus-dw-01.database.windows.net", 
+				        "avantdw", 
+				        [Query="
+				            SELECT 
+				                [PeriodId],
+				                [SellerName],
+				                [SellerId],
+				                [Server],
+				                [AgentFullName],
+				                [AgentEmail],
+				                [VisitorId]
+				            FROM [pbi7].[PathfinderDAUs]"]
+				    ),
+				
+				    // Step 2: Clean and type    
+				    #"Changed Type" = Table.TransformColumnTypes(Source, {{"PeriodId", type date}}),
+				
+				    // Step 3: Create PeriodUserKey
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "PeriodUserKey", each Date.ToText([PeriodId], "yyyy-MM-dd") & "|" & [AgentEmail]),
+				
+				    // Step 4: Get the list of excluded server values, all lowercased
+				    ExcludedList = List.Transform(List.Distinct(ExcludedServers_HostDomains[ExcludedServers_HostDomains]), Text.Lower),
+				
+				    // Step 5: Filter out rows where the lowercased Server is in the lowercased exclusion list
+				    #"Filtered Rows" = Table.SelectRows(#"Added Custom", each not List.Contains(ExcludedList, Text.Lower([Server]))),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each not Text.Contains([AgentEmail], "@goavant.net"))
+				in
+				    #"Filtered Rows1"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

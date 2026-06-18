@@ -1,0 +1,244 @@
+table 'Leading Providers'
+	lineageTag: 55c98686-fc88-4c95-808b-2b37b1dd0969
+
+	column Id
+		dataType: string
+		lineageTag: 9d5d5057-7f86-4de0-a1cf-dc871e9da787
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 4936f1a0-942a-4572-b5c8-c3099844a549
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyIsoCode
+		dataType: string
+		lineageTag: 0327fac1-6ba0-4d11-85e3-12c53bc0e3ec
+		summarizeBy: none
+		sourceColumn: CurrencyIsoCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 836a6f03-7dd2-4288-9652-9e9901fab7a5
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		variation Variation
+			isDefault
+			relationship: 88b08752-88c5-45a0-b0bc-f7f48b51fc3a
+			defaultHierarchy: LocalDateTable_09569c25-acc7-41b8-ad57-7602718889cc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedById
+		dataType: string
+		lineageTag: 5ac362b3-9dea-4bae-b471-7ad9a353f5ae
+		summarizeBy: none
+		sourceColumn: CreatedById
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastModifiedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4ccc82ee-362a-41f2-aec4-e3e3dce35037
+		summarizeBy: none
+		sourceColumn: LastModifiedDate
+
+		variation Variation
+			isDefault
+			relationship: 2fecd7cb-9402-4dfd-afcb-bf0c37d5d4e5
+			defaultHierarchy: LocalDateTable_9cb9bfdb-5d6f-4c6b-9338-ac240ec6958e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastModifiedById
+		dataType: string
+		lineageTag: b2538556-69a2-4ec3-abd8-a21e8a556aa2
+		summarizeBy: none
+		sourceColumn: LastModifiedById
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastViewedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7d9afa98-418e-4a56-b9e5-746e53aac144
+		summarizeBy: none
+		sourceColumn: LastViewedDate
+
+		variation Variation
+			isDefault
+			relationship: 850f7663-d987-480b-88ae-c61256b604d5
+			defaultHierarchy: LocalDateTable_d4abe518-00a7-47d2-ba07-397ee7668206.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastReferencedDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 36aadea8-4f83-402d-bb82-ca6e453611b5
+		summarizeBy: none
+		sourceColumn: LastReferencedDate
+
+		variation Variation
+			isDefault
+			relationship: d7fc42c6-81aa-496e-b26e-ee5683cba5b6
+			defaultHierarchy: LocalDateTable_e7ab6e8e-6dde-49d1-8d48-f759e026f63c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Provider__c
+		dataType: string
+		lineageTag: 1aea6a40-c009-46c8-8ab0-4e0dc1ed1af9
+		summarizeBy: none
+		sourceColumn: Provider__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Associations__c
+		dataType: string
+		lineageTag: 5f28887d-1e19-4d6a-afa3-ec34eb7a1235
+		summarizeBy: none
+		sourceColumn: Associations__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Case__c
+		dataType: string
+		lineageTag: 968f9676-7888-4b0f-a565-492ba8d264b0
+		summarizeBy: none
+		sourceColumn: Case__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Lead__c
+		dataType: string
+		lineageTag: 290d2581-2b7c-427d-a5ed-abb6ce751218
+		summarizeBy: none
+		sourceColumn: Lead__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Opportunity__c
+		dataType: string
+		lineageTag: 20dba567-0123-4fde-99d3-57f3c38e2026
+		summarizeBy: none
+		sourceColumn: Opportunity__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pricing_Status__c
+		dataType: string
+		lineageTag: 5844443e-8b3c-42cc-8299-105f69c776c9
+		summarizeBy: none
+		sourceColumn: Pricing_Status__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Registration_Status__c
+		dataType: string
+		lineageTag: 804663b2-49d0-4103-b16f-3455de5d547e
+		summarizeBy: none
+		sourceColumn: Registration_Status__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Notes__c
+		dataType: string
+		lineageTag: 13011bec-35b8-4b4d-adf9-6351a0b18c4e
+		summarizeBy: none
+		sourceColumn: Notes__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsActive__c
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: abbb2c0f-15c1-43c1-a2e3-36e2cbd41c69
+		summarizeBy: none
+		sourceColumn: IsActive__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column _LPMinutes = ```
+			
+			IF (
+			    'Leading Providers'[_LPCaseReason] = "Needs Specialized Pricing",
+			    SWITCH (
+			        'Leading Providers'[Provider__c],
+			        "0016000001HD596AAD", 98,
+			        "0016000001HD59CAAT", 146,
+			        "0010z00001YKEIvAAP", 68,
+			        "0016000001HD59OAAT", 113,
+			        "0016000001HD59HAAT", 146,
+			        "0016000001HD5AdAAL", 146
+			    ),
+			    IF (
+			        'Leading Providers'[_LPCaseReason] = "Needs Contract",
+			        SWITCH (
+			            'Leading Providers'[Provider__c],
+			            "0016000001HD596AAD", 116,
+			            "0016000001HD59CAAT", 116,
+			            "0010z00001YKEIvAAP", 88,
+			            "0016000001HD59IAAT", 88,
+			            "0016000001HD59OAAT", 83,
+			            "0016000001HD59HAAT", 150,
+			            "0016000001HD5AdAAL", 135
+			        ),
+			        IF (
+			            'Leading Providers'[_LPCaseReason] = "Needs Order Entry",
+			            SWITCH (
+			                'Leading Providers'[Provider__c],
+			                "0016000001HD596AAD", 45,
+			                "0016000001HD59CAAT", 86,
+			                "0010z00001YKEIvAAP", 41,
+			                "0016000001HD59OAAT", 98,
+			                "0016000001HD59HAAT", 105,
+			                "0016000001HD5AdAAL", 68
+			            ),
+			            BLANK ()
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: 7576bfaf-bd11-4632-88d1-6e75abdb23b1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column _LPVendor = LOOKUPVALUE(Vendors[Vendor],Vendors[Vendor Id],'Leading Providers'[Provider__c])
+		lineageTag: d0a40356-8e67-4efb-8ed7-fe75a8633c13
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column _LPCaseReason = LOOKUPVALUE('Cases'[Reason],'Cases'[Id],'Leading Providers'[Case__c])
+		lineageTag: 52a9ef8c-8ef4-49db-a752-3e944bc0e2d8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Leading Providers' = m
+		mode: import
+		queryGroup: 'Import Tables'
+		source =
+				let
+				    Source = Salesforce.Data("https://login.salesforce.com/", [ApiVersion=48]),
+				    Leading_Provider__c = Source{[Name="Leading_Provider__c"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(Leading_Provider__c,{"IsDeleted", "LastActivityDate", "SystemModstamp"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

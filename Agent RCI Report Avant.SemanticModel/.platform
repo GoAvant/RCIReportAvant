@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Agent RCI Report Avant"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b59935cf-c903-42b5-a6a1-90ef59089acb"
+  }
+}

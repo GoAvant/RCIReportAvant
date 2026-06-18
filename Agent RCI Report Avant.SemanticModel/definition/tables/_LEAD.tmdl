@@ -1,0 +1,46 @@
+table _LEAD
+	lineageTag: fff0812c-ed50-49c3-98b3-da380f173776
+
+	column Date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d356352b-b86b-4d3f-a3c6-e2b3ab7e7bb1
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'LEAD Name'
+		dataType: string
+		lineageTag: b00217af-6b10-444a-8a07-daf3688763ea
+		summarizeBy: none
+		sourceColumn: LEAD Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _LEAD = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://avantcommunications1-my.sharepoint.com/personal/jochoa_goavant_net/Documents/PowerBI/Tables/Niko's%20Folder/Engineers%20by%20Month%20for%20SE%20Metrics.xlsx"), null, true),
+				    #"Practice Lead_Sheet" = Source{[Item="Practice Lead",Kind="Sheet"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(#"Practice Lead_Sheet",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}, {"Column6", type text}, {"Column7", type text}, {"Column8", type text}, {"Column9", type text}, {"Column10", type text}, {"Column11", type text}, {"Column12", type text}, {"Column13", type text}, {"Column14", type text}, {"Column15", type text}, {"Column16", type text}, {"Column17", type text}, {"Column18", type text}, {"Column19", type text}, {"Column20", type text}, {"Column21", type text}, {"Column22", type text}, {"Column23", type text}, {"Column24", type text}, {"Column25", type text}, {"Column26", type text}, {"Column27", type text}, {"Column28", type text}, {"Column29", type text}, {"Column30", type text}, {"Column31", type text}, {"Column32", type text}, {"Column33", type text}, {"Column34", type text}, {"Column35", type text}, {"Column36", type text}, {"Column37", type text}, {"Column38", type text}, {"Column39", type text}, {"Column40", type text}, {"Column41", type text}, {"Column42", type text}, {"Column43", type text}, {"Column44", type text}, {"Column45", type text}, {"Column46", type text}, {"Column47", type text}, {"Column48", type text}, {"Column49", type text}, {"Column50", type text}, {"Column51", type text}, {"Column52", type text}, {"Column53", type text}, {"Column54", type text}, {"Column55", type text}, {"Column56", type text}, {"Column57", type text}}),
+				
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Promoted Headers",{{"4/1/2022", type text}, {"5/1/2022", type text}, {"6/1/2022", type text}, {"7/1/2022", type text}, {"8/1/2022", type text}, {"9/1/2022", type text}, {"10/1/2022", type text}, {"11/1/2022", type text}, {"12/1/2022", type text}, {"1/1/2023", type text}, {"2/1/2023", type text}, {"3/1/2023", type text}, {"4/1/2023", type text}, {"5/1/2023", type text}, {"6/1/2023", type text}, {"7/1/2023", type text}, {"8/1/2023", type text}, {"9/1/2023", type text}, {"10/1/2023", type text}, {"11/1/2023", type text}, {"12/1/2023", type text}, {"1/1/2024", type text}, {"2/1/2024", type text}, {"3/1/2024", type text}, {"4/1/2024", type text}, {"5/1/2024", type text}}),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Changed Type2", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Removed Blank Rows", {}, "Attribute", "Value"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Unpivoted Columns",{{"Attribute", "Date"}, {"Value", "LEAD Name"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"Date", type date}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type1",{{"LEAD Name", Text.Trim, type text}}),
+				    #"Cleaned Text" = Table.TransformColumns(#"Trimmed Text",{{"LEAD Name", Text.Clean, type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Cleaned Text", each Date.IsInPreviousNMonths([Date], 6))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

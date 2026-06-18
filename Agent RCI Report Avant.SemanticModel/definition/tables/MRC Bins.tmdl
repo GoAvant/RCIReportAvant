@@ -1,0 +1,61 @@
+table 'MRC Bins'
+	lineageTag: 07166414-e0af-45c4-80ed-fd0cd19be8ad
+
+	column BucketSort
+		formatString: 0
+		lineageTag: f8a532dd-3448-47c4-90cc-bcf2402f35b8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [BucketSort]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Min
+		formatString: 0
+		lineageTag: b14051cb-1112-4c09-b225-a90232dcb852
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Min]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Max
+		formatString: 0
+		lineageTag: b830f42b-17f9-4f6f-8e9f-242c09f0be8c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Max]
+
+		annotation SummarizationSetBy = Automatic
+
+	column BucketLabel
+		lineageTag: cde0f276-f6ef-4c7d-b5da-84ee0e950796
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [BucketLabel]
+		sortByColumn: BucketSort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MRC Bins' = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE (
+				    "BucketSort", INTEGER,
+				    "Min", INTEGER,
+				    "Max", INTEGER,
+				    "BucketLabel", STRING,
+				    {
+				        { 1,      -1,   25000,   "< 25k"     },
+				        { 2,   25000,   50000,   "25–50k"    },
+				        { 3,   50000,  125000,   "50–125k"   },
+				        { 4,  125000,  300000,   "125–300k"  },
+				        { 5,  300000,  2147483647, "≥ 300k" }
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 769976a98c294586bc0c6d6194688cfb
+

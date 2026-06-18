@@ -1,0 +1,342 @@
+relationship bed6ac1f-67ab-44f1-ac4c-6d7b730241ae
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.Date
+	toColumn: LocalDateTable_59275887-931c-42e8-bbc2-e30c40d78d00.Date
+
+relationship 678493bd-fac1-40ef-86b5-10e8cb99f7df
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendar.'Start Date of Week'
+	toColumn: LocalDateTable_7809a66c-85a3-40ad-aa1b-8e3bb7925b7b.Date
+
+relationship 31d99e36-f531-434e-b69a-068c43c48d09
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Partners.'Created Date'
+	toColumn: LocalDateTable_6475f7a2-26ea-4b4d-a250-37f983379e8e.Date
+
+relationship e5926828-87f5-4874-a1e4-3b77ac3adaec
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Partners.'NDA Sent'
+	toColumn: LocalDateTable_a45c4b34-ab03-4467-89c8-5dcafbec7d27.Date
+
+relationship 018fb21b-9e1b-43bc-a5c2-0a1d037032a4
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Partners.'NDA Signed'
+	toColumn: LocalDateTable_62aa98f4-8a43-4d8c-bf0e-eb75715c2419.Date
+
+relationship bf6503cc-f445-4a74-be9b-16a0dff7b1d4
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Partners.'Contract Signed'
+	toColumn: LocalDateTable_15edddc3-c409-4a4c-99c4-6fdbb595d3b2.Date
+
+relationship e5aa1dbd-604c-4b40-9c40-1f1b9f535507
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Partners.'Pathfinder Tier Plan Override Exp Date'
+	toColumn: LocalDateTable_acd5bcab-09a0-448c-8443-4abc65707c82.Date
+
+relationship 97110b43-68b3-470d-9b59-5d5793d86303
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Vendors.'Created Date'
+	toColumn: LocalDateTable_6f45f3df-b277-43d2-9ef3-d3f724d27fa3.Date
+
+relationship 1224163f-ff9a-482a-8eb3-cac8ca5efc31
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Last Month Close Date'.LastMonthClosed
+	toColumn: LocalDateTable_8fddb526-4655-47a3-8d3c-1879290d05b5.Date
+
+relationship 6848d28b-4f17-49b7-be80-edc73c2ed478
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Last Month Close Date'.LastClosedBillings
+	toColumn: LocalDateTable_9b458538-171c-4fa9-bb2d-982caaa3557c.Date
+
+relationship f7abbcc0-aa1c-4d74-a334-58460ebe4c58
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.LastModifiedDate
+	toColumn: LocalDateTable_32b4b744-bec4-4aeb-9102-fcfca89a7bfa.Date
+
+relationship d5603783-e6a8-4c7f-ae1d-235e15e9d355
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.In_Queue_Reminder__c
+	toColumn: LocalDateTable_44e8a597-47df-4281-b9ed-0e926a2770e1.Date
+
+relationship 72458f11-64d4-4e21-8d4f-c3abce189f8d
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.Start_Time__c
+	toColumn: LocalDateTable_6529be5e-61ec-4f76-8699-57b31eaba06f.Date
+
+relationship 5cd8bb14-5fc8-4a07-a169-e9f55d3d7b92
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.Follow_Up_Date__c
+	toColumn: LocalDateTable_cf19a17e-639f-44eb-998e-deba7699b75d.Date
+
+relationship c62b892c-1b47-43a4-8903-9de1820426bc
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.Reply_Date__c
+	toColumn: LocalDateTable_883b0ca2-5a6c-4e07-a548-3d3e45b4e567.Date
+
+relationship ce6221ac-e370-4f24-90e0-2dfbd7af0118
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.Start_Date__c
+	toColumn: LocalDateTable_a3abc61d-6075-42c5-b5eb-41bf7ca25743.Date
+
+relationship 855750dd-7fdc-4208-9566-e1e24ffab53c
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.Due_Date__c
+	toColumn: LocalDateTable_b7b2da9e-2559-4a31-8980-6ddd90761f42.Date
+
+relationship e6fd2f37-488e-4fe9-95bd-221f3f155bdf
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.KPI_Reply_Date_Hidden__c
+	toColumn: LocalDateTable_2aab01ef-7dc6-4d42-99a8-69843bb90da0.Date
+
+relationship ae5dbf0a-2440-4804-8a1c-88fbb1e16e99
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.KPI_Reply_Date__c
+	toColumn: LocalDateTable_45aacde9-9c96-44ae-b3e5-2c4052dfa590.Date
+
+relationship 36d36c20-5021-46bb-9ae4-fb3ef284307d
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.'Closed Date_DT'
+	toColumn: LocalDateTable_d93a2278-3c80-459b-b52c-8cb2fa93b2f7.Date
+
+relationship cd6b24f7-752a-4491-a2f9-ce25079d81d8
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Cases.'Created Date_DT'
+	toColumn: LocalDateTable_1c7c50c6-3345-42a7-866b-ae54f744e0b3.Date
+
+relationship bb7716e3-979f-43e4-976a-041b60b882b4
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Maintenance Time'.LastModifiedDate
+	toColumn: LocalDateTable_f0e620d7-478e-4509-80cd-acf8899f08fb.Date
+
+relationship f8a584da-f357-48ba-ac62-cef4e357663f
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Maintenance Time'.SystemModstamp
+	toColumn: LocalDateTable_906079de-1f73-4f96-8e96-ff7f6860bb4b.Date
+
+relationship 1d639d15-d5d7-459c-8363-273a894d28e0
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Maintenance Time'.LastActivityDate
+	toColumn: LocalDateTable_144b82de-9ed0-4fb9-9ac2-285f9748d437.Date
+
+relationship 88b08752-88c5-45a0-b0bc-f7f48b51fc3a
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Leading Providers'.CreatedDate
+	toColumn: LocalDateTable_09569c25-acc7-41b8-ad57-7602718889cc.Date
+
+relationship 2fecd7cb-9402-4dfd-afcb-bf0c37d5d4e5
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Leading Providers'.LastModifiedDate
+	toColumn: LocalDateTable_9cb9bfdb-5d6f-4c6b-9338-ac240ec6958e.Date
+
+relationship 850f7663-d987-480b-88ae-c61256b604d5
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Leading Providers'.LastViewedDate
+	toColumn: LocalDateTable_d4abe518-00a7-47d2-ba07-397ee7668206.Date
+
+relationship d7fc42c6-81aa-496e-b26e-ee5683cba5b6
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Leading Providers'.LastReferencedDate
+	toColumn: LocalDateTable_e7ab6e8e-6dde-49d1-8d48-f759e026f63c.Date
+
+relationship 072c3df0-e849-488b-b6a2-d65b8983660f
+	isActive: false
+	fromColumn: Partners.'Channel Manager'
+	toColumn: 'Channel Managers'.'Channel Manager'
+
+relationship ef0d12fc-7448-4420-8a1a-518afbf2eadb
+	isActive: false
+	fromColumn: Opportunities.CreatedById
+	toColumn: 'Channel Managers'.Id
+
+relationship 5b02d010-85bc-4561-a1b6-8a3dd49e2ce5
+	isActive: false
+	fromColumn: Partners.'Agreement Date'
+	toColumn: Calendar.Date
+
+relationship f9fc1360-9e88-469b-949d-bf5406c9b781
+	isActive: false
+	fromColumn: Partners.'Onboard Date'
+	toColumn: Calendar.Date
+
+relationship d7f0cfad-cb9e-472f-ac56-3665584ccb28
+	isActive: false
+	fromColumn: Partners.'First Win'
+	toColumn: Calendar.Date
+
+relationship a00fc89b-7f70-40da-8034-c1d1abd679b3
+	isActive: false
+	fromColumn: Partners.'First Active'
+	toColumn: Calendar.Date
+
+relationship cdd73928-880e-42ef-ab9e-7c4e1594b27e
+	fromColumn: Partners.'Avant Account Manager'
+	toColumn: 'Channel Managers'.Id
+
+relationship d4d3b3e1-5b13-40de-84ae-1a371ad8e434
+	fromColumn: Cases.'Seller Id'
+	toColumn: Partners.'Seller Id'
+
+relationship bdcf5941-47e0-4499-b4cc-d3345b1c1113
+	isActive: false
+	fromColumn: Partners.'Avant ICM'
+	toColumn: 'Channel Managers'.Id
+
+relationship b0eceed7-44d9-442a-b072-c3a5714130fb
+	isActive: false
+	fromColumn: Vendors.Contract_Signed_Date__c
+	toColumn: Calendar.Date
+
+relationship 997c5591-73a2-48f1-9142-d5658e3db236
+	fromColumn: Cases.'Vendor Id'
+	toColumn: Vendors.'Vendor Id'
+
+relationship c6774bce-a1b7-45af-b314-08762acb6b77
+	isActive: false
+	fromColumn: 'Leading Providers'.Provider__c
+	toColumn: Vendors.'Vendor Id'
+
+relationship 3b266985-2844-4b45-8650-77260eebbe04
+	fromColumn: 'Maintenance Time'.Case__c
+	toColumn: Cases.Id
+
+relationship 6a597214-268a-42ea-ad69-7bb66dead881
+	isActive: false
+	fromColumn: Cases.CreatedDate
+	toColumn: Calendar.Date
+
+relationship c2dbc243-2c24-4a41-a34d-52cdde1dd17d
+	isActive: false
+	fromColumn: Cases.ClosedDate
+	toColumn: Calendar.Date
+
+relationship 7bf4dbe4-14a4-4538-aed2-a4c4e3bdb0d7
+	isActive: false
+	fromColumn: 'Leading Providers'.Case__c
+	toColumn: Cases.Id
+
+relationship 9c351ed9-d846-4602-9a0b-0235bc269ffb
+	isActive: false
+	fromColumn: User.CreatedDate
+	toColumn: Calendar.Date
+
+relationship d64bfb23-896a-4156-84ce-a4790352e747
+	fromColumn: _ISE.Date
+	toColumn: Calendar.Date
+
+relationship d14ca8db-1eb5-4a88-9cf3-5630ef703241
+	fromColumn: _FSE.Date
+	toColumn: Calendar.Date
+
+relationship 2a51254b-fcd9-4eed-b718-91cee367d3da
+	isActive: false
+	fromColumn: 'Maintenance Time'.CreatedDate
+	toColumn: Calendar.Date
+
+relationship 8e5f722f-ea4e-408f-a0c3-39eb8d70eda9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Opportunities.'Completed Date'
+	toColumn: LocalDateTable_3ffc353c-53fd-4603-b37b-a9b7635d864f.Date
+
+relationship 4bd6f59f-e1f1-44d6-835c-3ff7b78abd46
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Opportunities.'Install Date'
+	toColumn: LocalDateTable_c54fe461-3ada-4b05-be8b-d232177ace1b.Date
+
+relationship c7eb3bb1-e152-4f41-a4bc-67e25d567cf3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Opportunities.'Contract Expiration Date'
+	toColumn: LocalDateTable_e3c59c20-827e-4a69-8ced-5b6fffd46b59.Date
+
+relationship AutoDetected_c10f3c3b-87fd-4b1e-aa97-a12616326bfc
+	fromColumn: Opportunities.'Seller Id'
+	toColumn: Partners.'Seller Id'
+
+relationship 5775def1-24c9-baf2-5dfe-608d44b4ff89
+	fromColumn: Opportunities.'Close Date'
+	toColumn: Calendar.Date
+
+relationship bdcc6b5c-4760-52c7-ec10-e73a7d71e310
+	isActive: false
+	fromColumn: Opportunities.'Created Date'
+	toColumn: Calendar.Date
+
+relationship 995be9f9-485b-a089-8cdb-29e0b41c77b2
+	isActive: false
+	fromColumn: Opportunities.'AVANT Primary SE'
+	toColumn: User.Id
+
+relationship 5bdfe0b7-8c69-a22e-f7e7-c30ff8cd793e
+	fromColumn: 'Leading Providers'.Opportunity__c
+	toColumn: Opportunities.'Opportunity Id'
+
+relationship 867f2196-b95f-d384-d184-93f9a506fc9e
+	fromColumn: Opportunities.'Provider Id'
+	toColumn: Vendors.'Vendor Id'
+
+relationship fe8d77e8-f678-4a05-c89d-77ab76963965
+	isActive: false
+	fromColumn: Opportunities.'Channel Manager'
+	toColumn: 'Channel Managers'.'Channel Manager'
+
+relationship 71129769-a3ba-abb2-5ddb-8244c21b18d8
+	isActive: false
+	fromColumn: Opportunities.'Sign Date'
+	toColumn: Calendar.Date
+
+relationship 97eaec32-add5-47d0-eb90-3b815be00f76
+	isActive: false
+	fromColumn: Cases.Opportunity__c
+	toColumn: Opportunities.'Opportunity Id'
+
+relationship c5b7876e-260b-f7f9-1156-41bce7c68692
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: Opportunities.'Seller Id'
+	toColumn: Cases.'Seller Id'
+
+relationship AutoDetected_b99f1154-7933-4907-835f-9836e184fca5
+	fromColumn: DAU.SellerId
+	toColumn: Partners.'Seller Id'
+
+relationship 93deb36c-f42e-187e-1ea2-fc18d6c1c2a6
+	isActive: false
+	fromColumn: DAU._FirstLogin
+	toColumn: Calendar.Date
+
+relationship 063ec0da-dbde-ec1b-3059-db0a4961d4dd
+	fromColumn: DAU.PeriodId
+	toColumn: Calendar.Date
+
+relationship 32421262-fe3d-14c7-3c6a-fdda54870cd4
+	fromColumn: _LEAD.Date
+	toColumn: Calendar.Date
+

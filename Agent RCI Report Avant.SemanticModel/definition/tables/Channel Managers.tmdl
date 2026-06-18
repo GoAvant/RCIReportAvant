@@ -1,0 +1,129 @@
+table 'Channel Managers'
+	lineageTag: 7d5ac78b-3319-4999-b67e-94fad008e744
+
+	column Id
+		dataType: string
+		lineageTag: 921c0ccb-d290-4aca-a934-8035177f9905
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Username
+		dataType: string
+		lineageTag: 36990740-e372-4f09-b50c-8fda373df98f
+		summarizeBy: none
+		sourceColumn: Username
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Channel Manager'
+		dataType: string
+		lineageTag: 4d078aaa-c628-4004-965c-3e0068c985f9
+		summarizeBy: none
+		sourceColumn: Channel Manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column ManagerId
+		dataType: string
+		lineageTag: 1e76ab75-9a84-42bc-b663-7560e95bf6fc
+		summarizeBy: none
+		sourceColumn: ManagerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column User_Role_Name__c
+		dataType: string
+		lineageTag: a2c8fe3e-923e-4139-a6bc-845a2c06c108
+		summarizeBy: none
+		sourceColumn: User_Role_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column User_Profile_Name__c
+		dataType: string
+		lineageTag: 38429692-1482-4d17-836d-1d781e1ac3a5
+		summarizeBy: none
+		sourceColumn: User_Profile_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Assigned_RVP__c
+		dataType: string
+		lineageTag: 0e59003b-3703-4507-a0ee-dbbccbcb606a
+		summarizeBy: none
+		sourceColumn: Assigned_RVP__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Role
+		dataType: string
+		lineageTag: f82ee122-c7eb-477c-bcc8-01d0d1e245a4
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column RVP
+		dataType: string
+		lineageTag: 32c6d67e-9431-4958-a9a5-bea116c96771
+		summarizeBy: none
+		sourceColumn: RVP
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CM vs Non CM'
+		dataType: string
+		lineageTag: e17943e0-91e7-4156-85ff-e9aa8980e16d
+		summarizeBy: none
+		sourceColumn: CM vs Non CM
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Channel Manager (reporting)'
+		dataType: string
+		lineageTag: d7e17b9f-93c9-4080-8af0-23a89c8fa9ae
+		summarizeBy: none
+		sourceColumn: Channel Manager (reporting)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Region'
+		dataType: string
+		lineageTag: a5b02624-9833-4cef-9261-fa8c731fbc3c
+		summarizeBy: none
+		sourceColumn: User Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Division'
+		dataType: string
+		lineageTag: fbe4d494-0396-41d3-aece-ae2e7c9f38da
+		summarizeBy: none
+		sourceColumn: User Division
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Business Unit'
+		dataType: string
+		lineageTag: fbe601e7-c708-483b-8192-2a0e433b9d7f
+		summarizeBy: none
+		sourceColumn: User Business Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Channel Managers' = m
+		mode: import
+		queryGroup: 'Import Tables'
+		source =
+				let
+				    Source = Sql.Database("db-server-prod-eastus-dw-01.database.windows.net", "AvantDW"),
+				    #"pbi_Channel Managers" = Source{[Schema="pbi",Item="Channel Managers"]}[Data]
+				in
+				    #"pbi_Channel Managers"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

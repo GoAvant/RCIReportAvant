@@ -1,0 +1,643 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 579.177897574124,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1086.3495100353057,
+            "y": 470.48708458468889
+          },
+          "nodeIndex": "_FSE",
+          "nodeLineageTag": "8da9afbc-3c10-49b0-bd50-10a71af26a0e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1768.8239035663032,
+            "y": 507.55447002943288
+          },
+          "nodeIndex": "_ISE",
+          "nodeLineageTag": "ebe34707-d406-4b33-b3fa-de41043e824d",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 2062.1603861960439,
+            "y": 555.99595687331544
+          },
+          "nodeIndex": "_PSM",
+          "nodeLineageTag": "0bf09e9d-6290-4a1f-97a8-7c28b717c3d7",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1511.1190518142816,
+            "y": 748.21080426123876
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "bc66abab-46dc-4e6d-976a-4bce4c34866c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 2272.3616394153596,
+            "y": 16.129941727546026
+          },
+          "nodeIndex": "Cases",
+          "nodeLineageTag": "c71b462a-c6d6-41df-ac67-e73291fab124",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 294.1847511806298,
+            "y": 8.9348908226558024
+          },
+          "nodeIndex": "Channel Managers",
+          "nodeLineageTag": "7d5ac78b-3319-4999-b67e-94fad008e744",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 2556.3616394153596,
+            "y": 102.12994172754603
+          },
+          "nodeIndex": "Last Month Close Date",
+          "nodeLineageTag": "31c37c4c-02e4-4075-9c7c-67cea1d399f0",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 2840.3616394153596,
+            "y": 16.129941727546026
+          },
+          "nodeIndex": "Leading Providers",
+          "nodeLineageTag": "55c98686-fc88-4c95-808b-2b37b1dd0969",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1850.1702647522866,
+            "y": 1063.2835805415623
+          },
+          "nodeIndex": "Maintenance Time",
+          "nodeLineageTag": "950c7bf8-b72f-449e-b77f-fa286fa42f53",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 10,
+            "y": -10
+          },
+          "nodeIndex": "Opportunities",
+          "nodeLineageTag": "cc10f156-2b0a-4456-883b-299e5db8baac",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 578.36163941535983,
+            "y": 22.259883455092051
+          },
+          "nodeIndex": "Partners",
+          "nodeLineageTag": "6b949a12-1c3c-494e-87ba-5d4efcd56904",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 3692.3616394153596,
+            "y": 16.129941727546026
+          },
+          "nodeIndex": "Vendors",
+          "nodeLineageTag": "cdcb948d-096e-47e7-ac44-4d8e9b306c86",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 3966.3616394153596,
+            "y": 16.129941727546026
+          },
+          "nodeIndex": "User",
+          "nodeLineageTag": "2c6cbe8a-23fd-4b01-8bb2-88b8488b74bc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 1704.3616394153598,
+            "y": 114.12994172754603
+          },
+          "nodeIndex": "_Local Measures",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 4240.36163941536,
+            "y": 536.64179027078114
+          },
+          "nodeIndex": "DAU",
+          "nodeLineageTag": "174b74c4-b5c4-41fd-a4b7-576fb269ed5a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 4524.36163941536,
+            "y": 586.64179027078114
+          },
+          "nodeIndex": "SellerSelection",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 4808.36163941536,
+            "y": 586.64179027078114
+          },
+          "nodeIndex": "Partner A Selector",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 5092.36163941536,
+            "y": 586.64179027078114
+          },
+          "nodeIndex": "Partner B Selector",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 18
+        },
+        {
+          "location": {
+            "x": 5376.36163941536,
+            "y": 586.64179027078114
+          },
+          "nodeIndex": "MRC Bins",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 5650.36163941536,
+            "y": 622.64179027078114
+          },
+          "nodeIndex": "_LEAD",
+          "nodeLineageTag": "fff0812c-ed50-49c3-98b3-da380f173776",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 43.164630599185571,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 18.512500762939453,
+            "y": 305.6875
+          },
+          "nodeIndex": "Cases",
+          "nodeLineageTag": "c71b462a-c6d6-41df-ac67-e73291fab124",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1025.5000011920929,
+            "y": 317.5
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "bc66abab-46dc-4e6d-976a-4bce4c34866c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 409.8750011920929,
+            "y": 570.625
+          },
+          "nodeIndex": "Opportunities",
+          "nodeLineageTag": "cc10f156-2b0a-4456-883b-299e5db8baac",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 427.0625011920929,
+            "y": -38.75
+          },
+          "nodeIndex": "Partners",
+          "nodeLineageTag": "6b949a12-1c3c-494e-87ba-5d4efcd56904",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 1",
+      "zoomValue": 64,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 0,
+        "y": 18
+      },
+      "nodes": [],
+      "name": "Layout 2",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 3,
+      "scrollPosition": {
+        "x": 0,
+        "y": 210.80000305175781
+      },
+      "nodes": [],
+      "name": "Layout 3",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 4,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [],
+      "name": "Layout 4",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 5,
+      "scrollPosition": {
+        "x": 0,
+        "y": 291.60000610351563
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 187.20000076293945,
+            "y": 0
+          },
+          "nodeIndex": "_PSM",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 5",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 6,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 880.77142933436812,
+            "y": 471.71428571428567
+          },
+          "nodeIndex": "_PSM",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 6",
+      "zoomValue": 70,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 7,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 37.200000762939453,
+            "y": 101
+          },
+          "nodeIndex": "_FSE",
+          "nodeLineageTag": "8da9afbc-3c10-49b0-bd50-10a71af26a0e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 582.20000076293945,
+            "y": 14
+          },
+          "nodeIndex": "_ISE",
+          "nodeLineageTag": "ebe34707-d406-4b33-b3fa-de41043e824d",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 7",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 8,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 243.59414601677418,
+            "y": 916.48748522902929
+          },
+          "nodeIndex": "_PSM",
+          "nodeLineageTag": "0bf09e9d-6290-4a1f-97a8-7c28b717c3d7",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 8",
+      "zoomValue": 44.200917061363867,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 9,
+      "scrollPosition": {
+        "x": 0,
+        "y": 300
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 411.28884761942845,
+            "y": 407.16707776276786
+          },
+          "nodeIndex": "Opportunities",
+          "nodeLineageTag": "cc10f156-2b0a-4456-883b-299e5db8baac",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 91.53623432622561,
+            "y": 690.25530390455583
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "bc66abab-46dc-4e6d-976a-4bce4c34866c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 952,
+            "y": 407
+          },
+          "nodeIndex": "Cases",
+          "nodeLineageTag": "c71b462a-c6d6-41df-ac67-e73291fab124",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 9",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 10,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Partners",
+          "nodeLineageTag": "6b949a12-1c3c-494e-87ba-5d4efcd56904",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 691.04761777605324,
+            "y": 219.57142857142858
+          },
+          "nodeIndex": "Opportunities",
+          "nodeLineageTag": "cc10f156-2b0a-4456-883b-299e5db8baac",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 488.71428571428572
+          },
+          "nodeIndex": "Cases",
+          "nodeLineageTag": "c71b462a-c6d6-41df-ac67-e73291fab124",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 604.28571428571433,
+            "y": 822.71428571428578
+          },
+          "nodeIndex": "Vendors",
+          "nodeLineageTag": "cdcb948d-096e-47e7-ac44-4d8e9b306c86",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 951.33333151681074,
+            "y": 0
+          },
+          "nodeIndex": "User",
+          "nodeLineageTag": "2c6cbe8a-23fd-4b01-8bb2-88b8488b74bc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 10",
+      "zoomValue": 70,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

@@ -1,0 +1,210 @@
+DEFINE
+    MEASURE '_Local Measures'[_FSEBillableHours] = VAR fsenames = VALUES(_FSE[FSE Name])
+
+RETURN
+CALCULATE (
+    SUM ( 'Maintenance Time'[Duration__c] ) / 60,
+    'Cases'[Record_Type_Name__c] = "Sales Engineering",
+    USERELATIONSHIP ( 'Calendar'[Date], 'Maintenance Time'[CreatedDate] ),
+    'Cases'[RO_Case_Owner__c]
+        IN fsenames
+)
+    MEASURE '_Local Measures'[_AllFSEBillableHours] = CALCULATE ( [_FSEBillableHours], ALL ( 'Maintenance Time' ))
+    MEASURE '_Local Measures'[_CountFSEs] = DISTINCTCOUNTNOBLANK(_FSE[FSE Name])
+    MEASURE '_Local Measures'[_FSESal] = 190000 * [_CountFSEs]
+    MEASURE '_Local Measures'[_ISEBillableHours] = VAR isenames = VALUES(_ISE[ISE Name])
+
+RETURN
+
+CALCULATE (
+    SUM ( 'Maintenance Time'[Duration__c] ) / 60,
+    'Cases'[Record_Type_Name__c] = "Sales Engineering",
+    USERELATIONSHIP ( 'Calendar'[Date], 'Maintenance Time'[CreatedDate] ),
+    'Cases'[RO_Case_Owner__c]
+        IN isenames
+)
+    MEASURE '_Local Measures'[_AllISEBillableHours] = CALCULATE ( [_ISEBillableHours], ALL ( 'Maintenance Time' ))
+    MEASURE '_Local Measures'[_CountISEs] = DISTINCTCOUNTNOBLANK(_ISE[ISE Name])
+    MEASURE '_Local Measures'[_ISESal] = 95000 * [_CountISEs]
+    MEASURE '_Local Measures'[_CommissionsCases] = VAR result =
+
+CALCULATE (
+    DISTINCTCOUNT ( 'Cases'[Id] ),
+    'Cases'[Record_Type_Name__c] = "Sales Operations",
+    USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+)
+
+RETURN
+    IF ( ISBLANK ( result ), 0, result )
+    MEASURE '_Local Measures'[_AllCommCases] = CALCULATE ( [_CommissionsCases], ALL ( 'Cases' ) )
+    MEASURE '_Local Measures'[_CountCommCaseOwners] = CALCULATE (
+    DISTINCTCOUNT ( 'Cases'[RO_Case_Owner__c] ),
+    'Cases'[Record_Type_Name__c] = "Sales Operations",
+    USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+)
+    MEASURE '_Local Measures'[_CommSal] = 55000 * [_CountCommCaseOwners]
+    MEASURE '_Local Measures'[_PABillableHours] = VAR pricing =
+    CALCULATE (
+        SUM ( 'Cases'[_PricingComplexityTime] ) / 60,
+        'Cases'[Record_Type_Name__c] = "Pricing",
+        'Cases'[Reason] = "Needs Pricing Analyst",
+        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+    )
+VAR specializedpricing =
+    CALCULATE (
+        SUM ( 'Leading Providers'[_LPMinutes] ) / 60,
+        'Cases'[Record_Type_Name__c] = "Pricing",
+        'Cases'[Reason] = "Needs Specialized Pricing",
+        USERELATIONSHIP ( 'Cases'[Id], 'Leading Providers'[Case__c] ),
+        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+    )
+RETURN
+    IF (
+        ISBLANK ( pricing + specializedpricing ),
+        0,
+        ( pricing + specializedpricing )
+    )
+    MEASURE '_Local Measures'[_AllPABillableHours] = CALCULATE ( [_PABillableHours], ALL ( 'Maintenance Time' ) )
+    MEASURE '_Local Measures'[_CountPACaseOwners] = CALCULATE (
+    DISTINCTCOUNT ( 'Cases'[RO_Case_Owner__c] ),
+    'Cases'[RO_Case_Owner__c] <> "Virtual Pricing Analyst",
+    'Cases'[Reason] = "Needs Pricing Analyst" || 'Cases'[Reason] = "Needs Specialized Pricing",
+    USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+)
+    MEASURE '_Local Measures'[_PricingSal] = 55000 * [_CountPACaseOwners]
+    MEASURE '_Local Measures'[_OrderMgmtBillableHours] = VAR contract =
+    CALCULATE (
+        SUM ( 'Leading Providers'[_LPMinutes] ) / 60,
+        'Cases'[Record_Type_Name__c] = "Pricing",
+        'Cases'[Reason] = "Needs Contract",
+        USERELATIONSHIP ( 'Cases'[Id], 'Leading Providers'[Case__c] ),
+        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+    )
+VAR orderentry =
+    CALCULATE (
+        SUM ( 'Leading Providers'[_LPMinutes] ) / 60,
+        'Cases'[Record_Type_Name__c] = "Pricing",
+        'Cases'[Reason] = "Needs Order Entry",
+        USERELATIONSHIP ( 'Cases'[Id], 'Leading Providers'[Case__c] ),
+        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+    )
+RETURN
+    IF ( ISBLANK ( contract + orderentry ), 0, ( contract + orderentry ) )
+    MEASURE '_Local Measures'[_AllOrderMgmtBillableHours] = CALCULATE ( [_OrderMgmtBillableHours], ALL ( 'Maintenance Time' ) )
+    MEASURE '_Local Measures'[_CountOrderMgmtCaseOwners] = CALCULATE (
+    DISTINCTCOUNT ( 'Cases'[RO_Case_Owner__c] ),
+    'Cases'[Record_Type_Name__c] = "Pricing",
+    'Cases'[Reason] = "Needs Order Entry"
+        || 'Cases'[Reason] = "Needs Contract",
+    USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+)
+    MEASURE '_Local Measures'[_OrderMgmtSal] = 75000 * [_CountOrderMgmtCaseOwners]
+    MEASURE 'Pathfinder Logins'[_Count of Logins] = COUNT ( 'Pathfinder Logins'[Login Date] )
+    MEASURE '_Local Measures'[_PERCount of Logins] = COUNT ( 'Pathfinder Logins'[Login Date] )
+    MEASURE '_Local Measures'[_AllPFLogin] = CALCULATE (
+    [_PERCount of Logins],
+    ALL ( 'Pathfinder Logins' ),
+    ( 'Calendar'[CurMonthOffset] <= -1 )
+        && ( 'Calendar'[CurMonthOffset] >= -13 )
+)
+    MEASURE '_Local Measures'[_ProjectCordNetTotals] = VAR result =
+
+CALCULATE (
+    SUM ( 'Cases'[mrc__c] ),
+    'Cases'[Record_Type_Name__c] = "Project Management Case",
+    USERELATIONSHIP ( 'Cases'[CreatedDate], 'Calendar'[Date] )
+)
+
+RETURN
+    IF ( ISBLANK ( result ), 0, result )
+    MEASURE '_Local Measures'[_AllProjectCord] = CALCULATE (
+    [_ProjectCordNetTotals],
+    ALL ( 'Cases' )
+)
+    MEASURE '_Local Measures'[_PCSal] = 676000 * 8
+    MEASURE '_Local Measures'[_PSMOpenOppHours] = VAR oppcount = 
+    CALCULATE(
+        DISTINCTCOUNTNOBLANK(Opportunities[Opportunity Id]),
+        USERELATIONSHIP(Opportunities[Created Date], 'Calendar'[Date])
+    )
+
+VAR result =
+    (oppcount * 3) / 60
+
+RETURN
+result
+    MEASURE '_Local Measures'[_PSMClosedOppHours] = VAR oppcount = 
+    CALCULATE(
+        DISTINCTCOUNTNOBLANK(Opportunities[Opportunity Id]),
+        Opportunities[Stage] = "Closed Won Approved"
+    )
+
+VAR result =
+    (oppcount * 8) / 60
+RETURN
+result
+    MEASURE '_Local Measures'[_PSMTotalHours] = [_PSMOpenOppHours] + [_PSMClosedOppHours]
+    MEASURE '_Local Measures'[_AllPSMHours] = CALCULATE([_PSMTotalHours], ALL(Opportunities))
+    MEASURE '_Local Measures'[_CountPSMs] = DISTINCTCOUNTNOBLANK(_PSM[ICM])
+    MEASURE '_Local Measures'[_PSMSAl] = 75000 * [_CountPSMs]
+    MEASURE '_Local Measures'[_Date range] = VAR agreedate =
+    DATEDIFF ( TODAY (), SELECTEDVALUE ( Partners[Agreement Date] ), MONTH )
+VAR onboarddate =
+    DATEDIFF ( TODAY (), SELECTEDVALUE ( Partners[Onboard Date] ), MONTH )
+VAR reboarddate =
+    DATEDIFF ( TODAY (), SELECTEDVALUE ( Partners[Reboard Date] ), MONTH )
+RETURN
+    IF ( agreedate <= -6 || onboarddate <= -6 || reboarddate <= -6, 1, 0 )
+    MEASURE '_Local Measures'[_TotalAvantCost] = VAR FSE = ( [_FSEBillableHours] / [_AllFSEBillableHours] ) *  [_FSESal] 
+VAR ISE = ( [_ISEBillableHours] / [_AllISEBillableHours] ) * [_ISESal] 
+VAR SE = FSE + ISE
+VAR Comm = ( [_CommissionsCases] / [_AllCommCases] ) *  [_CommSal]
+VAR PA = ( [_PABillableHours] / [_AllPABillableHours] ) * [_PricingSal] 
+VAR OrderMgmt = ( [_OrderMgmtBillableHours] / [_AllOrderMgmtBillableHours] ) * [_OrderMgmtSal]
+VAR PF = ( [_Count of Logins] / [_AllPFLogin] ) * 1800000
+VAR PC = ( [_ProjectCordNetTotals] / [_AllProjectCord] ) * [_PCSal]
+VAR PSM = ( [_PSMTotalHours] / [_AllPSMHours] ) *  [_PSMSAl]
+
+RETURN
+    IF (
+         [_Date range] = 1,
+        ( PA + Comm + SE + OrderMgmt + PF + PC + PSM)
+    )
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "_FSEBillableHours", '_Local Measures'[_FSEBillableHours],
+        "_AllFSEBillableHours", '_Local Measures'[_AllFSEBillableHours],
+        "_CountFSEs", '_Local Measures'[_CountFSEs],
+        "_FSESal", '_Local Measures'[_FSESal],
+        "_ISEBillableHours", '_Local Measures'[_ISEBillableHours],
+        "_AllISEBillableHours", '_Local Measures'[_AllISEBillableHours],
+        "_CountISEs", '_Local Measures'[_CountISEs],
+        "_ISESal", '_Local Measures'[_ISESal],
+        "_CommissionsCases", '_Local Measures'[_CommissionsCases],
+        "_AllCommCases", '_Local Measures'[_AllCommCases],
+        "_CountCommCaseOwners", '_Local Measures'[_CountCommCaseOwners],
+        "_CommSal", '_Local Measures'[_CommSal],
+        "_PABillableHours", '_Local Measures'[_PABillableHours],
+        "_AllPABillableHours", '_Local Measures'[_AllPABillableHours],
+        "_CountPACaseOwners", '_Local Measures'[_CountPACaseOwners],
+        "_PricingSal", '_Local Measures'[_PricingSal],
+        "_OrderMgmtBillableHours", '_Local Measures'[_OrderMgmtBillableHours],
+        "_AllOrderMgmtBillableHours", '_Local Measures'[_AllOrderMgmtBillableHours],
+        "_CountOrderMgmtCaseOwners", '_Local Measures'[_CountOrderMgmtCaseOwners],
+        "_OrderMgmtSal", '_Local Measures'[_OrderMgmtSal],
+        "_Count of Logins", 'Pathfinder Logins'[_Count of Logins],
+        "_PERCount of Logins", '_Local Measures'[_PERCount of Logins],
+        "_AllPFLogin", '_Local Measures'[_AllPFLogin],
+        "_ProjectCordNetTotals", '_Local Measures'[_ProjectCordNetTotals],
+        "_AllProjectCord", '_Local Measures'[_AllProjectCord],
+        "_PCSal", '_Local Measures'[_PCSal],
+        "_PSMOpenOppHours", '_Local Measures'[_PSMOpenOppHours],
+        "_PSMClosedOppHours", '_Local Measures'[_PSMClosedOppHours],
+        "_PSMTotalHours", '_Local Measures'[_PSMTotalHours],
+        "_AllPSMHours", '_Local Measures'[_AllPSMHours],
+        "_CountPSMs", '_Local Measures'[_CountPSMs],
+        "_PSMSAl", '_Local Measures'[_PSMSAl],
+        "_Date range", '_Local Measures'[_Date range],
+        "_TotalAvantCost", '_Local Measures'[_TotalAvantCost]
+    )

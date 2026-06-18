@@ -1,0 +1,370 @@
+table 'Partner A Selector'
+	lineageTag: 5bb054bc-7d76-4a5f-b5ee-5186c068b306
+
+	measure '_Selected Partner A' = ```
+			
+			SELECTEDVALUE ( 'Partner A Selector'[Seller (Combined)] )
+			
+			
+			```
+		lineageTag: 1244849d-4b1d-4491-bdeb-61b207f29503
+
+	measure '_Selected Partner A (Label)' = ```
+			
+			SELECTEDVALUE ( 'Partner A Selector'[Seller (Combined)], "Select Partner A" )
+			
+			```
+		lineageTag: 280b7409-a8e0-4820-8379-ced76a4da79e
+
+	measure '_TACost_12 A' = ```
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    CALCULATE (
+			        [_TotalAvantCost],
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] ),
+			        FILTER (
+			            ALL ( 'Calendar'[CurMonthOffset] ),
+			            'Calendar'[CurMonthOffset] >= -12
+			                && 'Calendar'[CurMonthOffset] <= -1
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: 22274175-9b77-4be6-a9c3-635777a28385
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_TAEM(TCV_12) A' = ```
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    CALCULATE (
+			        -- OppTerm within the injected Partner A + last 12 completed months
+			        SUMX ( Opportunities, [Expected Margin] * Opportunities[Opportunity Term] ),
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] ),
+			        FILTER (
+			            ALL ( 'Calendar'[CurMonthOffset] ),
+			            'Calendar'[CurMonthOffset] >= -12
+			                && 'Calendar'[CurMonthOffset] <= -1
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: 92bc91f3-1021-4dd0-b595-9eea740c7e22
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_TAProfitability A' = ```
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			VAR OppTermA12 =
+			    CALCULATE (
+			        SUMX ( Opportunities, [Expected Margin] * Opportunities[Opportunity Term] ),
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] ),
+			        FILTER (
+			            ALL ( 'Calendar'[CurMonthOffset] ),
+			            'Calendar'[CurMonthOffset] >= -12
+			                && 'Calendar'[CurMonthOffset] <= -1
+			        )
+			    )
+			VAR TotalCostA12 =
+			    CALCULATE (
+			        [_TotalAvantCost],
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] ),
+			        FILTER (
+			            ALL ( 'Calendar'[CurMonthOffset] ),
+			            'Calendar'[CurMonthOffset] >= -12
+			                && 'Calendar'[CurMonthOffset] <= -1
+			        )
+			    )
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    OppTermA12 - TotalCostA12
+			)
+			
+			```
+		lineageTag: 9ea50a66-1ed9-4406-95e4-58ebc13c2b43
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Selected_AgreementDate A' = ```
+			
+			VAR PartnerAId = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAId ),
+			    BLANK (),
+			    CALCULATE (
+			        SELECTEDVALUE ( Partners[Agreement Date] ),
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAId }, Partners[Seller (Combined)] )
+			    )
+			)
+			
+			```
+		formatString: Short Date
+		lineageTag: 5c15bf39-a385-4166-88c3-2dc2f467a145
+
+	measure '_Selected_OnboardDate A' = ```
+			
+			VAR PartnerAId = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAId ),
+			    BLANK (),
+			    CALCULATE (
+			        SELECTEDVALUE ( Partners[Onboard Date] ),
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAId }, Partners[Seller (Combined)] )
+			    )
+			)
+			
+			```
+		formatString: Short Date
+		lineageTag: 2cd96265-a51c-4dfd-9c38-24207434f9dc
+
+	measure '_Selected_ReboardDate A' = ```
+			
+			VAR PartnerAId = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAId ),
+			    BLANK (),
+			    CALCULATE (
+			        SELECTEDVALUE ( Partners[Reboard Date] ),
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAId }, Partners[Seller (Combined)] )
+			    )
+			)
+			
+			```
+		formatString: Short Date
+		lineageTag: c97e6638-c826-4099-a4ce-a213e32c2b71
+
+	measure '_Sum Community Seats A' =
+			
+			VAR PartnerAId = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAId ),
+			    BLANK (),
+			    CALCULATE (
+			       Partners[_Sum Community Seats],
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAId }, Partners[Seller (Combined)] )
+			    )
+			)
+		lineageTag: abf2412f-73ba-4650-b0c7-14eef9d5dbd5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Average Enhanced Sale A' = ```
+			
+			VAR PartnerAKeys =
+			    VAR fromParam = VALUES ( 'Partner A Selector'[Seller (Combined)] )
+			    RETURN fromParam
+			RETURN
+			IF (
+			    ISEMPTY ( PartnerAKeys ),
+			    BLANK (),
+			    CALCULATE (
+			        [_Average Enhanced Sale],
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( PartnerAKeys, Partners[Seller (Combined)] )
+			    )
+			)
+			
+			
+			```
+		lineageTag: 7d74645f-c372-4b27-a1a4-2069e1570056
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Average SPIFF A' = ```
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    CALCULATE (
+			        AVERAGE ( Partners[SPIFF Comp] ),
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] )
+			    )
+			)
+			
+			```
+		lineageTag: 99d9a6c0-a4ac-4f71-a1dc-737f8b8889eb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Average Standard Sale A' = ```
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    CALCULATE (
+			        [_Average Standard Sale],
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] )
+			    )
+			)
+			
+			```
+		lineageTag: 18a023df-138c-42ee-aa0f-2433e8c3d744
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Expected Margin Closed Last 12 months A' = ```
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    CALCULATE (
+			        [_Expected Margin Comp Converted Closed],
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] ),
+			        FILTER ( ALL ( 'Calendar'[CurMonthOffset] ), 'Calendar'[CurMonthOffset] >= -11 && 'Calendar'[CurMonthOffset] <= 0 )
+			    )
+			)
+			
+			```
+		lineageTag: c203fdc3-4522-4f83-af8b-c3349c9868a0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Expected Margin Comp Converted Closed CYTD A' =
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    CALCULATE (
+			        [_Expected Margin Comp Converted Closed],
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] ),
+			        FILTER ( ALL ( 'Calendar'[CurYearOffset] ), 'Calendar'[CurYearOffset] = 0 )
+			    )
+			)
+		lineageTag: 44e96778-67c7-4733-8317-592425c90be9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Expected Margin Comp Converted Closed Last CY A' = ```
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    CALCULATE (
+			        [_Expected Margin Comp Converted Closed],
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] ),
+			        FILTER ( ALL ( 'Calendar'[CurYearOffset] ), 'Calendar'[CurYearOffset] = -1 )
+			    )
+			)
+			
+			```
+		lineageTag: 19bc91d5-68d2-4b3e-b8ca-44810c2f4e3f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Selected_Priority A' = ```
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    CALCULATE (
+			        SELECTEDVALUE ( Partners[Seller Priority] ),
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] )
+			    )
+			)
+			
+			```
+		lineageTag: b8cd2665-4b10-4c39-8484-fb0421b582b6
+
+	measure '_TAMMRC_12 A' =
+			
+			VAR PartnerAKey = [_Selected Partner A]
+			RETURN
+			IF (
+			    ISBLANK ( PartnerAKey ),
+			    BLANK (),
+			    CALCULATE (
+			        SUM ( Opportunities[Amount(Converted)] ),
+			        // Ensure we only consider Closed Won Approved
+			        KEEPFILTERS ( Opportunities[Stage] = "Closed Won Approved" ),
+			
+			        // Normalize partner context and inject the selected partner
+			        REMOVEFILTERS ( Partners ),
+			        TREATAS ( { PartnerAKey }, Partners[Seller (Combined)] ),
+			
+			        // Rolling window: from -12 to -1 inclusive
+			        FILTER (
+			            ALL ( 'Calendar'[CurMonthOffset] ),
+			            'Calendar'[CurMonthOffset] >= -12
+			                && 'Calendar'[CurMonthOffset] <= -1
+			        )
+			    )
+			)
+		lineageTag: e65dda7a-5a25-4645-bebf-e3b195d6b85f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Seller Id'
+		isHidden
+		lineageTag: 3746cfcc-e0a6-45f4-b56d-988ce5b82aa4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Partners[Seller Id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seller (Combined)'
+		lineageTag: e117ea95-d753-43ff-91f3-c19e2e0161b1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Partners[Seller (Combined)]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Partner A Selector' = calculated
+		mode: import
+		source = ```
+				
+				SUMMARIZE (
+				    Partners,
+				    Partners[Seller Id],
+				    Partners[Seller (Combined)]
+				)
+				
+				
+				```
+
+	annotation PBI_Id = edaaa417c846488f82254da9f7446acc
+

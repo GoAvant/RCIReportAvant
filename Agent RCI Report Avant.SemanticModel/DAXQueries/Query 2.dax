@@ -1,0 +1,4 @@
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "_PSMPercentile", '_Local Measures'[_PSMPercentile]
+    )

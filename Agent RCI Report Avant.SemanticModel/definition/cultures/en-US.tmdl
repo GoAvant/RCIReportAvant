@@ -1,0 +1,2140 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "table_local_measures.column1": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "1"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "1": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12msebillablehours": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MSEBillableHours"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SE Hours": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mpabillablehours": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MPABillableHours"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Pricing Hours": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mfunnel": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MFunnel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "12M Funnel": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12moppcreated": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MOppCreated"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "12M Opps Created (New Business)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_oppcreatednewbusiness": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_OppCreatedNewBusiness"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Opps Created (New Business)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Opps Created": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_funnel": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_Funnel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Funnel": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Funnel Created": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_masterpercentile": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_MasterPercentile"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Productivity %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Productivity": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_totalavantcost": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_TotalAvantCost"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Total Avant Cost": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Avant Cost": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mmrc": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MMRC"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "12M Closed MRR": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mcount_of_logins": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MCount of Logins"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Pathfinder Logins": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mordermgmtbillablehours": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MOrderMgmtBillableHours"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Order Mgmt Hours": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mcommcases": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MCommCases"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Commission Cases": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mprojcord": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MProjCord"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Proj Coord Amount": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_pplink": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_PPLink"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RCI Guide": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_pathfinderpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_PathfinderPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Productivity": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_pathfinderleaninginpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_PathfinderLeaningInPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Leaning In": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_count_of_loginstable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_Count of LoginsTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Usage (Logins)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_commpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_CommPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Productivity": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_commleaninginpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_CommLeaningInPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Leaning In": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_commissionscases": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_CommissionsCases"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Usage (Cases)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_pcpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_PCPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Productivity": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_pcleaninginpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_PCLeaningInPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Leaning In": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_projectcordnettotals": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_ProjectCordNetTotals"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Usage (Dollars)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_sepercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_SEPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Productivity": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_seleaninginpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_SELeaningInPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Leaning In": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_sebillablehours": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_SEBillableHours"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Usage (Hours)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_masterpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_MasterPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Productivity": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_masterleaninginpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_MasterLeaninginPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Leaning In": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_ordermgmtpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_OrderMgmtPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Productivity": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_ordermgmtleaninginpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_OrderMgmtLeaningInPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Leaning In": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_ordermgmtbillablehours": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_OrderMgmtBillableHours"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Usage (Hours)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_papercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_PAPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Productivity": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_paleaninginpercentiletable": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_PALeaningInPercentileTable"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Leaning In": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_pabillablehours": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_PABillableHours"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Usage (Hours)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_taprofitability": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_TAProfitability X"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "opportunities.mrc": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Opportunities",
+			          "ConceptualProperty": "MRC"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Closed MRC": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "MRR": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "TA MRC A": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "channel_managers.rvp": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Channel Managers",
+			          "ConceptualProperty": "RVP"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Sales VPs": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "RVP": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_average_standard_sale": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Average Standard Sale"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Standard Sale": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_average_enhanced_sale": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Average Enhanced Sale"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Enhanced Sale": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_average_spiff": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Average SPIFF"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SPIFF": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_selected_agreementdate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Selected_AgreementDate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Agreement Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Signed Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.selected_priority": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "Selected_Priority"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Priority": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_sum_community_seats": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Sum Community Seats"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Community Seats": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_selected_onboarddate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Selected_OnboardDate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Onboard Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_selected_reboarddate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Selected_ReboardDate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reboard Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_expected_margin_comp_converted_closed_cytd": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Expected Margin Comp Converted Closed CYTD"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM FYTD": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_expected_margin_comp_converted_closed_last_cy": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Expected Margin Comp Converted closed Last CY"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM Prior FY": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_expected_margin_closed_last_12_months": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_Expected Margin Closed Last 12 months"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM Last 12 months": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mem_on_opps": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MEM on Opps"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "12M EM on Opps": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12msetotalavantcost": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MSETotalAvantCost"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SE Total Cost": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mpatotalavantcost": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MPATotalAvantCost"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "PA Total Cost": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12momtotalavantcost": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MOMTotalAvantCost"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "OM Total Cost": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mpftotalavantcost": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MPFTotalAvantCost"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "PF Total Cost": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mcommtotalavantcost": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MCommTotalAvantCost"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Comm Total Cost": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_12mpctotalavantcost": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_12MPCTotalAvantCost"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Proj Coord Total Cost": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_totalavantcostse": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_TotalAvantCostSE"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avant Cost SE": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_totalavantcostcomm": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_TotalAvantCostComm"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avant Cost Comm": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_totalavantcostpf": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_TotalAvantCostPF"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avant Cost PF": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_totalavantcostpa": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_TotalAvantCostPA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avant Cost PA": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_totalavantcostom": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_TotalAvantCostOM"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avant Cost OM": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_local_measures.column_totalavantcostpc": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Local Measures",
+			          "ConceptualProperty": "_TotalAvantCostPC"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Total Avant Cost PC": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_taprofitability": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_TAProfitability"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Profitability": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "TA RCI Net Profit A": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "RCI Net Profit": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_tacost_12": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_TACost_12"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "TACost A": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Total Cost Last 12 mos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partners.column_taemtcv_12": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partners",
+			          "ConceptualProperty": "_TAEM(TCV_12)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "TAEM TCV A": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "EM TCV Last 12 mos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_sum_community_seats_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Sum Community Seats A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Community Seats": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.selected_priority_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "Selected_Priority A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Priority": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_selected_reboarddate_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Selected_ReboardDate A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reboard Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_selected_onboarddate_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Selected_OnboardDate A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Onboard Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_selected_agreementdate_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Selected_AgreementDate A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Signed Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_average_spiff_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Average SPIFF A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SPIFF": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_average_enhanced_sale_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Average Enhanced Sale A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Enhanced Sale": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_average_standard_sale_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Average Standard Sale A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Standard Sale": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_expected_margin_closed_last_12_months_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Expected Margin Closed Last 12 months A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM Last 12 months": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_expected_margin_comp_converted_closed_last_cy_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Expected Margin Comp Converted Closed Last CY A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM Prior FY": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_expected_margin_comp_converted_closed_cytd_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_Expected Margin Comp Converted Closed CYTD A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM FYTD": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_taemtcv_12_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_TAEM(TCV_12) A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM TCV Last 12 mos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_tacost_12_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_TACost_12 A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Total Cost Last 12 mos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.column_taprofitability_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_TAProfitability A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "RCI Net Profit": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_selected_agreementdate_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Selected_AgreementDate B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Signed Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_selected_onboarddate_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Selected_OnboardDate B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Onboard Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_selected_reboarddate_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Selected_ReboardDate B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reboard Date": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.selected_priority_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "Selected_Priority B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Priority": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_sum_community_seats_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Sum Community Seats B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Community Seats": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_average_standard_sale_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Average Standard Sale B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Standard Sale": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_average_enhanced_sale_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Average Enhanced Sale B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Enhanced Sale": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_average_spiff_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Average SPIFF B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SPIFF": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_expected_margin_comp_converted_closed_cytd_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Expected Margin Comp Converted Closed CYTD B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM FYTD": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_expected_margin_comp_converted_closed_last_cy_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Expected Margin Comp Converted Closed Last CY B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM Prior FY": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_expected_margin_closed_last_12_months_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_Expected Margin Closed Last 12 months B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "EM Last 12 months": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_taemtcv_12_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_TAEM(TCV_12) B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "TAEM TCV B": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "EM TCV Last 12 mos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_tacost_12_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_TACost_12 B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "TACost B": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Total Cost Last 12 mos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_a_selector.seller_combined": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "Seller (Combined)"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "partner_a_selector.column_tammrc_12_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner A Selector",
+			          "ConceptualProperty": "_TAMMRC_12 A"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "partner_b_selector.column_tammrc_12_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_TAMMRC_12 B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "TA MRC B": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.column_taprofitability_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "_TAProfitability B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "TA RCI Net Profit B": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "partner_b_selector.seller_combined": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Partner B Selector",
+			          "ConceptualProperty": "Seller (Combined)"
+			        }
+			      },
+			      "State": "Generated"
+			    }
+			  }
+			}
+		contentType: json
+

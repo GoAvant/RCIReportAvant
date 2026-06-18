@@ -1,0 +1,20 @@
+DEFINE
+	VAR __DS0FilterTable = 
+		FILTER(
+			KEEPFILTERS(VALUES('Calendar'[FiscalYear])),
+			NOT('Calendar'[FiscalYear] IN {BLANK()})
+		)
+
+	VAR __DS0FilterTable2 = 
+		FILTER(
+			KEEPFILTERS(VALUES('Channel Managers'[Channel Manager])),
+			NOT('Channel Managers'[Channel Manager] IN {BLANK()})
+		)
+
+EVALUATE
+	SUMMARIZECOLUMNS(
+		__DS0FilterTable,
+		__DS0FilterTable2,
+		"v_PALeaningInPercentile", IGNORE('_Local Measures'[_PALeaningInPercentile]),
+		"v1", IGNORE('_Local Measures'[1])
+	)

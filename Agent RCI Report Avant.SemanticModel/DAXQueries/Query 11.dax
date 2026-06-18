@@ -1,0 +1,18 @@
+DEFINE
+    MEASURE '_Local Measures'[_MasterPER] = VAR FSE = DIVIDE( [_FSEBillableHours], [_AllFSEBillableHours],0 ) *  [_FSESal] 
+VAR ISE = DIVIDE( [_ISEBillableHours], [_AllISEBillableHours],0 ) * [_ISESal] 
+VAR SE = FSE + ISE
+VAR Comm = DIVIDE( [_CommissionsCases], [_AllCommCases],0 ) *  [_CommSal]
+VAR PA = DIVIDE( [_PABillableHours], [_AllPABillableHours],0 ) * [_PricingSal] 
+VAR OrderMgmt = DIVIDE( [_OrderMgmtBillableHours], [_AllOrderMgmtBillableHours],0 ) * [_OrderMgmtSal]
+VAR PF = DIVIDE( [_Count of Logins], [_AllPFLogin],0 ) * 1800000
+VAR PC = DIVIDE( [_ProjectCordNetTotals], [_AllProjectCord],0 ) * [_PCSal]
+VAR PSM = DIVIDE( [_PSMTotalHours], [_AllPSMHours],0 ) *  [_PSMSAl]
+
+RETURN
+    DIVIDE ( [Expected Margin], SE + Comm + PA + OrderMgmt + PF + PC + PSM, 0 )
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "_MasterPER", '_Local Measures'[_MasterPER]
+    )

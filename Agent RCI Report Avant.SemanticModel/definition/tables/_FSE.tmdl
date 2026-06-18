@@ -1,0 +1,43 @@
+table _FSE
+	lineageTag: 8da9afbc-3c10-49b0-bd50-10a71af26a0e
+
+	column Date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: f4230903-fe16-4456-9f00-8e4c5112411d
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'FSE Name'
+		dataType: string
+		lineageTag: 93da6d50-c2a8-4d5d-8a66-b448b063f54a
+		summarizeBy: none
+		sourceColumn: FSE Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _FSE = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://avantcommunications1-my.sharepoint.com/personal/jochoa_goavant_net/Documents/PowerBI/Tables/Niko's%20Folder/Engineers%20by%20Month%20for%20SE%20Metrics.xlsx"), null, true),
+				    FSE_Sheet = Source{[Item="FSE",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(FSE_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"4/1/2022", type text}, {"5/1/2022", type text}, {"6/1/2022", type text}, {"7/1/2022", type text}, {"8/1/2022", type text}, {"9/1/2022", type text}, {"10/1/2022", type text}, {"11/1/2022", type text}, {"12/1/2022", type text}, {"1/1/2023", type text}, {"2/1/2023", type text}, {"3/1/2023", type text}, {"4/1/2023", type text}, {"5/1/2023", type text}, {"6/1/2023", type text}, {"7/1/2023", type text}, {"8/1/2023", type text}, {"9/1/2023", type text}, {"10/1/2023", type text}, {"11/1/2023", type text}, {"12/1/2023", type text}, {"1/1/2024", type text}, {"2/1/2024", type text}, {"3/1/2024", type text}, {"4/1/2024", type text}, {"5/1/2024", type text}}),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Changed Type", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Removed Blank Rows", {}, "Attribute", "Value"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Unpivoted Columns",{{"Attribute", "Date"}, {"Value", "FSE Name"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"Date", type date}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type1",{{"FSE Name", Text.Trim, type text}}),
+				    #"Cleaned Text" = Table.TransformColumns(#"Trimmed Text",{{"FSE Name", Text.Clean, type text}})
+				in
+				    #"Cleaned Text"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

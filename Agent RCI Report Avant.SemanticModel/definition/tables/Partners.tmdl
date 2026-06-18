@@ -1,0 +1,964 @@
+table Partners
+	lineageTag: 6b949a12-1c3c-494e-87ba-5d4efcd56904
+
+	measure _Selected_Seller =
+			
+			VAR Seller =
+			    IF (
+			        DISTINCTCOUNT ( Partners[Partner] ) == 1,
+			        FIRSTNONBLANK ( Partners[Partner], Partners[Partner] ),
+			        "More than one"
+			    )
+			RETURN
+			    ( Seller )
+		lineageTag: 3a71a21d-5f42-42f3-a72f-0fe271310e17
+
+	measure _LinkToPublicDeck =
+			
+			VAR EmbedURL = "https://app.powerbi.com/links/Xf58BpOUVb?ctid=81a0173f-15cd-454e-bbf8-7a6606b7349a&pbi_source=linkShare"
+			VAR FinalURL =
+			    IF (
+			        HASONEVALUE ( Partners[Partner] ),
+			        CONCATENATE (
+			            EmbedURL,
+			            CONCATENATE (
+			                "&filter=Partners/Partner eq ",
+			                "'" & FIRSTNONBLANK ( Partners[Partner], Partners[Partner] ) & "'"
+			            )
+			        ),
+			        EmbedURL
+			    )
+			RETURN
+			    FinalURL
+		lineageTag: f3c4ab1a-99ea-4729-8989-ba5eb3fb95d3
+		dataCategory: WebUrl
+
+	measure _Selected_CM =
+			
+			VAR CM =
+			    IF (
+			        DISTINCTCOUNT ( Partners[Channel Manager] ) == 1,
+			        FIRSTNONBLANK ( Partners[Channel Manager], Partners[Channel Manager] ),
+			        "More than one"
+			    )
+			RETURN
+			    ( CM )
+		lineageTag: e8b2a7ac-737d-4682-a965-31ef17ba47f8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _Selected_AgreementDate =
+			
+			VAR AgreementDate =
+			    IF (
+			        DISTINCTCOUNT ( Partners[Seller (Combined)] ) == 1,
+			        FIRSTNONBLANK ( Partners[Agreement Date], Partners[Agreement Date] ),
+			        "More than one"
+			    )
+			RETURN
+			    ( AgreementDate )
+		lineageTag: 2428f3b4-3045-4d1a-8e6b-e419aaef742a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _Selected_OnboardDate =
+			
+			VAR onboarddate =
+			    IF (
+			        DISTINCTCOUNT ( Partners[Seller (Combined)] ) == 1,
+			        FIRSTNONBLANK ( Partners[Onboard Date], Partners[Onboard Date] ),
+			        "More than one"
+			    )
+			RETURN
+			    ( onboarddate )
+		lineageTag: afeeec21-bf43-438e-a222-0eea47dadb0e
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _Selected_ReboardDate =
+			
+			VAR reboarddate =
+			    IF (
+			        DISTINCTCOUNT ( Partners[Seller (Combined)] ) == 1,
+			        FIRSTNONBLANK ( Partners[Reboard Date], Partners[Reboard Date] ),
+			        "More than one"
+			    )
+			RETURN
+			    ( reboarddate )
+		lineageTag: dbd2e1fc-217d-4a3d-8b90-7d7980fd7182
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Sum Community Seats' =
+			
+			SUM ( Partners[# of Community Seats] )
+		formatString: #,0
+		lineageTag: a875270a-dbcd-4b94-a1e6-081a77d7509a
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure '_Sum of Annual Commitment' =
+			
+			ROUND ( SUM ( Partners[Annual Commitment] ), 0 )
+		formatString: 0.00
+		lineageTag: 815eb4f3-6d70-4119-bc65-298b8d310697
+
+	measure '_Expected Margin Comp Converted Closed CYTD' =
+			
+			CALCULATE (
+			    [_Expected Margin Comp Converted Closed],
+			    FILTER ( ALL ( 'Calendar' ), 'Calendar'[CurYearOffset] == 0 )
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b441004f-3447-49e3-b62f-cee8912b4103
+
+		changedProperty = FormatString
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure '_Expected Margin Comp Converted closed Last CY' =
+			
+			CALCULATE (
+			    [_Expected Margin Comp Converted Closed],
+			    FILTER ( ALL ( 'Calendar' ), 'Calendar'[CurYearOffset] == -1 )
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 9ffdd013-5b48-4568-ac2c-e91f6ab4945b
+
+		changedProperty = FormatString
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure '_Expected Margin Closed Last 12 months' =
+			
+			CALCULATE (
+			    [_Expected Margin Comp Converted Closed],
+			    FILTER ( ALL ( 'Calendar' ), 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: e2d8929f-ab27-440c-b018-5c1a30d81358
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure '_Average SPIFF' =
+			
+			AVERAGE ( Partners[SPIFF Comp] )
+		formatString: 0.00
+		lineageTag: 33406926-2cdd-433f-aa9b-dfaea572ccb9
+
+	measure '_Average Standard Sale' =
+			
+			AVERAGE ( Partners[Standard Comp Percent] )
+		lineageTag: ced191af-e4e1-436a-b6e7-23b0120377ed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Average Enhanced Sale' =
+			
+			AVERAGE ( Partners[Enhanced Comp Percent] )
+		formatString: 0.00
+		lineageTag: f3091dda-ad78-4724-8123-5b1211947e6e
+
+	measure Selected_Priority =
+			
+			IF (
+			    DISTINCTCOUNT ( Partners[Seller (Combined)] ) == 1,
+			    MAX ( Partners[Seller Priority] ),
+			    "N/A"
+			)
+		lineageTag: af05b40a-d67e-4e22-a4af-faf9d0fa142d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Total MRC L12M by Bucket (Partners)' = ```
+			
+			VAR hasOneBucket = HASONEVALUE ( 'MRC Bins'[BucketLabel] )
+			
+			VAR binMinBound =
+			    IF (
+			        hasOneBucket,
+			        MIN ( 'MRC Bins'[Min] ),
+			        -- Open-ended lower bound for totals (treat as -infinity)
+			        -1.0e308
+			    )
+			
+			VAR binMaxBound =
+			    IF (
+			        hasOneBucket,
+			        MIN ( 'MRC Bins'[Max] ),
+			        -- Open-ended upper bound for totals (treat as +infinity)
+			        1.0e308
+			    )
+			
+			VAR perPartnerWithL12M =
+			    ADDCOLUMNS (
+			        VALUES ( Partners[Seller Id] ),
+			        "v", CALCULATE ( [_MRC L12M (from Today)] )
+			        -- If you want blanks to count as zero so they fall in "<25k", use:
+			        -- "v", COALESCE ( CALCULATE ( [_MRC L12M (from Today)] ), 0 )
+			    )
+			RETURN
+			SUMX (
+			    FILTER ( perPartnerWithL12M, [v] >= binMinBound && [v] < binMaxBound ),
+			    [v]
+			)
+			
+			```
+		lineageTag: 3b359a2e-0fb2-405a-b5b9-308695e65582
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _TACost_12 =
+			
+			
+			CALCULATE (
+			    [_TotalAvantCost],
+			    'Calendar'[CurMonthOffset] <= -1
+			        && 'Calendar'[CurMonthOffset] >= -12
+			)
+		lineageTag: e8962c82-6c6d-46c0-ad0c-2e318c2cb090
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _TAEM(TCV_12) =
+			
+			
+			VAR oppterm = SUMX(Opportunities,[Expected Margin] * Opportunities[Opportunity Term])
+			
+			RETURN
+			CALCULATE (
+			    oppterm ,
+			    'Calendar'[CurMonthOffset] <= -1
+			        && 'Calendar'[CurMonthOffset] >= -12
+			)
+		lineageTag: 06d68323-55a1-4b1d-94f2-343f67f45e70
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _TAProfitability =
+			
+			
+			VAR oppterm = SUMX(Opportunities,[Expected Margin] * Opportunities[Opportunity Term])
+			
+			RETURN
+			CALCULATE (
+			    oppterm - [_TotalAvantCost],
+			    'Calendar'[CurMonthOffset] <= -1
+			        && 'Calendar'[CurMonthOffset] >= -12
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b1231e6b-8b04-48a5-a3fb-9eecc9929298
+
+	measure '_Avg MRC L12M per Seller by Bucket (Partners)' =
+			
+			VAR hasOneBucket = HASONEVALUE ( 'MRC Bins'[BucketLabel] )
+			VAR binMinBound = IF ( hasOneBucket, MIN('MRC Bins'[Min]), -1.0e308 )
+			VAR binMaxBound = IF ( hasOneBucket, MIN('MRC Bins'[Max]),  1.0e308 )
+			
+			VAR perPartnerWithL12M =
+			    ADDCOLUMNS (
+			        VALUES ( Partners[Seller Id] ),
+			        "v", CALCULATE ( [_MRC L12M (from Today)] )
+			        -- Or: "v", COALESCE ( CALCULATE ( [_MRC L12M (from Today)] ), 0 )
+			    )
+			
+			VAR filteredSellersInBucket =
+			    FILTER ( perPartnerWithL12M, [v] >= binMinBound && [v] < binMaxBound )
+			
+			VAR numerator   = SUMX ( filteredSellersInBucket, [v] )
+			VAR denominator = COUNTROWS ( filteredSellersInBucket )
+			RETURN
+			    DIVIDE ( numerator, denominator )   -- safe divide; returns BLANK if denom=0
+		lineageTag: 728f3036-3f99-4183-8c81-5d82e9950b7a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Seller Id'
+		dataType: string
+		lineageTag: bbb29afc-1ec5-4e93-8c4e-fcf9e952d2b9
+		summarizeBy: none
+		sourceColumn: Seller Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Partner
+		dataType: string
+		lineageTag: bc9b9310-1fe8-4184-bd29-363b12a96f0d
+		summarizeBy: none
+		sourceColumn: Partner
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing Street'
+		dataType: string
+		lineageTag: 68ca243d-b3f2-485d-b050-08aac6c7b90e
+		summarizeBy: none
+		sourceColumn: Billing Street
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing City'
+		dataType: string
+		lineageTag: db95e9d2-bffb-4281-8336-53ad3a6adadb
+		summarizeBy: none
+		sourceColumn: Billing City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing State'
+		dataType: string
+		lineageTag: f3172dec-c27b-42dd-8df1-a37df8b9a36a
+		summarizeBy: none
+		sourceColumn: Billing State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing Postal Code'
+		dataType: string
+		lineageTag: fa154ccc-71bb-441c-a94b-eb63d47f555d
+		summarizeBy: none
+		sourceColumn: Billing Postal Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing Country'
+		dataType: string
+		lineageTag: b6c26e06-9d07-4421-a30b-6586c3c2f35e
+		summarizeBy: none
+		sourceColumn: Billing Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyIsoCode
+		dataType: string
+		lineageTag: fdc9d0af-1cda-48ca-9abe-ff97b26f19b0
+		summarizeBy: none
+		sourceColumn: CurrencyIsoCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Created Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6dc9d22f-c2cc-43e1-9e59-5737c20f62a3
+		summarizeBy: none
+		sourceColumn: Created Date
+
+		variation Variation
+			isDefault
+			relationship: 31d99e36-f531-434e-b69a-068c43c48d09
+			defaultHierarchy: LocalDateTable_6475f7a2-26ea-4b4d-a250-37f983379e8e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column AccountSource
+		dataType: string
+		lineageTag: 4ba5ad1f-9daf-45c9-ba3f-acfdecdb4597
+		summarizeBy: none
+		sourceColumn: AccountSource
+
+		annotation SummarizationSetBy = Automatic
+
+	column Source
+		dataType: string
+		lineageTag: cadff292-bfb0-4aac-83ec-46c3a99a2047
+		summarizeBy: none
+		sourceColumn: Source
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 921dd148-76c3-47e6-9b74-f923af594cc7
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seller Priority'
+		dataType: string
+		lineageTag: 58daecb2-ef49-4a2b-8e8c-5dadc93756d3
+		summarizeBy: none
+		sourceColumn: Seller Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Avant ICM'
+		dataType: string
+		lineageTag: 9f7040a0-15ba-4b12-933e-58a1c2e8053a
+		summarizeBy: none
+		sourceColumn: Avant ICM
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Agreement Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: b89ff8cb-8591-44b1-bf82-f5c8121b7c17
+		summarizeBy: none
+		sourceColumn: Agreement Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Avant Account Manager'
+		dataType: string
+		lineageTag: 45158951-e950-4cfc-a7fb-c4e62ed4de14
+		summarizeBy: none
+		sourceColumn: Avant Account Manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Comp Notes'
+		dataType: string
+		lineageTag: c1112a82-fd01-49d9-ab0b-a0bd57eefaab
+		summarizeBy: none
+		sourceColumn: Comp Notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Standard Comp Percent'
+		dataType: double
+		lineageTag: 8196e924-600c-429e-88c1-ba424a86478b
+		summarizeBy: sum
+		sourceColumn: Standard Comp Percent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Enhanced Comp Percent'
+		dataType: double
+		lineageTag: 4608c119-3f10-410f-ba98-c6ab0a291e2f
+		summarizeBy: sum
+		sourceColumn: Enhanced Comp Percent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Compensation Type'
+		dataType: string
+		lineageTag: 28211957-d7c0-4d40-b050-a0c1b52b6fe1
+		summarizeBy: none
+		sourceColumn: Compensation Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NDA Sent'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c431ce0f-88db-4605-a876-35d83092de01
+		summarizeBy: none
+		sourceColumn: NDA Sent
+
+		variation Variation
+			isDefault
+			relationship: e5926828-87f5-4874-a1e4-3b77ac3adaec
+			defaultHierarchy: LocalDateTable_a45c4b34-ab03-4467-89c8-5dcafbec7d27.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'NDA Signed'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: baac6b42-6d9f-4e51-914f-80065e9bf931
+		summarizeBy: none
+		sourceColumn: NDA Signed
+
+		variation Variation
+			isDefault
+			relationship: 018fb21b-9e1b-43bc-a5c2-0a1d037032a4
+			defaultHierarchy: LocalDateTable_62aa98f4-8a43-4d8c-bf0e-eb75715c2419.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Primary Contact'
+		dataType: string
+		lineageTag: 5012549c-5671-40c2-83df-0e763bbc94f8
+		summarizeBy: none
+		sourceColumn: Primary Contact
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: cc7c2ce1-fbf6-4b8c-8cca-0938ecf1defd
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column '# of Community Seats'
+		dataType: double
+		lineageTag: 4b4e47c9-0a86-4ab1-b393-11b9c10a6afe
+		summarizeBy: sum
+		sourceColumn: # of Community Seats
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Annual Commitment'
+		dataType: double
+		lineageTag: e1c25629-a9d1-4ead-8ae3-c1bc746c3db0
+		summarizeBy: sum
+		sourceColumn: Annual Commitment
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contract Signed'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6f319a44-1190-4d10-9279-3a508fcf2f13
+		summarizeBy: none
+		sourceColumn: Contract Signed
+
+		variation Variation
+			isDefault
+			relationship: bf6503cc-f445-4a74-be9b-16a0dff7b1d4
+			defaultHierarchy: LocalDateTable_15edddc3-c409-4a4c-99c4-6fdbb595d3b2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Partnership Status'
+		dataType: string
+		lineageTag: 09fe2a45-dd9b-4368-8912-701580bd03f4
+		summarizeBy: none
+		sourceColumn: Partnership Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Onboard Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f557f3ae-8ab8-4b15-ac08-b919141013f7
+		summarizeBy: none
+		sourceColumn: Onboard Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'SPIFF Comp'
+		dataType: double
+		lineageTag: 9d435d9b-c585-4494-888b-41811a968305
+		summarizeBy: sum
+		sourceColumn: SPIFF Comp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'First Active'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 51384738-93f2-4964-8b4c-1017991040c8
+		summarizeBy: none
+		sourceColumn: First Active
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'First Win'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 177ae078-9c9f-478f-9054-a1a287712de4
+		summarizeBy: none
+		sourceColumn: First Win
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Pinnacle Membership Tier'
+		dataType: string
+		lineageTag: 9e0da15e-28a2-4d4e-8435-6bfabf893b7b
+		summarizeBy: none
+		sourceColumn: Pinnacle Membership Tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider Contract Commissions Paid On'
+		dataType: string
+		lineageTag: 3123392c-56a9-481d-b695-82012ec94b77
+		summarizeBy: none
+		sourceColumn: Provider Contract Commissions Paid On
+
+		annotation SummarizationSetBy = Automatic
+
+	column Referring_Vendor__c
+		dataType: string
+		lineageTag: c69947e4-d3e8-4661-9964-c99d515e8fa4
+		summarizeBy: none
+		sourceColumn: Referring_Vendor__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LP CY Opp MRC Credits'
+		dataType: double
+		lineageTag: 90a70ce2-28b7-4321-92b2-ed301f74c5ea
+		summarizeBy: sum
+		sourceColumn: LP CY Opp MRC Credits
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'LP PY Opp MRC Credits'
+		dataType: double
+		lineageTag: 679d7cc6-b8c0-458c-94f3-b921f24334d3
+		summarizeBy: sum
+		sourceColumn: LP PY Opp MRC Credits
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Pathfinder Tier Plan Override Exp Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 74afda58-fbc1-46fd-af30-b589eff03e13
+		summarizeBy: none
+		sourceColumn: Pathfinder Tier Plan Override Exp Date
+
+		variation Variation
+			isDefault
+			relationship: e5aa1dbd-604c-4b40-9c40-1f1b9f535507
+			defaultHierarchy: LocalDateTable_acd5bcab-09a0-448c-8443-4abc65707c82.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Pathfinder Tier Plan'
+		dataType: string
+		lineageTag: e2a5137c-676e-4403-aaa9-6d6374233b8f
+		summarizeBy: none
+		sourceColumn: Pathfinder Tier Plan
+
+		annotation SummarizationSetBy = Automatic
+
+	column Account_Origin__c
+		dataType: string
+		lineageTag: 6b758e60-c1bd-4266-9709-20564d3a39ca
+		summarizeBy: none
+		sourceColumn: Account_Origin__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Channel Manager'
+		dataType: string
+		lineageTag: ccb5a1e1-17ae-4040-b579-dcae5a550293
+		summarizeBy: none
+		sourceColumn: Channel Manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Contact.Name'
+		dataType: string
+		lineageTag: c0acb2ad-6e5a-477f-88cd-e092ad528b0a
+		summarizeBy: none
+		sourceColumn: Primary Contact.Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Contact.Phone'
+		dataType: string
+		lineageTag: 6f72ac69-043b-4492-9c28-5a06f6b35f4d
+		summarizeBy: none
+		sourceColumn: Primary Contact.Phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Contact.Email'
+		dataType: string
+		lineageTag: 5bf03840-8eda-4683-97ef-df0cb66db597
+		summarizeBy: none
+		sourceColumn: Primary Contact.Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Contact.MailingStreet'
+		dataType: string
+		lineageTag: eb8de953-2e4e-42fa-99e6-9768e73bce21
+		summarizeBy: none
+		sourceColumn: Primary Contact.MailingStreet
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Contact.MailingCity'
+		dataType: string
+		lineageTag: f3fe3078-4cf4-486d-83a7-3184a1bae36c
+		summarizeBy: none
+		sourceColumn: Primary Contact.MailingCity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Contact.MailingState'
+		dataType: string
+		lineageTag: ea9d03be-845d-4781-88a1-c2eba36f100b
+		summarizeBy: none
+		sourceColumn: Primary Contact.MailingState
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Contact.MailingPostalCode'
+		dataType: string
+		lineageTag: f1be92ba-ca42-498b-bde1-507f42a8e337
+		summarizeBy: none
+		sourceColumn: Primary Contact.MailingPostalCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Contact.MailingCountry'
+		dataType: string
+		lineageTag: 6d721e4a-d1de-4484-8218-0a52f59dfa75
+		summarizeBy: none
+		sourceColumn: Primary Contact.MailingCountry
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pinnacle Current Year Tier Plan'
+		dataType: string
+		lineageTag: 1f5d415d-7ac7-4d76-a2ac-19f6434fe9b3
+		summarizeBy: none
+		sourceColumn: Pinnacle Current Year Tier Plan
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LP Total MRC Credits Start'
+		dataType: double
+		lineageTag: 1660a48e-db63-480c-80f1-d9245923d5b9
+		summarizeBy: sum
+		sourceColumn: LP Total MRC Credits Start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'LP Total MRC Credits End'
+		dataType: double
+		lineageTag: 0e9fba87-60bf-45c8-9dd8-08ecb5b0032f
+		summarizeBy: sum
+		sourceColumn: LP Total MRC Credits End
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Pathfinder Calculated Tier Plan'
+		dataType: string
+		lineageTag: 5f9788c0-f30d-48be-bc1f-1effd402ffbd
+		summarizeBy: none
+		sourceColumn: Pathfinder Calculated Tier Plan
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Referring Vendor'
+		dataType: string
+		lineageTag: 036dbf2b-070c-4b94-b1a1-9d0e3c4958ef
+		summarizeBy: none
+		sourceColumn: Referring Vendor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seller (Combined)' =
+			SWITCH(
+				TRUE,
+				ISBLANK('Partners'[Partner]),
+				"(Blank)",
+				'Partners'[Partner] IN {"BlueWave Computing LLC",
+					"Bluewave Technology Group",
+					"Bluewave: Compass Solutions",
+					"BlueWave: EngagedPro",
+					"Bluewave: Helm Partners",
+					"Bluewave: Helm Partners (Convergent Technologies, Inc. [CTI])",
+					"Bluewave: iSymplify",
+					"Bluewave: NCL Networks",
+					"Bluewave: OnCall Telecom (TOCI)",
+					"Bluewave: Single Point Solutions (Sky Technology Partners)",
+					"Bluewave: Single Point Solutions, Inc",
+					"BlueWave: Virtual Telecom"},
+				"Bluewave",
+				'Partners'[Partner] IN {"CDW",
+					"CDW - ESS",
+					"CDW SB",
+					"CDW SB - ESS"},
+				"CDW",
+				'Partners'[Partner] IN {"CMIT",
+					"CMIT Solutions",
+					"CMIT Solutions Atlanta NE",
+					"CMIT Solutions LLC",
+					"CMIT Solutions of Appleton",
+					"CMIT Solutions of Cedar Rapids",
+					"CMIT Solutions of Manhattan Murray Hill",
+					"CMIT Solutions of San Antonio North Central",
+					"CMIT Solutions of the Main Line",
+					"CMIT Solutions of Wyoming Center"},
+				"CMIT Solutions",
+				'Partners'[Partner] IN {"PRESIDIO",
+					"PRESIDIO: California",
+					"PRESIDIO: Central",
+					"PRESIDIO: Florida",
+					"PRESIDIO: Mid Atlantic",
+					"PRESIDIO: North",
+					"PRESIDIO: Pacific Northwest",
+					"PRESIDIO: South",
+					"PRESIDIO: Tri-State",
+					"PRESIDIO: West"},
+				"PRESIDIO",
+				'Partners'[Partner] IN {"UpStack",
+					"Upstack (North Florida)",
+					"Upstack: ChaseTek Partners, LLC",
+					"UpStack: CloudAdvise, LLC",
+					"UpStack: Cloudnexion",
+					"Upstack: Cloudnexion LLC",
+					"UpStack: CloudWirx",
+					"UpStack: DataCenter And Colocation",
+					"UpStack: Digital Planet Communications",
+					"UpStack: DVP Technologies",
+					"UpStack: Fortuna Management",
+					"UpStack: GCN",
+					"UpStack: idea! Communications",
+					"UpStack: Laura Dashney 2.0",
+					"UpStack: Legacy Solutions",
+					"UPSTACK: LinkSource Technologies",
+					"UpStack: Lunada Partners",
+					"Upstack: M2",
+					"Upstack: Meridian Network Services Inc.",
+					"UpStack: MOC4",
+					"Upstack: NPG Solutions",
+					"UpStack: Open Communications",
+					"UpStack: PacTech Partners",
+					"UPStack: RDS Solutions",
+					"Upstack: Sidepath",
+					"UpStack: Signal Technology Group",
+					"UpStack: Stellar Connect",
+					"Upstack: Subsidium Technologies",
+					"Upstack: TeXium",
+					"Upstack: The Monaco Group",
+					"Upstack: United Technology LLC",
+					"Upstack: Universal Communications",
+					"UpStack: Universal Telecommunications"},
+				"Upstack",
+				'Partners'[Partner]
+			)
+		lineageTag: f0348963-2f55-4970-b647-c6cb98ad82b4
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Partners"
+				          }
+				        },
+				        "Property": "Partner"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"p","Entity":"Partners"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"p"}},"Property":"Partner"}}],"GroupItems":[{"DisplayName":"(Blank)","BlankDefaultPlaceholder":true},{"DisplayName":"Bluewave","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"p"}},"Property":"Partner"}}],"Values":[[{"Literal":{"Value":"'BlueWave Computing LLC'"}}],[{"Literal":{"Value":"'Bluewave Technology Group'"}}],[{"Literal":{"Value":"'Bluewave: Compass Solutions'"}}],[{"Literal":{"Value":"'BlueWave: EngagedPro'"}}],[{"Literal":{"Value":"'Bluewave: Helm Partners'"}}],[{"Literal":{"Value":"'Bluewave: Helm Partners (Convergent Technologies, Inc. [CTI])'"}}],[{"Literal":{"Value":"'Bluewave: iSymplify'"}}],[{"Literal":{"Value":"'Bluewave: NCL Networks'"}}],[{"Literal":{"Value":"'Bluewave: OnCall Telecom (TOCI)'"}}],[{"Literal":{"Value":"'Bluewave: Single Point Solutions (Sky Technology Partners)'"}}],[{"Literal":{"Value":"'Bluewave: Single Point Solutions, Inc'"}}],[{"Literal":{"Value":"'BlueWave: Virtual Telecom'"}}]]}}},{"DisplayName":"CDW","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"p"}},"Property":"Partner"}}],"Values":[[{"Literal":{"Value":"'CDW'"}}],[{"Literal":{"Value":"'CDW - ESS'"}}],[{"Literal":{"Value":"'CDW SB'"}}],[{"Literal":{"Value":"'CDW SB - ESS'"}}]]}}},{"DisplayName":"CMIT Solutions","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"p"}},"Property":"Partner"}}],"Values":[[{"Literal":{"Value":"'CMIT'"}}],[{"Literal":{"Value":"'CMIT Solutions'"}}],[{"Literal":{"Value":"'CMIT Solutions Atlanta NE'"}}],[{"Literal":{"Value":"'CMIT Solutions LLC'"}}],[{"Literal":{"Value":"'CMIT Solutions of Appleton'"}}],[{"Literal":{"Value":"'CMIT Solutions of Cedar Rapids'"}}],[{"Literal":{"Value":"'CMIT Solutions of Manhattan Murray Hill'"}}],[{"Literal":{"Value":"'CMIT Solutions of San Antonio North Central'"}}],[{"Literal":{"Value":"'CMIT Solutions of the Main Line'"}}],[{"Literal":{"Value":"'CMIT Solutions of Wyoming Center'"}}]]}}},{"DisplayName":"PRESIDIO","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"p"}},"Property":"Partner"}}],"Values":[[{"Literal":{"Value":"'PRESIDIO'"}}],[{"Literal":{"Value":"'PRESIDIO: California'"}}],[{"Literal":{"Value":"'PRESIDIO: Central'"}}],[{"Literal":{"Value":"'PRESIDIO: Florida'"}}],[{"Literal":{"Value":"'PRESIDIO: Mid Atlantic'"}}],[{"Literal":{"Value":"'PRESIDIO: North'"}}],[{"Literal":{"Value":"'PRESIDIO: Pacific Northwest'"}}],[{"Literal":{"Value":"'PRESIDIO: South'"}}],[{"Literal":{"Value":"'PRESIDIO: Tri-State'"}}],[{"Literal":{"Value":"'PRESIDIO: West'"}}]]}}},{"DisplayName":"Upstack","Expression":{"In":{"Expressions":[{"Column":{"Expression":{"SourceRef":{"Source":"p"}},"Property":"Partner"}}],"Values":[[{"Literal":{"Value":"'UpStack'"}}],[{"Literal":{"Value":"'Upstack (North Florida)'"}}],[{"Literal":{"Value":"'Upstack: ChaseTek Partners, LLC'"}}],[{"Literal":{"Value":"'UpStack: CloudAdvise, LLC'"}}],[{"Literal":{"Value":"'UpStack: Cloudnexion'"}}],[{"Literal":{"Value":"'Upstack: Cloudnexion LLC'"}}],[{"Literal":{"Value":"'UpStack: CloudWirx'"}}],[{"Literal":{"Value":"'UpStack: DataCenter And Colocation'"}}],[{"Literal":{"Value":"'UpStack: Digital Planet Communications'"}}],[{"Literal":{"Value":"'UpStack: DVP Technologies'"}}],[{"Literal":{"Value":"'UpStack: Fortuna Management'"}}],[{"Literal":{"Value":"'UpStack: GCN'"}}],[{"Literal":{"Value":"'UpStack: idea! Communications'"}}],[{"Literal":{"Value":"'UpStack: Laura Dashney 2.0'"}}],[{"Literal":{"Value":"'UpStack: Legacy Solutions'"}}],[{"Literal":{"Value":"'UPSTACK: LinkSource Technologies'"}}],[{"Literal":{"Value":"'UpStack: Lunada Partners'"}}],[{"Literal":{"Value":"'Upstack: M2'"}}],[{"Literal":{"Value":"'Upstack: Meridian Network Services Inc.'"}}],[{"Literal":{"Value":"'UpStack: MOC4'"}}],[{"Literal":{"Value":"'Upstack: NPG Solutions'"}}],[{"Literal":{"Value":"'UpStack: Open Communications'"}}],[{"Literal":{"Value":"'UpStack: PacTech Partners'"}}],[{"Literal":{"Value":"'UPStack: RDS Solutions'"}}],[{"Literal":{"Value":"'Upstack: Sidepath'"}}],[{"Literal":{"Value":"'UpStack: Signal Technology Group'"}}],[{"Literal":{"Value":"'UpStack: Stellar Connect'"}}],[{"Literal":{"Value":"'Upstack: Subsidium Technologies'"}}],[{"Literal":{"Value":"'Upstack: TeXium'"}}],[{"Literal":{"Value":"'Upstack: The Monaco Group'"}}],[{"Literal":{"Value":"'Upstack: United Technology LLC'"}}],[{"Literal":{"Value":"'Upstack: Universal Communications'"}}],[{"Literal":{"Value":"'UpStack: Universal Telecommunications'"}}]]}}}]}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Recruited By Channel Manager Id'
+		dataType: string
+		lineageTag: ef682b68-b06e-470f-8668-0bff459bdf39
+		summarizeBy: none
+		sourceColumn: Recruited By Channel Manager Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PQF Partner Type'
+		dataType: string
+		lineageTag: df29469a-2b16-47f9-9d5b-9286fee1e580
+		summarizeBy: none
+		sourceColumn: PQF Partner Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Status'
+		dataType: string
+		lineageTag: 170d5a01-2cb0-491d-900e-3000866dc666
+		summarizeBy: none
+		sourceColumn: Account Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Business Unit'
+		dataType: string
+		lineageTag: a00fbc9e-ca10-43ba-aaec-d47c9ae9cd9f
+		summarizeBy: none
+		sourceColumn: Business Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Division
+		dataType: string
+		lineageTag: 8cfc598b-c583-4b06-961a-e081b5494c91
+		summarizeBy: none
+		sourceColumn: Division
+
+		annotation SummarizationSetBy = Automatic
+
+	column CompGroup =
+			
+			SWITCH(
+			    TRUE(),
+			    'Partners'[Standard Comp Percent] < 70, "≤ 70%",
+			    'Partners'[Standard Comp Percent] >= 70 && 'Partners'[Standard Comp Percent] < 75, "70% - 75%",
+			    'Partners'[Standard Comp Percent] >= 75 && 'Partners'[Standard Comp Percent] < 80, "75% - 80%",
+			    'Partners'[Standard Comp Percent] >= 80 && 'Partners'[Standard Comp Percent] < 85, "80% - 85%",
+			    'Partners'[Standard Comp Percent] >= 85 && 'Partners'[Standard Comp Percent] < 90, "85% - 90%",
+			    'Partners'[Standard Comp Percent] >= 90 && 'Partners'[Standard Comp Percent] < 95, "90% - 95%",
+			    ">= 95%"
+			)
+		lineageTag: 191f5831-03de-4408-b127-5d1584e107ee
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Partners = m
+		mode: import
+		queryGroup: 'Import Tables'
+		source =
+				let
+				    Source = Sql.Database("db-server-prod-eastus-dw-01.database.windows.net", "AvantDW"),
+				    pbi_Partners = Source{[Schema="pbi",Item="Partners"]}[Data],
+				    #"Replaced Value" = Table.ReplaceValue(pbi_Partners,null,1,Replacer.ReplaceValue,{"Standard Comp Percent"})
+				in
+				    #"Replaced Value"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

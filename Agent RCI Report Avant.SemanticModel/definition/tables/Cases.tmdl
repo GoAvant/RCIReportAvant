@@ -1,0 +1,802 @@
+table Cases
+	lineageTag: c71b462a-c6d6-41df-ac67-e73291fab124
+
+	column Id
+		dataType: string
+		lineageTag: 8e4a9f26-ea7f-4788-a998-90af998eef4d
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column CaseNumber
+		dataType: string
+		lineageTag: b91c4f69-59d1-494c-abcd-cfc9908c9834
+		summarizeBy: none
+		sourceColumn: CaseNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContactId
+		dataType: string
+		lineageTag: 3ef843f7-ee74-41f2-aa48-021a09735b7e
+		summarizeBy: none
+		sourceColumn: ContactId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seller Id'
+		dataType: string
+		lineageTag: c844d23b-b28c-4c06-915c-6edd5035546f
+		summarizeBy: none
+		sourceColumn: Seller Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordTypeId
+		dataType: string
+		lineageTag: a057a42a-4f6d-472c-9c5d-c53c1f6897c0
+		summarizeBy: none
+		sourceColumn: RecordTypeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 84558655-cdb7-408f-a06f-1d70ea97d830
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reason
+		dataType: string
+		lineageTag: d208017e-0a81-4d92-b63f-63ca00d1e22d
+		summarizeBy: none
+		sourceColumn: Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column Origin
+		dataType: string
+		lineageTag: 0e5b4073-d033-4959-9f36-f24b1a829ac1
+		summarizeBy: none
+		sourceColumn: Origin
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subject
+		dataType: string
+		lineageTag: 9954c2b1-60ff-4e4b-8076-c3ac1665cd3d
+		summarizeBy: none
+		sourceColumn: Subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority
+		dataType: string
+		lineageTag: a33d579c-9991-4bec-9ed8-88e6d5dfdb9a
+		summarizeBy: none
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClosedDate
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 46187e83-7fa1-4f2e-b7d0-5d3ab14bd3fb
+		summarizeBy: none
+		sourceColumn: ClosedDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column OwnerId
+		dataType: string
+		lineageTag: 99fb9f37-b236-4c84-ac7a-b0c27a13d002
+		summarizeBy: none
+		sourceColumn: OwnerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2e125d5d-b627-40a9-af19-1404dd7ac892
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LastModifiedDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9247a210-5771-4e3c-8a4c-7ad80a8af609
+		summarizeBy: none
+		sourceColumn: LastModifiedDate
+
+		variation Variation
+			isDefault
+			relationship: f7abbcc0-aa1c-4d74-a334-58460ebe4c58
+			defaultHierarchy: LocalDateTable_32b4b744-bec4-4aeb-9102-fcfca89a7bfa.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Account_Manager__c
+		dataType: string
+		lineageTag: c521f332-c20a-4cd1-9fb9-f359f7210b04
+		summarizeBy: none
+		sourceColumn: Account_Manager__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Account_Owner__c
+		dataType: string
+		lineageTag: e9e0c419-5388-46bb-b7d2-436c7d679b62
+		summarizeBy: none
+		sourceColumn: Account_Owner__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Contact_Email__c
+		dataType: string
+		lineageTag: a6245a51-40dc-4227-acca-b14452ad050f
+		summarizeBy: none
+		sourceColumn: Contact_Email__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Account__c
+		dataType: string
+		lineageTag: 968ec8a4-9a12-4df3-92b8-c0eb019a88f0
+		summarizeBy: none
+		sourceColumn: Customer_Account__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Contact__c
+		dataType: string
+		lineageTag: be2e0438-3acf-4ae8-9319-d632202a67c8
+		summarizeBy: none
+		sourceColumn: Customer_Contact__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column In_Queue_Reminder__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: be04a2a8-cba5-45df-a670-cf65598d54ef
+		summarizeBy: none
+		sourceColumn: In_Queue_Reminder__c
+
+		variation Variation
+			isDefault
+			relationship: d5603783-e6a8-4c7f-ae1d-235e15e9d355
+			defaultHierarchy: LocalDateTable_44e8a597-47df-4281-b9ed-0e926a2770e1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Lead__c
+		dataType: string
+		lineageTag: 8195816e-43b0-439a-88aa-63906e742f3b
+		summarizeBy: none
+		sourceColumn: Lead__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Opportunity__c
+		dataType: string
+		lineageTag: 8defb743-c78d-4023-ac49-34962c3213ef
+		summarizeBy: none
+		sourceColumn: Opportunity__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Type__c
+		dataType: string
+		lineageTag: 443fd62d-c376-4fa3-8cdb-0883337e82de
+		summarizeBy: none
+		sourceColumn: Product_Type__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Recommended_Providers__c
+		dataType: string
+		lineageTag: 4cdae061-d81e-46d5-9947-2afeac99dbea
+		summarizeBy: none
+		sourceColumn: Recommended_Providers__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Time_Assigned__c
+		dataType: double
+		lineageTag: fd2c43af-bb3d-448a-8be9-29f9d1db884e
+		summarizeBy: sum
+		sourceColumn: Total_Time_Assigned__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total_Time_New__c
+		dataType: double
+		lineageTag: d998fcec-b92a-4105-99ce-a0f5d0a7686d
+		summarizeBy: sum
+		sourceColumn: Total_Time_New__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total_Time_Waiting__c
+		dataType: double
+		lineageTag: 6f1118cf-2556-4e29-a962-55092b92460b
+		summarizeBy: sum
+		sourceColumn: Total_Time_Waiting__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total_Time_Worked__c
+		dataType: double
+		lineageTag: f6de8cb9-ae73-4dfb-a398-b0c58d46b6ec
+		summarizeBy: sum
+		sourceColumn: Total_Time_Worked__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total_Time__c
+		dataType: double
+		lineageTag: 4bfe08a9-b645-4f3c-8a2d-9cae57042eec
+		summarizeBy: sum
+		sourceColumn: Total_Time__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Start_Time__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 61bbdfce-11be-46e1-88ab-ccac72662544
+		summarizeBy: none
+		sourceColumn: Start_Time__c
+
+		variation Variation
+			isDefault
+			relationship: 72458f11-64d4-4e21-8d4f-c3abce189f8d
+			defaultHierarchy: LocalDateTable_6529be5e-61ec-4f76-8699-57b31eaba06f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Contact_First_Name__c
+		dataType: string
+		lineageTag: 734868da-5eb3-4b5a-8065-0fc388f736e2
+		summarizeBy: none
+		sourceColumn: Contact_First_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Current_Time_Waiting__c
+		dataType: double
+		lineageTag: ff9b6af2-25c1-49cb-b481-f52bde2cb870
+		summarizeBy: sum
+		sourceColumn: Total_Current_Time_Waiting__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Contract_Status__c
+		dataType: string
+		lineageTag: 1e91b6a6-3026-4ff8-b6c7-8e1557d2e4c3
+		summarizeBy: none
+		sourceColumn: Contract_Status__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Open_Time_Decimal_Days__c
+		dataType: double
+		lineageTag: 6e88e446-4937-4377-b852-ff6ae76a2bac
+		summarizeBy: sum
+		sourceColumn: Total_Open_Time_Decimal_Days__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total_SLA_Time_Decimal_Days__c
+		dataType: double
+		lineageTag: 46eb8202-18c0-45ea-87f0-9e7af5e396aa
+		summarizeBy: sum
+		sourceColumn: Total_SLA_Time_Decimal_Days__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Submitted_To__c
+		dataType: string
+		lineageTag: fb132c5b-9885-4499-a507-bbfb30264f81
+		summarizeBy: none
+		sourceColumn: Submitted_To__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column RPM_Account_Number__c
+		dataType: string
+		lineageTag: dfdceec4-2338-452e-a114-247240097ed5
+		summarizeBy: none
+		sourceColumn: RPM_Account_Number__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Follow_Up_Date__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b5b22a02-0238-4975-b47c-ec221c37fd25
+		summarizeBy: none
+		sourceColumn: Follow_Up_Date__c
+
+		variation Variation
+			isDefault
+			relationship: 5cd8bb14-5fc8-4a07-a169-e9f55d3d7b92
+			defaultHierarchy: LocalDateTable_cf19a17e-639f-44eb-998e-deba7699b75d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column RO_Case_Owner__c
+		dataType: string
+		lineageTag: cc60b179-9969-4a4e-9211-8a6d26e36b88
+		summarizeBy: none
+		sourceColumn: RO_Case_Owner__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column RO_Contact_Name__c
+		dataType: string
+		lineageTag: 44a49424-1aa7-4a42-80f2-681f4d8fc6ea
+		summarizeBy: none
+		sourceColumn: RO_Contact_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Number_of_Sites__c
+		dataType: double
+		lineageTag: f90571d7-0e8f-43bb-a661-d70b632f7d49
+		summarizeBy: sum
+		sourceColumn: Number_of_Sites__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column of_Products__c
+		dataType: double
+		lineageTag: 6fe9e73f-a5d0-4df1-8bbc-9452715166eb
+		summarizeBy: sum
+		sourceColumn: of_Products__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column of_Providers__c
+		dataType: double
+		lineageTag: d686bf7d-cb48-44ae-adce-de378ef197d7
+		summarizeBy: sum
+		sourceColumn: of_Providers__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column of_Sites__c
+		dataType: double
+		lineageTag: 45338ef2-af18-49b1-88a9-50b1e1264e1e
+		summarizeBy: sum
+		sourceColumn: of_Sites__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Pricing_Complexity_Score__c
+		dataType: double
+		lineageTag: a9cdb057-a66f-4dcd-a3f5-9f6324c5f961
+		summarizeBy: sum
+		sourceColumn: Pricing_Complexity_Score__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Vendor Id'
+		dataType: string
+		lineageTag: e0530ea9-c5e6-49f4-9e5f-f2a0a29461f8
+		summarizeBy: none
+		sourceColumn: Vendor Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Opportunity_Amount__c
+		dataType: double
+		lineageTag: fa11b9b1-bb81-4e65-bb74-ac910d7976ef
+		summarizeBy: sum
+		sourceColumn: Opportunity_Amount__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Opportunity_Comp_Type__c
+		dataType: string
+		lineageTag: ef86fb77-a6f7-4dc4-a4db-1721bedea386
+		summarizeBy: none
+		sourceColumn: Opportunity_Comp_Type__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Opportunity_Account_Name__c
+		dataType: string
+		lineageTag: 2b2743c5-5b27-4d57-95a8-c7f6c6514a74
+		summarizeBy: none
+		sourceColumn: Opportunity_Account_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Opportunity_ID__c
+		dataType: string
+		lineageTag: 6a323b8d-0997-4e4e-81b0-09707ffe9f3f
+		summarizeBy: none
+		sourceColumn: Opportunity_ID__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quick_Quote_Id__c
+		dataType: string
+		lineageTag: d8f3f01f-a5a0-40cb-95cd-ce11b6b53dd2
+		summarizeBy: none
+		sourceColumn: Quick_Quote_Id__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avant_AM_Email__c
+		dataType: string
+		lineageTag: 521a2b9e-42c9-4f0f-97f2-4df0ce6af638
+		summarizeBy: none
+		sourceColumn: Avant_AM_Email__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column ICM_Email__c
+		dataType: string
+		lineageTag: 962096d3-745c-4090-82ec-58338db7f067
+		summarizeBy: none
+		sourceColumn: ICM_Email__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avant_ICM_Email__c
+		dataType: string
+		lineageTag: 52fe2e7c-36fd-4c48-b754-7560797c3b91
+		summarizeBy: none
+		sourceColumn: Avant_ICM_Email__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dispute_Category__c
+		dataType: string
+		lineageTag: 181a5309-09c1-4b01-9d72-eaddd78e4c65
+		summarizeBy: none
+		sourceColumn: Dispute_Category__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column SE_Billable_Category__c
+		dataType: string
+		lineageTag: be74ddaf-0051-49e2-b629-31296bd6c0e9
+		summarizeBy: none
+		sourceColumn: SE_Billable_Category__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reply_Date__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c1c99348-1e2c-4d35-889e-d43f0ce64018
+		summarizeBy: none
+		sourceColumn: Reply_Date__c
+
+		variation Variation
+			isDefault
+			relationship: c62b892c-1b47-43a4-8903-9de1820426bc
+			defaultHierarchy: LocalDateTable_883b0ca2-5a6c-4e07-a548-3d3e45b4e567.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pinnacle_Membership_Account_to_Case__c
+		dataType: string
+		lineageTag: 47d25004-1c77-4c3c-b920-8f22addf02b7
+		summarizeBy: none
+		sourceColumn: Pinnacle_Membership_Account_to_Case__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avant_ICM_Account_to_SE_Case__c
+		dataType: string
+		lineageTag: eb059adf-c9c7-4bbb-b61e-59c11b05ca49
+		summarizeBy: none
+		sourceColumn: Avant_ICM_Account_to_SE_Case__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Record_Type_Name__c
+		dataType: string
+		lineageTag: 8c88b931-f5b5-48fa-a4bc-3a15a4c6d5fe
+		summarizeBy: none
+		sourceColumn: Record_Type_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pricing_Complexity_text__c
+		dataType: string
+		lineageTag: 8bdd6b7d-4e11-41cb-bf55-2315e1122187
+		summarizeBy: none
+		sourceColumn: Pricing_Complexity_text__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Start_Date__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 286be956-e5b4-42a1-b05a-26e7304a68ce
+		summarizeBy: none
+		sourceColumn: Start_Date__c
+
+		variation Variation
+			isDefault
+			relationship: ce6221ac-e370-4f24-90e0-2dfbd7af0118
+			defaultHierarchy: LocalDateTable_a3abc61d-6075-42c5-b5eb-41bf7ca25743.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Account_Priority_Level__c
+		dataType: string
+		lineageTag: e052b55c-be98-4fa6-bc2f-182e712827cc
+		summarizeBy: none
+		sourceColumn: Account_Priority_Level__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Due_Date__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: da16ec09-4985-4be1-8e32-98c9a5f7deaf
+		summarizeBy: none
+		sourceColumn: Due_Date__c
+
+		variation Variation
+			isDefault
+			relationship: 855750dd-7fdc-4208-9566-e1e24ffab53c
+			defaultHierarchy: LocalDateTable_b7b2da9e-2559-4a31-8980-6ddd90761f42.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Stage__c
+		dataType: string
+		lineageTag: 5339f25d-5b54-499d-b012-a5d3f4158e51
+		summarizeBy: none
+		sourceColumn: Stage__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dispute_Tier__c
+		dataType: string
+		lineageTag: 8ae66c92-e280-4c00-b978-20ad2f502446
+		summarizeBy: none
+		sourceColumn: Dispute_Tier__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column X18_Digit_Case_Id_Hidden__c
+		dataType: string
+		lineageTag: 295ca35f-fab6-4956-81be-e3da3cd48da8
+		summarizeBy: none
+		sourceColumn: X18_Digit_Case_Id_Hidden__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column X18_Digit_Opportunity_Id_Hidden__c
+		dataType: string
+		lineageTag: a0dd5b39-ba65-48de-8309-9d5a319245d6
+		summarizeBy: none
+		sourceColumn: X18_Digit_Opportunity_Id_Hidden__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Days_Since_Last_Modified_Date__c
+		dataType: double
+		lineageTag: e9924e29-31bb-44a0-b4e3-8b7a7222124a
+		summarizeBy: sum
+		sourceColumn: Days_Since_Last_Modified_Date__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column KPI_Reply_Date_Hidden__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 213f6aad-8cf8-4ac8-be3e-0a714dfb28ba
+		summarizeBy: none
+		sourceColumn: KPI_Reply_Date_Hidden__c
+
+		variation Variation
+			isDefault
+			relationship: e6fd2f37-488e-4fe9-95bd-221f3f155bdf
+			defaultHierarchy: LocalDateTable_2aab01ef-7dc6-4d42-99a8-69843bb90da0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column KPI_Reply_Date__c
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 906e70b7-ddc7-4786-b736-c3e7c8e531ee
+		summarizeBy: none
+		sourceColumn: KPI_Reply_Date__c
+
+		variation Variation
+			isDefault
+			relationship: ae5dbf0a-2440-4804-8a1c-88fbb1e16e99
+			defaultHierarchy: LocalDateTable_45aacde9-9c96-44ae-b3e5-2c4052dfa590.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dedicated_Support__c
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3dd57455-809d-4016-b7f5-c7b9dd1f3ff7
+		summarizeBy: none
+		sourceColumn: Dedicated_Support__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Case_Age_in_Days__c
+		dataType: double
+		lineageTag: 7fb8e07f-9f19-40d1-8f84-b6a8a0fddef8
+		summarizeBy: sum
+		sourceColumn: Case_Age_in_Days__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column mrc__c
+		dataType: double
+		lineageTag: 963638a0-2999-4bd0-95e4-7243d5d5d69d
+		summarizeBy: sum
+		sourceColumn: mrc__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Priority_Level__c
+		dataType: string
+		lineageTag: 6d0783e5-8cec-4cbb-9281-294482a74621
+		summarizeBy: none
+		sourceColumn: Priority_Level__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dispute_Resolution__c
+		dataType: string
+		lineageTag: df854324-ad6d-42d4-930b-166db7fc7094
+		summarizeBy: none
+		sourceColumn: Dispute_Resolution__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Resolution_Category__c
+		dataType: string
+		lineageTag: dc7228af-106f-499f-ae54-cbc87d9cf59a
+		summarizeBy: none
+		sourceColumn: Resolution_Category__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Net_New_Project_Total__c
+		dataType: double
+		lineageTag: 20ef7c70-0680-46ad-8052-e48afea217ac
+		summarizeBy: sum
+		sourceColumn: Net_New_Project_Total__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Specialized_Complexity__c
+		dataType: string
+		lineageTag: 9872c2f9-e72b-46f1-b03a-715cc228f988
+		summarizeBy: none
+		sourceColumn: Specialized_Complexity__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Closed Date_DT'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 73996b5d-1c99-43e4-928e-16bc29b28bfd
+		summarizeBy: none
+		sourceColumn: Closed Date_DT
+
+		variation Variation
+			isDefault
+			relationship: 36d36c20-5021-46bb-9ae4-fb3ef284307d
+			defaultHierarchy: LocalDateTable_d93a2278-3c80-459b-b52c-8cb2fa93b2f7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Created Date_DT'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cf7f8357-f4b3-44f5-81af-cc64f3eded8e
+		summarizeBy: none
+		sourceColumn: Created Date_DT
+
+		variation Variation
+			isDefault
+			relationship: cd6b24f7-752a-4491-a2f9-ce25079d81d8
+			defaultHierarchy: LocalDateTable_1c7c50c6-3345-42a7-866b-ae54f744e0b3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column _PricingComplexityTime = SWITCH('Cases'[Pricing_Complexity_text__c],"Easy", 60, "Medium", 90, "Difficult", 140)
+		formatString: 0
+		lineageTag: 6c511f44-5ec8-4ac4-b7a0-91b076e6e821
+		summarizeBy: sum
+
+		changedProperty = Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Cases = m
+		mode: import
+		queryGroup: 'Import Tables'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"6f46c9da-34db-46a0-8a03-583959040559" = Workspaces{[workspaceId="6f46c9da-34db-46a0-8a03-583959040559"]}[Data],
+				    #"8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8" = #"6f46c9da-34db-46a0-8a03-583959040559"{[dataflowId="8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8"]}[Data],
+				    Cases_ = #"8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8"{[entity="Cases",version=""]}[Data],
+				    #"Duplicated Column" = Table.DuplicateColumn(Cases_, "ClosedDate", "ClosedDate - Copy"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Duplicated Column",{{"ClosedDate - Copy", "Closed Date_DT"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"ClosedDate", type date}}),
+				    #"Duplicated Column1" = Table.DuplicateColumn(#"Changed Type", "CreatedDate", "CreatedDate - Copy"),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Duplicated Column1",{{"CreatedDate - Copy", "Created Date_DT"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"CreatedDate", type date}, {"LastModifiedDate", type date}, {"SystemModstamp", type date}, {"LastViewedDate", type date}, {"LastReferencedDate", type date}, {"In_Queue_Reminder__c", type date}, {"Start_Time__c", type date}}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type1",{{"AccountId", "Seller Id"}, {"Winning_Provider__c", "Vendor Id"}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns2",{"Id", "CaseNumber", "ContactId", "Seller Id", "RecordTypeId", "Status", "Reason", "Origin", "Subject", "Priority", "ClosedDate", "OwnerId", "CreatedDate", "LastModifiedDate", "Account_Manager__c", "Account_Owner__c", "Contact_Email__c", "Customer_Account__c", "Customer_Contact__c", "In_Queue_Reminder__c", "Lead__c", "Opportunity__c", "Product_Type__c", "Recommended_Providers__c", "Total_Time_Assigned__c", "Total_Time_New__c", "Total_Time_Waiting__c", "Total_Time_Worked__c", "Total_Time__c", "Start_Time__c", "Contact_First_Name__c", "Total_Current_Time_Waiting__c", "Contract_Status__c", "Total_Open_Time_Decimal_Days__c", "Total_SLA_Time_Decimal_Days__c", "Submitted_To__c", "RPM_Account_Number__c", "Follow_Up_Date__c", "RO_Case_Owner__c", "RO_Contact_Name__c", "Number_of_Sites__c", "of_Products__c", "of_Providers__c", "of_Sites__c", "Pricing_Complexity_Score__c", "Vendor Id", "Opportunity_Amount__c", "Opportunity_Comp_Type__c", "Opportunity_Account_Name__c", "Opportunity_ID__c", "Quick_Quote_Id__c", "Avant_AM_Email__c", "ICM_Email__c", "Avant_ICM_Email__c", "Dispute_Category__c", "SE_Billable_Category__c", "Reply_Date__c", "Pinnacle_Membership_Account_to_Case__c", "Avant_ICM_Account_to_SE_Case__c", "Record_Type_Name__c", "Pricing_Complexity_text__c", "Start_Date__c", "Account_Priority_Level__c", "Due_Date__c", "Stage__c", "Dispute_Tier__c", "X18_Digit_Case_Id_Hidden__c", "X18_Digit_Opportunity_Id_Hidden__c", "Days_Since_Last_Modified_Date__c", "KPI_Reply_Date_Hidden__c", "KPI_Reply_Date__c", "Dedicated_Support__c", "Case_Age_in_Days__c", "mrc__c", "Priority_Level__c", "Dispute_Resolution__c", "Resolution_Category__c", "Net_New_Project_Total__c", "Specialized_Complexity__c", "Closed Date_DT", "Created Date_DT"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_ResultType = Table
+

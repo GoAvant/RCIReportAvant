@@ -1,0 +1,47 @@
+table 'Last Month Close Date'
+	lineageTag: 31c37c4c-02e4-4075-9c7c-67cea1d399f0
+
+	column LastMonthClosed
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7eab58bd-b2fd-4ab0-83f4-ff3f0ca9c359
+		summarizeBy: none
+		sourceColumn: LastMonthClosed
+
+		variation Variation
+			isDefault
+			relationship: 1224163f-ff9a-482a-8eb3-cac8ca5efc31
+			defaultHierarchy: LocalDateTable_8fddb526-4655-47a3-8d3c-1879290d05b5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LastClosedBillings
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0bf894e3-f60c-4d80-9ae6-0e0618a7dfcb
+		summarizeBy: none
+		sourceColumn: LastClosedBillings
+
+		variation Variation
+			isDefault
+			relationship: 6848d28b-4f17-49b7-be80-edc73c2ed478
+			defaultHierarchy: LocalDateTable_9b458538-171c-4fa9-bb2d-982caaa3557c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Last Month Close Date' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://avantcommunications1-my.sharepoint.com/personal/jochoa_goavant_net/Documents/PowerBI/Tables/LastMonthClosed_Flag.xlsx"), null, true),
+				    Table1_Table = Source{[Item="Table1",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Table1_Table,{{"LastMonthClosed", type date}, {"LastClosedBillings", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,169 @@
+table User
+	lineageTag: 2c6cbe8a-23fd-4b01-8bb2-88b8488b74bc
+
+	column Id
+		dataType: string
+		lineageTag: 81777f93-9724-4635-b5f5-be932e10eb70
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Username
+		dataType: string
+		lineageTag: 701197ed-d2d2-41f2-bdf4-93f22d033b31
+		summarizeBy: none
+		sourceColumn: Username
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: da3f4729-044b-470a-b04f-6bbed772f2dc
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: aff3b253-4d7e-4943-b05c-2a3919c85eeb
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 4ea4a7ef-53a6-409f-9cff-fe2d47e75551
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 09220344-c56f-4539-af51-004c7c8d6849
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: ae66473c-3c0b-41a5-b696-8d0c816bef20
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column PostalCode
+		dataType: string
+		lineageTag: b25d78b7-fc9c-4b4d-81db-52bb2a052121
+		summarizeBy: none
+		sourceColumn: PostalCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 2c81b007-9a77-4e4b-98cf-58471d89a20e
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		lineageTag: a8a5131a-e8b0-49d9-8b55-86d3f08e4528
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsActive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: dbf04a24-ea1d-4883-97ed-a7c60804c443
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserRoleId
+		dataType: string
+		lineageTag: 94f49e48-f504-4406-867f-e757f2f6d012
+		summarizeBy: none
+		sourceColumn: UserRoleId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: dd11fc0f-b053-4421-b094-b660ee3659ef
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ContactId
+		dataType: string
+		lineageTag: 7f08edd0-e568-40e7-acaa-bef47493cd51
+		summarizeBy: none
+		sourceColumn: ContactId
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountId
+		dataType: string
+		lineageTag: 18eab74f-b55f-4a3c-adf5-48e4874c4eab
+		summarizeBy: none
+		sourceColumn: AccountId
+
+		annotation SummarizationSetBy = Automatic
+
+	column User_Role_Name__c
+		dataType: string
+		lineageTag: 7922ef7c-9241-410b-9416-61e7004383e8
+		summarizeBy: none
+		sourceColumn: User_Role_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column User_Profile_Name__c
+		dataType: string
+		lineageTag: 734d5c24-2216-4337-a82e-ed9c0a905cdf
+		summarizeBy: none
+		sourceColumn: User_Profile_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column CM_Check
+		dataType: string
+		lineageTag: 1fa6fdf6-831f-414e-be59-897425c724e6
+		summarizeBy: none
+		sourceColumn: CM_Check
+
+		annotation SummarizationSetBy = Automatic
+
+	partition User = m
+		mode: import
+		queryGroup: 'Import Tables'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"6f46c9da-34db-46a0-8a03-583959040559" = Workspaces{[workspaceId="6f46c9da-34db-46a0-8a03-583959040559"]}[Data],
+				    #"8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8" = #"6f46c9da-34db-46a0-8a03-583959040559"{[dataflowId="8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8"]}[Data],
+				    User_ = #"8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8"{[entity="User",version=""]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(User_,{"Id", "Username", "LastName", "FirstName", "Name", "City", "State", "PostalCode", "Country", "Email", "IsActive", "UserRoleId", "CreatedDate", "ContactId", "AccountId", "User_Role_Name__c", "User_Profile_Name__c"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"CreatedDate", type date}}),
+				    #"Added Conditional Column1" = Table.AddColumn(#"Changed Type", "CM_Check", each if Text.Contains([User_Profile_Name__c], "Channel Manager") then "CM" else "Non-CM")
+				in
+				    #"Added Conditional Column1"
+
+	annotation PBI_ResultType = Table
+

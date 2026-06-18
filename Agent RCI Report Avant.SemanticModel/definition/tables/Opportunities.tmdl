@@ -1,0 +1,671 @@
+table Opportunities
+	lineageTag: cc10f156-2b0a-4456-883b-299e5db8baac
+
+	measure MRC =
+			
+			CALCULATE (
+			    SUM ( Opportunities[Amount(Converted)] ),
+			    Opportunities[Stage] == "Closed Won Approved",
+			    Opportunities[Sales Model] <> "Wholesale"
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: c6271bb2-3b83-4500-b9dc-17059727ec88
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Expected Margin' =
+			
+			CALCULATE (
+			    SUM ( Opportunities[Expected Margin Comp (Converted)] ),
+			    Opportunities[Stage] == "Closed Won Approved",
+			    Opportunities[Sales Model] <> "Wholesale"
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 9580971c-bb81-4337-b36c-c3e4a0def107
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":""}
+
+	measure '_Expected Margin Comp Converted Closed' =
+			
+			VAR LastMonthMRC =
+			    CALCULATE (
+			        SUM ( Opportunities[Expected Margin Comp (Converted)] ),
+			        ( Opportunities[Stage] == "Closed Won Approved" )
+			            || ( Opportunities[Stage] == "Closed Won" ),
+			        FILTER ( 'Calendar', 'Calendar'[CurMonthOffset] = -1 )
+			    )
+			VAR PriorMonthsMRC =
+			    CALCULATE (
+			        SUM ( Opportunities[Expected Margin Comp (Converted)] ),
+			        ( Opportunities[Stage] == "Closed Won Approved" ),
+			        FILTER ( 'Calendar', 'Calendar'[CurMonthOffset] <= -1 )
+			    )
+			RETURN
+			    ( LastMonthMRC + PriorMonthsMRC )
+		lineageTag: 30f85a75-9f53-440e-9ab7-f2f1f007ef73
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CreatedById
+		dataType: string
+		lineageTag: 5a462a82-3212-4cf7-a851-242cc7f0d7ca
+		summarizeBy: none
+		sourceColumn: CreatedById
+
+		annotation SummarizationSetBy = Automatic
+
+	column Closed_Lost_Reason__c
+		dataType: string
+		lineageTag: e0aabd67-a6ce-4526-acb2-adb6cb42b229
+		summarizeBy: none
+		sourceColumn: Closed_Lost_Reason__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column P1_Opportunity_Id__c
+		dataType: string
+		lineageTag: 66765815-65c0-430c-aad7-0cdd33593eff
+		summarizeBy: none
+		sourceColumn: P1_Opportunity_Id__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Amount(Converted)
+		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 8c8c8590-6aa0-438a-a3dd-5e2db6a523ff
+		summarizeBy: sum
+		sourceColumn: Amount(Converted)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Expected Margin Comp (Converted)'
+		dataType: double
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 4fd87982-4b52-4a15-b86b-e0a1fca57948
+		summarizeBy: sum
+		sourceColumn: Expected Margin Comp (Converted)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Opportunity Id'
+		dataType: string
+		lineageTag: 0ba7879f-52a2-40e0-947d-1c384a1fe5d6
+		summarizeBy: none
+		sourceColumn: Opportunity Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opportunity Name'
+		dataType: string
+		lineageTag: 09e74034-2de7-4cd3-8d8c-c4f2799c66b0
+		summarizeBy: none
+		sourceColumn: Opportunity Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Stage
+		dataType: string
+		lineageTag: 1ad7c6c5-65ca-412c-8350-e065e441e7d4
+		summarizeBy: none
+		sourceColumn: Stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Close Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a6040850-30ab-448d-9bd3-3cc8c1afeb6b
+		summarizeBy: none
+		sourceColumn: Close Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Opportunity Type'
+		dataType: string
+		lineageTag: 3a952791-0723-4db1-881f-f9f3fb9df6be
+		summarizeBy: none
+		sourceColumn: Opportunity Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyIsoCode
+		dataType: string
+		lineageTag: 77ea5699-66d9-4806-985f-d2def5118935
+		summarizeBy: none
+		sourceColumn: CurrencyIsoCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Created Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d1e2ad91-16f3-4120-bf12-c4cf0e67b9a7
+		summarizeBy: none
+		sourceColumn: Created Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column OppMRC
+		dataType: double
+		lineageTag: 3e35d684-e220-40c3-96ec-c59b77a4eeb7
+		summarizeBy: sum
+		sourceColumn: OppMRC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Expected Margin Comp'
+		dataType: double
+		lineageTag: de84fe5d-3818-4959-b452-eee640595a12
+		summarizeBy: sum
+		sourceColumn: Expected Margin Comp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Opportunity Record Type'
+		dataType: string
+		lineageTag: bfa57083-efbd-414e-a779-b2790353b5ca
+		summarizeBy: none
+		sourceColumn: Opportunity Record Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Provider Id'
+		dataType: string
+		lineageTag: 127d3c11-0ed5-4d18-8488-c672081e00c7
+		summarizeBy: none
+		sourceColumn: Provider Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team__C
+		dataType: string
+		lineageTag: 9f5479ac-3ef0-46a2-8f22-01d3d446fc83
+		summarizeBy: none
+		sourceColumn: Team__C
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Seller Id'
+		dataType: string
+		lineageTag: b2422e66-47aa-4638-b37f-8d45bbf2c28f
+		summarizeBy: none
+		sourceColumn: Seller Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Selling Agent'
+		dataType: string
+		lineageTag: 98a872e6-2977-4ae7-b696-29d4f5161b0c
+		summarizeBy: none
+		sourceColumn: Selling Agent
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 17c76996-7451-4e0d-8f83-1854591bcc5e
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subcategory
+		dataType: string
+		lineageTag: 81b25006-aaf4-4b1d-831f-54b495260029
+		summarizeBy: none
+		sourceColumn: Subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opportunity Term'
+		dataType: double
+		lineageTag: a67247dd-4b30-4915-9122-34bbe45d6040
+		summarizeBy: sum
+		sourceColumn: Opportunity Term
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TCV
+		dataType: double
+		lineageTag: fdcbbf3e-807c-4c9d-8cf9-c37418133cf8
+		summarizeBy: sum
+		sourceColumn: TCV
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Sales Model'
+		dataType: string
+		lineageTag: 26397e4e-83e6-4fde-b5c1-b95811cf17ca
+		summarizeBy: none
+		sourceColumn: Sales Model
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sign Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cc7d9336-e117-4799-8fa1-fa66dd015f74
+		summarizeBy: none
+		sourceColumn: Sign Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Completed Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 373b16d2-c912-4cbe-8211-9c7e2196a510
+		summarizeBy: none
+		sourceColumn: Completed Date
+
+		variation Variation
+			isDefault
+			relationship: 8e5f722f-ea4e-408f-a0c3-39eb8d70eda9
+			defaultHierarchy: LocalDateTable_3ffc353c-53fd-4603-b37b-a9b7635d864f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Install Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 08fe68a9-37e6-4f0b-a60e-e729460c32c6
+		summarizeBy: none
+		sourceColumn: Install Date
+
+		variation Variation
+			isDefault
+			relationship: 4bd6f59f-e1f1-44d6-835c-3ff7b78abd46
+			defaultHierarchy: LocalDateTable_c54fe461-3ada-4b05-be8b-d232177ace1b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Type'
+		dataType: string
+		lineageTag: 315f6d3a-db4d-42b9-811e-2990f178c1b1
+		summarizeBy: none
+		sourceColumn: Contract Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Status'
+		dataType: string
+		lineageTag: f2aecefd-2bd1-43d2-8c37-ea1f6c2d4cde
+		summarizeBy: none
+		sourceColumn: Order Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Channel Manager'
+		dataType: string
+		lineageTag: bdbfe518-0235-416c-8b58-2d6a3e7bb4a4
+		summarizeBy: none
+		sourceColumn: Channel Manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Leading Providers'
+		dataType: string
+		lineageTag: d9226b18-a620-4f45-bfd3-c9985f8b67e1
+		summarizeBy: none
+		sourceColumn: Leading Providers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opp Customer Name'
+		dataType: string
+		lineageTag: 4f7ea352-d467-47fe-bf7e-d678054d15b1
+		summarizeBy: none
+		sourceColumn: Opp Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TCV Override'
+		dataType: double
+		lineageTag: 81752d39-536c-4062-9f35-d6908c0c9146
+		summarizeBy: sum
+		sourceColumn: TCV Override
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Audit Status'
+		dataType: string
+		lineageTag: d97f6822-42fb-4c32-b9ef-bcc0476bc9f5
+		summarizeBy: none
+		sourceColumn: Audit Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'RPM Account Number'
+		dataType: string
+		lineageTag: 25bbf1cc-7cda-48b0-98e0-d4774126d6f1
+		summarizeBy: none
+		sourceColumn: RPM Account Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Expiration Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b47c69d1-2cff-4e50-a842-4c1ebb70e7ce
+		summarizeBy: none
+		sourceColumn: Contract Expiration Date
+
+		variation Variation
+			isDefault
+			relationship: c7eb3bb1-e152-4f41-a4bc-67e25d567cf3
+			defaultHierarchy: LocalDateTable_e3c59c20-827e-4a69-8ced-5b6fffd46b59.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Avant Account Manager'
+		dataType: string
+		lineageTag: 3999cb6f-4975-4e2d-8859-1d5959c6ddfc
+		summarizeBy: none
+		sourceColumn: Avant Account Manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Match Status'
+		dataType: string
+		lineageTag: a4d9bd7e-45f2-4816-a286-9ea59be8118f
+		summarizeBy: none
+		sourceColumn: Match Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Agent Pass-Thru %'
+		dataType: double
+		lineageTag: 91249be6-380c-4e77-927b-c47d9a19626a
+		summarizeBy: sum
+		sourceColumn: Agent Pass-Thru %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'AVANT Primary SE'
+		dataType: string
+		lineageTag: 506c0e20-72a8-4fe8-9b38-e6016efdabf0
+		summarizeBy: none
+		sourceColumn: AVANT Primary SE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract MRC'
+		dataType: double
+		lineageTag: d5b701b7-dd09-43e7-9290-555c0ab730e9
+		summarizeBy: sum
+		sourceColumn: Contract MRC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Booked MRC Agent Commission'
+		dataType: double
+		lineageTag: 4ef8adad-7b2f-4c5c-ac70-2c50aaf305ed
+		summarizeBy: sum
+		sourceColumn: Booked MRC Agent Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Booked MRC Gross Commission'
+		dataType: double
+		lineageTag: eed6e397-d114-4adf-ae83-8bd06af3ecef
+		summarizeBy: sum
+		sourceColumn: Booked MRC Gross Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Booked NRC Agent Commission'
+		dataType: double
+		lineageTag: c422ddba-93ba-4a4b-ab33-69698ccc167a
+		summarizeBy: sum
+		sourceColumn: Booked NRC Agent Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Booked NRC Gross Commission'
+		dataType: double
+		lineageTag: 2b7780c0-fa22-4201-a500-338ae6e291e6
+		summarizeBy: sum
+		sourceColumn: Booked NRC Gross Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contract MRC Agent Commission'
+		dataType: double
+		lineageTag: 3da57c12-b692-4b75-bf44-50af7b8d5a82
+		summarizeBy: sum
+		sourceColumn: Contract MRC Agent Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contract MRC Gross Commission'
+		dataType: double
+		lineageTag: a2d55649-4a72-4071-9037-ccf6f0b4cbf6
+		summarizeBy: sum
+		sourceColumn: Contract MRC Gross Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contract NRC Agent Commission'
+		dataType: double
+		lineageTag: c3182ab2-03af-4c07-982b-d3d6005fe478
+		summarizeBy: sum
+		sourceColumn: Contract NRC Agent Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contract NRC Gross Commission'
+		dataType: double
+		lineageTag: fcbae0f2-84c1-42c1-9f18-0edb46657215
+		summarizeBy: sum
+		sourceColumn: Contract NRC Gross Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'MRC Expected Margin'
+		dataType: double
+		lineageTag: 9403f8da-2de2-4fea-ae27-0539e50db61c
+		summarizeBy: sum
+		sourceColumn: MRC Expected Margin
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'NRC Expected Margin'
+		dataType: double
+		lineageTag: ef4b3afe-7239-4dfa-a1e7-7570fb340d5a
+		summarizeBy: sum
+		sourceColumn: NRC Expected Margin
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Booked MRC USD'
+		dataType: double
+		lineageTag: 0e0b244f-213b-4647-b5bb-41a383cbb3cd
+		summarizeBy: sum
+		sourceColumn: Booked MRC USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Booked MRC USD Agent Commission'
+		dataType: double
+		lineageTag: 12e86dd9-8a1e-4532-9afa-2407d4708a30
+		summarizeBy: sum
+		sourceColumn: Booked MRC USD Agent Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Booked MRC USD Gross Commission'
+		dataType: double
+		lineageTag: bb46581b-0c8e-448a-b985-4c333e890dd7
+		summarizeBy: sum
+		sourceColumn: Booked MRC USD Gross Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Booked NRC USD Agent Commission'
+		dataType: double
+		lineageTag: 7a373e98-57b5-4396-bab5-52cb9ff5952b
+		summarizeBy: sum
+		sourceColumn: Booked NRC USD Agent Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Booked NRC USD Gross Commission'
+		dataType: double
+		lineageTag: c331a762-0bcb-4fbe-93a3-5fd29578b3bb
+		summarizeBy: sum
+		sourceColumn: Booked NRC USD Gross Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contract MRC USD Agent Commission'
+		dataType: double
+		lineageTag: a10ced5f-37d3-404c-a9e0-1e1ea5eadc73
+		summarizeBy: sum
+		sourceColumn: Contract MRC USD Agent Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contract MRC USD Gross Commission'
+		dataType: double
+		lineageTag: 91e77f97-7b65-4e24-94bc-d37bd12ddd23
+		summarizeBy: sum
+		sourceColumn: Contract MRC USD Gross Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contract NRC USD Agent Commission'
+		dataType: double
+		lineageTag: 848fe386-51bc-4a94-b7e6-84bc8991c901
+		summarizeBy: sum
+		sourceColumn: Contract NRC USD Agent Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Contract NRC USD Gross Commission'
+		dataType: double
+		lineageTag: c23fb659-df41-41f3-802c-2c809d62c4a3
+		summarizeBy: sum
+		sourceColumn: Contract NRC USD Gross Commission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'MRC Expected Margin USD'
+		dataType: double
+		lineageTag: e57b2cf0-f67e-4278-b690-0536023ca754
+		summarizeBy: sum
+		sourceColumn: MRC Expected Margin USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'NRC Expected Margin USD'
+		dataType: double
+		lineageTag: 953d44c9-dbb3-4afb-bff8-571247e907a0
+		summarizeBy: sum
+		sourceColumn: NRC Expected Margin USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'MRC L12M Bucket' = ```
+			
+			VAR v = [_MRC L12M (from Today)]
+			RETURN
+			SWITCH (
+			    TRUE(),
+			    v < 25000,                   "< 25k",
+			    v < 50000,                   "25–50k",
+			    v < 125000,                  "50–125k",
+			    v < 300000,                  "125–300k",
+			                                 "≥ 300k"
+			)
+			
+			```
+		lineageTag: 513b8266-4906-4e00-a51a-54bbf63b1652
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Opportunities = m
+		mode: import
+		queryGroup: 'Import Tables'
+		source =
+				let
+				    Source = Sql.Database("db-server-prod-eastus-dw-01.database.windows.net", "AvantDW"),
+				    pbi_Vendors = Source{[Schema="pbi",Item="Opportunities"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(pbi_Vendors,{{"Close Date", type date}, {"Created Date", type date}, {"Sign Date", type date}, {"Contract Expiration Date", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

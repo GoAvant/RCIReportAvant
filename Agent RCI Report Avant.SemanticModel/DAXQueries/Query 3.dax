@@ -1,0 +1,34 @@
+DEFINE
+    MEASURE '_Local Measures'[_PSMPercentile] = VAR FilteredPartners =
+    FILTER (
+        ALL ( Partners ),
+        [_PSMUsage] > 0 &&
+        [_Date range] = 1 &&
+        [_TotalAvantCost] >= 500
+    )
+VAR PSMUsage =
+        COUNTROWS ( FilteredPartners )
+        
+VAR PSMRank =
+    RANKX (
+        FilteredPartners,
+        [_PSMUsage],
+        ,
+        ASC,
+        SKIP
+    )
+RETURN
+    // IF (
+    //     [_Date range] = 0
+    //         || [_TotalAvantCost] < 500
+    //         || [_PSMUsage] = 0,
+    //     BLANK (),
+    //     DIVIDE ( PSMRank, PSMUsage )
+    // )
+
+PSMRank
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "_PSMPercentile", '_Local Measures'[_PSMPercentile]
+    )

@@ -1,0 +1,263 @@
+table 'Maintenance Time'
+	lineageTag: 950c7bf8-b72f-449e-b77f-fa286fa42f53
+
+	column Id
+		dataType: string
+		lineageTag: be739d40-753c-4218-a6d2-27ed5814bcab
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column OwnerId
+		dataType: string
+		lineageTag: 6cc18f1b-7fe9-42fa-8f02-7403feb3db26
+		summarizeBy: none
+		sourceColumn: OwnerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsDeleted
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8479ce40-3621-4ef6-8040-09af48f24bcb
+		summarizeBy: none
+		sourceColumn: IsDeleted
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: f7915819-a453-4c0d-ac52-83fa0a1eb0a1
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyIsoCode
+		dataType: string
+		lineageTag: 8c9856ce-7e89-490d-8d6a-413e76bc43ee
+		summarizeBy: none
+		sourceColumn: CurrencyIsoCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a66ec96a-2a61-43ba-bf3a-a09808ccc9fd
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CreatedById
+		dataType: string
+		lineageTag: ea28d863-5cd8-4107-a634-997781804271
+		summarizeBy: none
+		sourceColumn: CreatedById
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastModifiedDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 55395802-b7bf-43e8-97fd-257365493072
+		summarizeBy: none
+		sourceColumn: LastModifiedDate
+
+		variation Variation
+			isDefault
+			relationship: bb7716e3-979f-43e4-976a-041b60b882b4
+			defaultHierarchy: LocalDateTable_f0e620d7-478e-4509-80cd-acf8899f08fb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LastModifiedById
+		dataType: string
+		lineageTag: 70ae3261-bc1c-457f-814f-744bc94c505c
+		summarizeBy: none
+		sourceColumn: LastModifiedById
+
+		annotation SummarizationSetBy = Automatic
+
+	column SystemModstamp
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: dc47c439-6d26-4b84-ac03-0178f8f04105
+		summarizeBy: none
+		sourceColumn: SystemModstamp
+
+		variation Variation
+			isDefault
+			relationship: f8a584da-f357-48ba-ac62-cef4e357663f
+			defaultHierarchy: LocalDateTable_906079de-1f73-4f96-8e96-ff7f6860bb4b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LastActivityDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 922c9a38-d9e8-4e8b-a95f-8f36e6e1c918
+		summarizeBy: none
+		sourceColumn: LastActivityDate
+
+		variation Variation
+			isDefault
+			relationship: 1d639d15-d5d7-459c-8363-273a894d28e0
+			defaultHierarchy: LocalDateTable_144b82de-9ed0-4fb9-9ac2-285f9748d437.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Case__c
+		dataType: string
+		lineageTag: fd5693b2-f771-4293-9118-15a117044f44
+		summarizeBy: none
+		sourceColumn: Case__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description__c
+		dataType: string
+		lineageTag: a76a28eb-66eb-4932-bd77-b629d6d7b65b
+		summarizeBy: none
+		sourceColumn: Description__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duration__c
+		dataType: double
+		lineageTag: 3d954cc7-8203-486e-b240-1407b7c64512
+		summarizeBy: sum
+		sourceColumn: Duration__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Opportunity__c
+		dataType: string
+		lineageTag: ff22ebfc-154a-4614-82b5-70ea4ac23415
+		summarizeBy: none
+		sourceColumn: Opportunity__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type__c
+		dataType: string
+		lineageTag: d8bbd496-7b28-4121-a172-6000ee479705
+		summarizeBy: none
+		sourceColumn: Type__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created_Date_Equals_Last_Modified_Date__c
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5d89794c-3e65-4162-b892-6546ba4071e4
+		summarizeBy: none
+		sourceColumn: Created_Date_Equals_Last_Modified_Date__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Case_Type__c
+		dataType: string
+		lineageTag: c9f1f28c-b7a1-4ab7-b0c0-9dc327cd6680
+		summarizeBy: none
+		sourceColumn: Case_Type__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Case_Training_Value__c
+		dataType: double
+		lineageTag: e452265a-d470-4771-a77f-e77791067479
+		summarizeBy: sum
+		sourceColumn: Case_Training_Value__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Case_Contact_Email__c
+		dataType: string
+		lineageTag: e6079dfe-a371-4d3f-8855-cff6727e2872
+		summarizeBy: none
+		sourceColumn: Case_Contact_Email__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Case_Contact_First_Name__c
+		dataType: string
+		lineageTag: 9aba6e91-6852-4200-ba26-9431bd1a02d0
+		summarizeBy: none
+		sourceColumn: Case_Contact_First_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Case_Subject__c
+		dataType: string
+		lineageTag: 7dd821dc-1bd8-4797-b8c9-084cf2cd1d16
+		summarizeBy: none
+		sourceColumn: Case_Subject__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Case_ID__c
+		dataType: string
+		lineageTag: f99a082b-6ef3-42c1-b110-bc7e08bd4e6a
+		summarizeBy: none
+		sourceColumn: Case_ID__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Case_Pinnacle_Membership__c
+		dataType: string
+		lineageTag: 68769fed-f8d8-400e-9e66-c23a4d587ab0
+		summarizeBy: none
+		sourceColumn: Case_Pinnacle_Membership__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Owner_Email__c
+		dataType: string
+		lineageTag: d2336750-ce61-4a44-b657-8e636551eb7c
+		summarizeBy: none
+		sourceColumn: Owner_Email__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Owner_Full_Name__c
+		dataType: string
+		lineageTag: a6ebeaa2-2788-43ba-91fd-b08142ca2c03
+		summarizeBy: none
+		sourceColumn: Owner_Full_Name__c
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Maintenance Time' = m
+		mode: import
+		queryGroup: 'Import Tables'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"6f46c9da-34db-46a0-8a03-583959040559" = Workspaces{[workspaceId="6f46c9da-34db-46a0-8a03-583959040559"]}[Data],
+				    #"8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8" = #"6f46c9da-34db-46a0-8a03-583959040559"{[dataflowId="8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8"]}[Data],
+				    #"Maintenance Time_" = #"8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8"{[entity="Maintenance Time",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(#"Maintenance Time_",{{"CreatedDate", type date}, {"LastModifiedDate", type date}, {"SystemModstamp", type date}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Case__c] <> ""))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

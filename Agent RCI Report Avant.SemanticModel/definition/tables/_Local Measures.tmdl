@@ -1,0 +1,2473 @@
+table '_Local Measures'
+	lineageTag: 2576d224-4b05-4ed5-bf9b-7ab014686158
+
+	measure '_PA Abuser' =
+			
+			IF (
+			    [_12MPABillableHours] >= 12
+			        && [_EM by PA Cases] <= 4.5
+			        && [_NewPartner12Month] = BLANK (),
+			    1
+			)
+		displayFolder: PA
+		lineageTag: 0f4a750e-d7ec-47fd-a3b3-1109f6a600d2
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _PABillableHours =
+			
+			VAR pricing =
+			    CALCULATE (
+			        SUM ( 'Cases'[_PricingComplexityTime] ) / 60,
+			        'Cases'[Record_Type_Name__c] = "Pricing",
+			        'Cases'[Reason] = "Needs Pricing Analyst",
+			        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+			    )
+			VAR specializedpricing =
+			    CALCULATE (
+			        SUM ( 'Leading Providers'[_LPMinutes] ) / 60,
+			        'Cases'[Record_Type_Name__c] = "Pricing",
+			        'Cases'[Reason] = "Needs Specialized Pricing",
+			        USERELATIONSHIP ( 'Cases'[Id], 'Leading Providers'[Case__c] ),
+			        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+			    )
+			RETURN
+			    IF (
+			        ISBLANK ( pricing + specializedpricing ),
+			        0,
+			        ( pricing + specializedpricing )
+			    )
+		formatString: #,0
+		displayFolder: PA
+		lineageTag: ae790b77-0efe-47f6-b261-c5b1662aff20
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure _PAUsage =
+			
+			DIVIDE ( [_12MExpected Margin], [_12MPABillableHours] )
+		displayFolder: PA
+		lineageTag: 61d8435e-f5e7-4f53-99b0-c025eacb88f6
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _PAPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_PAUsage] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			            && NOT ( ISBLANK ( [_12MPABillableHours] ) )
+			    )
+			VAR PAUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR PARank =
+			    RANKX ( FilteredPartners, [_PAUsage],, ASC, DENSE )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500,
+			        BLANK (),
+			        DIVIDE ( PARank, PAUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: PA
+		lineageTag: 99582e48-7a88-43c9-8773-885b50153405
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _CountPACaseOwners =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( 'Cases'[RO_Case_Owner__c] ),
+			    'Cases'[RO_Case_Owner__c] <> "Virtual Pricing Analyst",
+			    'Cases'[Reason] = "Needs Pricing Analyst"
+			        || 'Cases'[Reason] = "Needs Specialized Pricing",
+			    USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+			)
+		displayFolder: PA
+		lineageTag: 097868e7-0d40-469f-9f00-787f6e7c6720
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _AllPABillableHours =
+			
+			CALCULATE ( [_PABillableHours], ALL ( 'Maintenance Time' ) )
+		formatString: 0
+		displayFolder: PA
+		lineageTag: c910a597-bf5f-401c-b167-55f7befce4cd
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure _12MPABillableHours =
+			
+			CALCULATE (
+			    [_PABillableHours],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0
+		displayFolder: PA
+		lineageTag: 4768c5b6-745a-490a-ac59-16b3676d0414
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure _PricingSal =
+			
+			39750 * [_CountPACaseOwners]
+		displayFolder: PA
+		lineageTag: 41bcbc6e-96ba-4a1b-ae2c-197dc922b0c3
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _TotalAvantCostPA =
+			
+			VAR PA = DIVIDE([_PABillableHours], [_AllPABillableHours],0 ) * [_PricingSal]
+			RETURN
+			    IF ( [_Date range] = 1, PA )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: PA
+		lineageTag: 9e320c23-492b-4d78-9544-b3031d6fe538
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _12MPATotalAvantCost =
+			
+			CALCULATE (
+			    [_TotalAvantCostPA],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0.00
+		displayFolder: PA
+		lineageTag: 4ddd7d3d-21a0-4b2a-a0ef-c5b74aca3aa5
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PAUsageTable =
+			
+			DIVIDE ( [Expected Margin], [_PABillableHours] )
+		formatString: 0.00
+		displayFolder: PA
+		lineageTag: 2d5142c8-bc41-4fd6-9bc5-d93ad324b4be
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PAPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_PAUsageTable] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PAUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR PARank =
+			    RANKX ( FilterPartners, [_PAUsageTable],, ASC, DENSE )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_PAUsageTable] = 0,
+			        "N/A",
+			        ( PARank / PAUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: PA
+		lineageTag: 10416f6b-7853-45e2-9ae4-2b7218177e43
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PALeaningInPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_TotalAvantCostPA] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PAUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR PARank =
+			    RANKX ( FilterPartners, [_TotalAvantCostPA],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_TotalAvantCostPA] = 0,
+			        "N/A",
+			        ( PARank / PAUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: PA
+		lineageTag: c55554ac-7ad8-4adb-acd9-84883e3416d8
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PALeaningInPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_12MPATotalAvantCost] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PAUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR PARank =
+			    RANKX ( FilteredPartners, [_12MPATotalAvantCost],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_12MPATotalAvantCost] = 0,
+			        BLANK (),
+			        DIVIDE ( PARank, PAUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: PA
+		lineageTag: f45e6536-e151-4ba1-aef8-fdbc719c2b8d
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure '_SE Abuser' =
+			
+			IF (
+			    [_SEBillableHours] >= 12
+			        && [_EM by SE Hours] <= 15
+			        && [_NewPartner12Month] = BLANK (),
+			    1
+			)
+		displayFolder: SE
+		lineageTag: 19a06ab1-32dd-4d7f-a644-b826fa5e299b
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _SEBillableHours =
+			
+			VAR result =
+			    CALCULATE (
+			        SUM ( 'Maintenance Time'[Duration__c] ) / 60,
+			        'Cases'[Record_Type_Name__c] = "Sales Engineering",
+			        USERELATIONSHIP ( 'Calendar'[Date], 'Maintenance Time'[CreatedDate] )
+			    )
+			RETURN
+			    IF ( ISBLANK ( result ), 0, result )
+		formatString: #,0
+		displayFolder: SE
+		lineageTag: dea45656-e19d-4e34-b699-957528070ff2
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure _SEUsage =
+			
+			DIVIDE ( [_12MExpected Margin], [_12MSEBillableHours] )
+		displayFolder: SE
+		lineageTag: ac35df45-f74a-423d-aaed-b8b3ca271f71
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _SEPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_SEUsage] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR SEUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR SERank =
+			    RANKX ( FilteredPartners, [_SEUsage],, ASC, DENSE )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || ISBLANK ( [_12MSEBillableHours] ),
+			        BLANK (),
+			        DIVIDE ( SERank, SEUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: SE
+		lineageTag: ec64acc9-4524-43d8-8894-149af28504bf
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _ISEBillableHours =
+			
+			VAR isenames =
+			    VALUES ( _ISE[ISE Name] )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Maintenance Time'[Duration__c] ) / 60,
+			        'Cases'[Record_Type_Name__c] = "Sales Engineering",
+			        USERELATIONSHIP ( 'Calendar'[Date], 'Maintenance Time'[CreatedDate] ),
+			        'Cases'[RO_Case_Owner__c] IN isenames
+			    )
+		formatString: 0.00
+		displayFolder: SE
+		lineageTag: 6936b21d-5c9f-495f-9e45-da80b98bee3c
+
+		changedProperty = DisplayFolder
+
+	measure _FSEBillableHours =
+			
+			VAR fsenames =
+			    VALUES ( _FSE[FSE Name] )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Maintenance Time'[Duration__c] ) / 60,
+			        'Cases'[Record_Type_Name__c] = "Sales Engineering",
+			        USERELATIONSHIP ( 'Calendar'[Date], 'Maintenance Time'[CreatedDate] ),
+			        'Cases'[RO_Case_Owner__c] IN fsenames
+			    )
+		displayFolder: SE
+		lineageTag: 8438db90-e0cb-4b4c-b1f1-e01d7d68ece9
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _AllFSEBillableHours =
+			
+			CALCULATE ( [_FSEBillableHours], ALL ( 'Maintenance Time' ) )
+		formatString: 0.00
+		displayFolder: SE
+		lineageTag: 48087855-354b-4bc0-bcb2-2cbf59344c9f
+
+		changedProperty = DisplayFolder
+
+	measure _AllISEBillableHours =
+			
+			CALCULATE ( [_ISEBillableHours], ALL ( 'Maintenance Time' ) )
+		formatString: 0
+		displayFolder: SE
+		lineageTag: 933a1913-d82b-44f6-a30f-63e64cb52624
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure _12MSEBillableHours =
+			
+			CALCULATE (
+			    [_SEBillableHours],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0.00
+		displayFolder: SE
+		lineageTag: c9d115a8-d44c-46bc-ae50-32426ef8b38e
+
+		changedProperty = DisplayFolder
+
+	measure _FSESal =
+			
+			207000 * [_CountFSEs]
+		displayFolder: SE
+		lineageTag: ab667370-f2d6-4e94-94a8-79d4f2f68af5
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _ISESal =
+			
+			132000 * [_CountISEs]
+		displayFolder: SE
+		lineageTag: b36265da-c36c-4832-a91f-64eb0c68ee4e
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _12MSETotalAvantCost =
+			
+			CALCULATE (
+			    [_TotalAvantCostSE],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		displayFolder: SE
+		lineageTag: e7b7499e-8d21-45e1-9e27-65819c715a04
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _TotalAvantCostSE =
+			
+			VAR FSE = DIVIDE( [_FSEBillableHours], [_AllFSEBillableHours],0 ) * [_FSESal]
+			VAR ISE = DIVIDE( [_ISEBillableHours], [_AllISEBillableHours],0 ) * [_ISESal]
+			VAR LEAD1 = DIVIDE( [_LEADBillableHours], [_AllLEADBillableHours],0 ) * [_LEADSal]
+			VAR SE = FSE + ISE + LEAD1
+			RETURN
+			    IF ( [_Date range] = 1, SE )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: SE
+		lineageTag: 59bd2554-fb0a-4105-9b93-47786e520daa
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _SEUsageTable =
+			
+			IF ( [_SEBillableHours] = 0, 0, [Expected Margin] / [_SEBillableHours] )
+		formatString: #,0.00
+		displayFolder: SE
+		lineageTag: d164ce1f-6daa-412a-ab03-904ab19615cc
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _SEPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_SEUsageTable] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR SEUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR SERank =
+			    RANKX ( FilterPartners, [_SEUsageTable],, ASC, DENSE )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_SEUsageTable] = 0,
+			        "N/A",
+			        ( SERank / SEUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: SE
+		lineageTag: 465ccd06-8448-41b6-b677-ffca6c0eccf8
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _SELeaningInPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_TotalAvantCostSE] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR SEUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR SERank =
+			    RANKX ( FilterPartners, [_TotalAvantCostSE],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_TotalAvantCostSE] = 0,
+			        "N/A",
+			        ( SERank / SEUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: SE
+		lineageTag: 7c3e9d33-f5a0-4dfa-a9f2-24084952bcb1
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _SELeaningInPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_12MSETotalAvantCost] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR SEUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR SERank =
+			    RANKX ( FilteredPartners, [_12MSETotalAvantCost],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_12MSETotalAvantCost] = 0,
+			        BLANK (),
+			        DIVIDE ( SERank, SEUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: SE
+		lineageTag: f82bbaf4-0eb7-4f48-ad8b-7cfe337aa378
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _CountISEs =
+			
+			DISTINCTCOUNTNOBLANK ( _ISE[ISE Name] )
+		formatString: 0
+		displayFolder: SE
+		lineageTag: a0e880d1-ff4c-487a-806e-729fe221c7f3
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _CountFSEs =
+			
+			DISTINCTCOUNTNOBLANK ( _FSE[FSE Name] )
+		formatString: 0
+		displayFolder: SE
+		lineageTag: 2fc8f61f-bbf0-41a8-b3ed-8baae2cc187e
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure '_PF Abuser' =
+			
+			IF (
+			    [12CountOfNotSellingPartners] = 1
+			        && [_NewPartner12Month] = BLANK ()
+			        && [_Total Logins] >= 24,
+			    1
+			)
+		formatString: 0
+		displayFolder: Pathfinder
+		lineageTag: f5579f47-bb99-427c-a849-2b7b5d5409b7
+
+		changedProperty = DisplayFolder
+
+	measure _PathfinderUsage =
+			
+			DIVIDE ( [_12MExpected Margin], [_12MCount of Logins] )
+		displayFolder: Pathfinder
+		lineageTag: b11abb61-3d70-4368-9f41-06addb37fc75
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _PathfinderPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_PathfinderUsage] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PFUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR PFRank =
+			    RANKX ( FilteredPartners, [_PathfinderUsage],, ASC, DENSE )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || ISBLANK ( [_12MCount of Logins] ),
+			        BLANK (),
+			        DIVIDE ( PFRank, PFUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Pathfinder
+		lineageTag: 827bc96e-06af-47d6-b62c-02f499ea08cb
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _AllPFLogin =
+			
+			CALCULATE (
+			    [_PERCount of Logins],
+			    ALL ( 'DAU'),
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -13 )
+			)
+		formatString: 0
+		displayFolder: Pathfinder
+		lineageTag: a45a3140-feaa-4f17-9a1f-58183ffba88e
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure '_PERCount of Logins' =
+			
+			DISTINCTCOUNTNOBLANK('DAU'[PeriodUserKey])
+		formatString: 0
+		displayFolder: Pathfinder
+		lineageTag: ebe06cd6-acf3-44f9-a8df-7b06fc9f7458
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _TotalAvantCostPF =
+			
+			VAR PF = DIVIDE( [_ActiveUserPeriod], [_AllPFLogin],0 ) * 1800000
+			RETURN
+			    IF ( [_Date range] = 1, PF )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Pathfinder
+		lineageTag: 1fe840ad-6c0e-44a9-bcd6-8f55f7e24591
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _12MPFTotalAvantCost =
+			
+			CALCULATE (
+			    [_TotalAvantCostPF],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0.00
+		displayFolder: Pathfinder
+		lineageTag: f5e42d69-cf9a-4465-b12e-4a23e2d0637f
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PathfinderUsageTable =
+			
+			DIVIDE ( [Expected Margin], [_ActiveUserPeriod] )
+		formatString: 0.00
+		displayFolder: Pathfinder
+		lineageTag: 62deebb6-75ab-4e02-ac74-9504f8d74a07
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PathfinderPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_PathfinderUsageTable] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PFUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR PFRank =
+			    RANKX ( FilterPartners, [_PathfinderUsageTable],, ASC, DENSE )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_PathfinderUsageTable] = 0,
+			        "N/A",
+			        ( PFRank / PFUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Pathfinder
+		lineageTag: 995a243f-8b0e-43ba-88f0-fc78f88f8d6d
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PathfinderLeaningInPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_TotalAvantCostPF] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PFUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR PFRank =
+			    RANKX ( FilterPartners, [_TotalAvantCostPF],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_TotalAvantCostPF] = 0,
+			        "N/A",
+			        ( PFRank / PFUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Pathfinder
+		lineageTag: df41725f-47ef-4de6-baf3-646cd201fe4a
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PathfinderLeaningInPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_12MPFTotalAvantCost] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PFUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR PFRank =
+			    RANKX ( FilteredPartners, [_12MPFTotalAvantCost],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_12MPFTotalAvantCost] = 0,
+			        BLANK (),
+			        DIVIDE ( PFRank, PFUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Pathfinder
+		lineageTag: 10d051e8-a80a-481f-98b3-73d3d2e8cb03
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _OrderMgmtUsage =
+			
+			DIVIDE ( [_12MExpected Margin], [_12MOrderMgmtBillableHours] )
+		displayFolder: Order Mgmt
+		lineageTag: 7c3b2344-d99d-40a7-a865-257fba640277
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _OrderMgmtPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners ),
+			        [_OrderMgmtUsage] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR SPAUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR SPARank =
+			    RANKX ( FilteredPartners, [_OrderMgmtUsage],, ASC, DENSE )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_12MOrderMgmtBillableHours] = BLANK (),
+			        BLANK (),
+			        DIVIDE ( SPARank, SPAUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Order Mgmt
+		lineageTag: 36268eb6-628b-4c62-9738-2f27b60b8c26
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _OrderMgmtBillableHours =
+			
+			VAR contract =
+			    CALCULATE (
+			        SUM ( 'Leading Providers'[_LPMinutes] ) / 60,
+			        'Cases'[Record_Type_Name__c] = "Pricing",
+			        'Cases'[Reason] = "Needs Contract",
+			        USERELATIONSHIP ( 'Cases'[Id], 'Leading Providers'[Case__c] ),
+			        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+			    )
+			VAR orderentry =
+			    CALCULATE (
+			        SUM ( 'Leading Providers'[_LPMinutes] ) / 60,
+			        'Cases'[Record_Type_Name__c] = "Pricing",
+			        'Cases'[Reason] = "Needs Order Entry",
+			        USERELATIONSHIP ( 'Cases'[Id], 'Leading Providers'[Case__c] ),
+			        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+			    )
+			RETURN
+			    IF ( ISBLANK ( contract + orderentry ), 0, ( contract + orderentry ) )
+		formatString: #,0
+		displayFolder: Order Mgmt
+		lineageTag: 6f9d7675-c913-4180-b41f-14d6c02e42b0
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure _AllOrderMgmtBillableHours =
+			
+			CALCULATE ( [_OrderMgmtBillableHours], ALL ( 'Maintenance Time' ) )
+		formatString: 0
+		displayFolder: Order Mgmt
+		lineageTag: 6e942425-f105-4298-b4af-8fcdf917919f
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure _CountOrderMgmtCaseOwners =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( 'Cases'[RO_Case_Owner__c] ),
+			    'Cases'[Record_Type_Name__c] = "Pricing",
+			    'Cases'[Reason] = "Needs Order Entry"
+			        || 'Cases'[Reason] = "Needs Contract",
+			    USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+			)
+		displayFolder: Order Mgmt
+		lineageTag: a8eba094-b63e-4cf2-a4ee-63891e48185e
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _12MOrderMgmtBillableHours =
+			
+			CALCULATE (
+			    [_OrderMgmtBillableHours],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0.00
+		displayFolder: Order Mgmt
+		lineageTag: 9b31ac3f-5ab9-41a2-a215-994793b1336b
+
+		changedProperty = DisplayFolder
+
+	measure _OrderMgmtSal =
+			
+			81279 * [_CountOrderMgmtCaseOwners]
+		displayFolder: Order Mgmt
+		lineageTag: a743d427-d879-4700-8416-dbb3bd6cb0a2
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _TotalAvantCostOM =
+			
+			VAR OrderMgmt = DIVIDE([_OrderMgmtBillableHours], [_AllOrderMgmtBillableHours],0 ) * [_OrderMgmtSal]
+			RETURN
+			    IF ( [_Date range] = 1, OrderMgmt )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Order Mgmt
+		lineageTag: 39767592-c204-4dca-947e-c5045367764d
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _12MOMTotalAvantCost =
+			
+			CALCULATE (
+			    [_TotalAvantCostOM],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		displayFolder: Order Mgmt
+		lineageTag: 920873cf-5ea0-4c3d-98e4-1a95e289fccb
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _OrderMgmtUsageTable =
+			
+			DIVIDE ( [Expected Margin], [_OrderMgmtBillableHours] )
+		formatString: #,0.00
+		displayFolder: Order Mgmt
+		lineageTag: b04a06b6-578c-480b-ad3e-370f5f6703d6
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _OrderMgmtPercentileTable =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_OrderMgmtUsageTable] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR SPAUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR SPARank =
+			    RANKX ( FilteredPartners, [_OrderMgmtUsageTable],, ASC, DENSE )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_OrderMgmtUsageTable] = 0,
+			        "N/A",
+			        DIVIDE ( SPARank, SPAUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Order Mgmt
+		lineageTag: 8718aceb-08ac-4f25-b22b-b4c3b6368322
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _OrderMgmtLeaningInPercentileTable =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_TotalAvantCostOM] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR SPAUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR SPARank =
+			    RANKX ( FilteredPartners, [_TotalAvantCostOM],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_TotalAvantCostOM] = 0,
+			        "N/A",
+			        DIVIDE ( SPARank, SPAUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Order Mgmt
+		lineageTag: 46419741-b90b-45ee-95b1-690fd71a4fd2
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _OrderMgmtLeaningInPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_12MOMTotalAvantCost] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR SPAUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR SPARank =
+			    RANKX ( FilteredPartners, [_12MOMTotalAvantCost],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_12MOMTotalAvantCost] = 0,
+			        BLANK (),
+			        DIVIDE ( SPARank, SPAUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Order Mgmt
+		lineageTag: 55f60cbb-d643-4a23-b225-be1ed270eb8a
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _CommissionsCases =
+			
+			VAR result =
+			    CALCULATE (
+			        DISTINCTCOUNT ( 'Cases'[Id] ),
+			        'Cases'[Record_Type_Name__c] = "Sales Operations",
+			        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+			    )
+			RETURN
+			    IF ( ISBLANK ( result ), 0, result )
+		formatString: #,0
+		displayFolder: Commissions
+		lineageTag: 57c592fd-7a21-43ed-a902-44db5b364b53
+
+		changedProperty = DisplayFolder
+
+	measure _CommUsage =
+			
+			DIVIDE ( [_12MExpected Margin], [_12MCommCases] )
+		displayFolder: Commissions
+		lineageTag: 8c643e72-8c61-4015-b546-b061d09c2839
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _CommPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_CommUsage] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR CMUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR CMRank =
+			    RANKX ( FilteredPartners, [_CommUsage],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || ISBLANK ( [_12MCommCases] ),
+			        BLANK (),
+			        DIVIDE ( CMRank, CMUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Commissions
+		lineageTag: ab7a1f33-1385-4b1e-a2c8-6778e7ccf0df
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _CountCommCaseOwners =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( 'Cases'[RO_Case_Owner__c] ),
+			    'Cases'[Record_Type_Name__c] = "Sales Operations",
+			    USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+			)
+		displayFolder: Commissions
+		lineageTag: 3bfa2c66-ae01-4e96-87de-a130b888d22f
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _AllCommCases =
+			
+			CALCULATE ( [_CommissionsCases], ALL ( 'Cases' ) )
+		formatString: 0
+		displayFolder: Commissions
+		lineageTag: 3504bfa8-5e3e-4e32-a4ac-3aaa90195b0e
+
+		changedProperty = DisplayFolder
+
+	measure _12MCommCases =
+			
+			CALCULATE (
+			    [_CommissionsCases],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0
+		displayFolder: Commissions
+		lineageTag: 695b3153-3b95-424c-9e12-ae69443680fa
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure _CommSal =
+			
+			80500 * [_CountCommCaseOwners]
+		displayFolder: Commissions
+		lineageTag: cdda4b32-32c5-454b-a5ac-f113c18fbf10
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _TotalAvantCostComm =
+			
+			VAR Comm = DIVIDE([_CommissionsCases], [_AllCommCases],0 ) * [_CommSal]
+			RETURN
+			    IF ( [_Date range] = 1, Comm )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Commissions
+		lineageTag: 35e26280-77f5-43c3-8899-8ca377f0a59b
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _12MCommTotalAvantCost =
+			
+			CALCULATE (
+			    [_TotalAvantCostComm],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0.00
+		displayFolder: Commissions
+		lineageTag: 4f72c71b-7783-4642-a931-51d158a29626
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _CommUsageTable =
+			
+			DIVIDE ( [Expected Margin], [_CommissionsCases] )
+		formatString: 0.00
+		displayFolder: Commissions
+		lineageTag: 8e598622-02b1-4f61-97db-f8ef966ed2d6
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _CommPercentileTable =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_CommUsageTable] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR CMUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR CMRank =
+			    RANKX ( FilteredPartners, [_CommUsageTable],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_CommUsageTable] = 0,
+			        "N/A",
+			        DIVIDE ( CMRank, CMUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Commissions
+		lineageTag: 388dd1f0-096b-426b-b47e-08ca5f55f22c
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _CommLeaningInPercentileTable =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_TotalAvantCostComm] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR CMUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR CMRank =
+			    RANKX ( FilteredPartners, [_TotalAvantCostComm],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_TotalAvantCostComm] = 0,
+			        "N/A",
+			        DIVIDE ( CMRank, CMUsage, "N/A" )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Commissions
+		lineageTag: 2a40f6d8-e6d9-4ee7-aeff-4af1f15b982d
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _CommLeaningInPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_12MCommTotalAvantCost] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR CMUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR CMRank =
+			    RANKX ( FilteredPartners, [_12MCommTotalAvantCost],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_12MCommTotalAvantCost] = 0,
+			        BLANK (),
+			        DIVIDE ( CMRank, CMUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Commissions
+		lineageTag: 71c2553d-5190-4bfe-9578-08d251795701
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _ProjectCordNetTotals =
+			
+			VAR result =
+			    CALCULATE (
+			        SUM ( 'Cases'[mrc__c] ),
+			        'Cases'[Record_Type_Name__c] = "Project Management Case",
+			        USERELATIONSHIP ( 'Cases'[ClosedDate], 'Calendar'[Date] )
+			    )
+			RETURN
+			    IF ( ISBLANK ( result ), 0, result )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Project Coord
+		lineageTag: ea43c713-d81b-43f4-bff0-2f10487e3eed
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _12MProjCord =
+			
+			CALCULATE (
+			    [_ProjectCordNetTotals],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		displayFolder: Project Coord
+		lineageTag: 56915ea5-7d35-4871-bdbc-c65b5d623765
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _AllProjectCord =
+			
+			CALCULATE ( [_ProjectCordNetTotals], ALL ( 'Cases' ) )
+		formatString: #,0
+		displayFolder: Project Coord
+		lineageTag: cc2e0302-0163-4144-b296-0b679529e580
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure _PCPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_PCUsageTable] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PCUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR PCRank =
+			    RANKX ( FilterPartners, [_PCUsageTable],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_PCUsageTable] = 0,
+			        "N/A",
+			        ( PCRank / PCUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Project Coord
+		lineageTag: 7d77fdcf-0806-4057-9ce6-86f6603025b4
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PCUsage =
+			
+			DIVIDE ( [_12MExpected Margin], [_12MProjCord] )
+		formatString: 0
+		displayFolder: Project Coord
+		lineageTag: 43fdd47b-5e78-4052-bb6a-460c70a11cb3
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _TotalAvantCostPC =
+			
+			VAR PC = DIVIDE([_ProjectCordNetTotals], [_AllProjectCord],0 ) * [_PCSal]
+			RETURN
+			    IF ( [_Date range] = 1, PC )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Project Coord
+		lineageTag: 762f7d9e-280c-4c33-acd2-41ca89f9bbf0
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _12MPCTotalAvantCost =
+			
+			CALCULATE (
+			    [_TotalAvantCostPC],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0.00
+		displayFolder: Project Coord
+		lineageTag: a1dd02e3-0098-439a-87f0-cd9858efff91
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PCLeaningInPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_TotalAvantCostPC] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PCUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR PCRank =
+			    RANKX ( FilterPartners, [_TotalAvantCostPC],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_TotalAvantCostPC] = 0,
+			        "N/A",
+			        ( PCRank / PCUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Project Coord
+		lineageTag: 272fcbc4-a41e-47de-ab0d-41132ed1f3e7
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PCLeaningInPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_12MPCTotalAvantCost] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PCUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR PCRank =
+			    RANKX ( FilteredPartners, [_12MPCTotalAvantCost],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_12MPCTotalAvantCost] = 0,
+			        BLANK (),
+			        DIVIDE ( PCRank, PCUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Project Coord
+		lineageTag: a2a49314-3d4c-4d7d-9610-29fa0e97bf5a
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PCPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_PCUsage] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PCUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR PCRank =
+			    RANKX ( FilteredPartners, [_PCUsage],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || PCUsage = 0,
+			        BLANK (),
+			        DIVIDE ( PCRank, PCUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: Project Coord
+		lineageTag: c16349bf-c7c3-4237-9099-e0672eab1789
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PCUsageTable =
+			
+			DIVIDE ( [Expected Margin], [_ProjectCordNetTotals] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Project Coord
+		lineageTag: 4438e33b-0637-4ef1-b75d-26af7ab2a970
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure _PCSal =
+			
+			82308 * 8
+		formatString: 0
+		displayFolder: Project Coord
+		lineageTag: 9a11916a-3d78-4523-b89b-00934e22fe53
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure '_Count of LoginsTable' =
+			
+			VAR result =
+			    DISTINCTCOUNTNOBLANK('DAU'[PeriodUserKey] )
+			RETURN
+			    IF ( ISBLANK ( result ), 0, result )
+		formatString: #,0
+		displayFolder: pathfinder
+		lineageTag: ca45cb0f-7b30-407a-962f-c5658463d22e
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PSMOpenOppHours =
+			
+			VAR oppcount =
+			    CALCULATE (
+			        DISTINCTCOUNTNOBLANK ( Opportunities[Opportunity Id] ),
+			        USERELATIONSHIP ( Opportunities[Created Date], 'Calendar'[Date] )
+			    )
+			VAR result = ( oppcount * 3 ) / 60
+			RETURN
+			    result
+		displayFolder: PSM
+		lineageTag: 8704572e-c10b-4994-8e80-f6b50b7b0a5d
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _PSMClosedOppHours =
+			
+			VAR oppcount =
+			    CALCULATE (
+			        DISTINCTCOUNTNOBLANK ( Opportunities[Opportunity Id] ),
+			        Opportunities[Stage] = "Closed Won Approved"
+			    )
+			VAR result = ( oppcount * 8 ) / 60
+			RETURN
+			    result
+		displayFolder: PSM
+		lineageTag: e3cc9618-07f5-4462-8d7c-f14bc4927b76
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _PSMTotalHours =
+			
+			[_PSMOpenOppHours] + [_PSMClosedOppHours]
+		formatString: 0.00
+		displayFolder: PSM
+		lineageTag: 788f2c54-3f30-42d4-aca1-1cf1470424df
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _PSMSAl =
+			
+			81279 * [_CountPSMs]
+		formatString: 0
+		displayFolder: PSM
+		lineageTag: 9acafa08-e0f5-40c5-abb6-979323c56e43
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _12MPSMHours =
+			
+			CALCULATE (
+			    [_PSMTotalHours],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		displayFolder: PSM
+		lineageTag: 86a8642e-3627-4c28-862f-2c1a4c97480b
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _PSMPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners[Partner] ),
+			        [_PSMUsage] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PSMUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR PSMRank =
+			    RANKX ( FilteredPartners, [_PSMUsage],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_PSMUsage] = 0,
+			        BLANK (),
+			        DIVIDE ( PSMRank, PSMUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: PSM
+		lineageTag: 53001757-641e-468f-acc3-ff8b26887df2
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PSMUsage =
+			
+			DIVIDE ( [_12MExpected Margin], [_12MPSMHours] )
+		formatString: #,0.00
+		displayFolder: PSM
+		lineageTag: 96559341-081e-4638-8aaa-99ba6856c3ea
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _AllPSMHours =
+			
+			CALCULATE ( [_PSMTotalHours], ALL ( Opportunities ) )
+		displayFolder: PSM
+		lineageTag: 032853cb-0f02-416d-9587-eedc7b7f03e7
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _CountPSMs =
+			
+			DISTINCTCOUNTNOBLANK ( _PSM[ICM] )
+		formatString: 0
+		displayFolder: PSM
+		lineageTag: e4838f1b-809d-4bda-8f04-9eb691e12d3a
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _TotalAvantCostPSM =
+			
+			VAR PSM = DIVIDE( [_PSMTotalHours], [_AllPSMHours],0 ) * [_PSMSAl]
+			RETURN
+			    IF ( [_Date range] = 1, PSM )
+		displayFolder: PSM
+		lineageTag: 5ac69b7f-c2dd-45ef-8df4-137957dea02f
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _12MPSMTotalAvantCost =
+			
+			CALCULATE (
+			    [_TotalAvantCostPSM],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		displayFolder: PSM
+		lineageTag: f51bc7d8-0cea-4f77-8b4c-32596f969f35
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _PSMLeaningInPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners[Partner] ),
+			        [_12MPSMTotalAvantCost] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PCUsage =
+			    COUNTROWS ( FilteredPartners )
+			VAR PCRank =
+			    RANKX ( FilteredPartners, [_12MPSMTotalAvantCost],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_12MPSMTotalAvantCost] = 0,
+			        BLANK (),
+			        DIVIDE ( PCRank, PCUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: PSM
+		lineageTag: e886c076-c119-4816-b09d-e80b4a126ab5
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = DisplayFolder
+
+	measure _PSMPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners[Partner] ),
+			        [_PSMUsageTable] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PCUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR PCRank =
+			    RANKX ( FilterPartners, [_PSMUsageTable],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_PSMUsageTable] = 0,
+			        "N/A",
+			        ( PCRank / PCUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: PSM
+		lineageTag: 3427b613-6c14-485e-b2f6-e5e2e8879b53
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		changedProperty = FormatString
+
+	measure _PSMLeaningInPercentileTable =
+			
+			VAR FilterPartners =
+			    FILTER (
+			        ALL ( Partners[Partner] ),
+			        [_TotalAvantCostPSM] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR PCUsage =
+			    COUNTROWS ( FilterPartners )
+			VAR PCRank =
+			    RANKX ( FilterPartners, [_TotalAvantCostPSM],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500
+			            || [_TotalAvantCostPSM] = 0,
+			        "N/A",
+			        ( PCRank / PCUsage )
+			    )
+		formatString: 0%;-0%;0%
+		displayFolder: PSM
+		lineageTag: e5e95883-0873-4a32-950e-bad90935bf30
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		changedProperty = FormatString
+
+	measure '_Selected Partners' =
+			
+			VAR SelectedPartners =
+			    CALCULATETABLE (
+			        VALUES ( Partners[Partner] ),
+			        FILTER (
+			            Partners,
+			            Partners[Status] = "Contract Signed"
+			                && Partners[Seller Priority] <> "Inactive"
+			        )
+			    )
+			VAR CountOfPartners =
+			    COUNTROWS ( SelectedPartners )
+			VAR SelectedPartnersString =
+			    IF (
+			        CountOfPartners <= 10,
+			        CONCATENATEX (
+			            SelectedPartners,
+			            Partners[Partner],
+			            ", ",
+			            Partners[Partner], ASC
+			        ),
+			        "More than 10 Partners Selected"
+			    )
+			RETURN
+			    SelectedPartnersString
+		lineageTag: 1c0b4064-b42a-4d4e-9565-212cf5c94004
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Selected CM' =
+			
+			VAR SelectedCMs =
+			    FILTERS ( 'Channel Managers'[Channel Manager] )
+			VAR CountOfCMs =
+			    COUNTROWS ( SelectedCMs )
+			VAR NumOfAllCMs =
+			    COUNTROWS ( ALL ( 'Channel Managers' ) )
+			VAR AllCMsSelected = CountOfCMs = NumOfAllCMs
+			VAR SelectedCMsString =
+			    IF (
+			        CountOfCMs <= 10,
+			        CONCATENATEX (
+			            SelectedCMS,
+			            'Channel Managers'[Channel Manager],
+			            ", ",
+			            'Channel Managers'[Channel Manager], ASC
+			        ),
+			        "More than 10 CMs Selected"
+			    )
+			RETURN
+			    SelectedCMsString
+		lineageTag: 9b3bae1b-6a99-4358-9182-4225ce27a553
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _MasterPER =
+			
+			VAR FSE =
+			    DIVIDE ( [_FSEBillableHours], [_AllFSEBillableHours], 0 ) * [_FSESal]
+			VAR ISE =
+			    DIVIDE ( [_ISEBillableHours], [_AllISEBillableHours], 0 ) * [_ISESal]
+			VAR SE = FSE + ISE
+			VAR Comm =
+			    DIVIDE ( [_CommissionsCases], [_AllCommCases], 0 ) * [_CommSal]
+			VAR PA =
+			    DIVIDE ( [_PABillableHours], [_AllPABillableHours], 0 ) * [_PricingSal]
+			VAR OrderMgmt =
+			    DIVIDE ( [_OrderMgmtBillableHours], [_AllOrderMgmtBillableHours], 0 ) * [_OrderMgmtSal]
+			VAR PF =
+			    DIVIDE ( [_ActiveUserPeriod], [_AllPFLogin], 0 ) * 1800000
+			VAR PC =
+			    DIVIDE ( [_ProjectCordNetTotals], [_AllProjectCord], 0 ) * [_PCSal]
+			// VAR PSM =
+			    // DIVIDE ( [_PSMTotalHours], [_AllPSMHours], 0 ) * [_PSMSAl]
+			RETURN
+			    DIVIDE ( [Expected Margin], SE + Comm + PA + OrderMgmt + PF + PC, 0 )
+		formatString: 0.0000
+		lineageTag: ba7687aa-e1e1-4f1e-8a73-de9f0a4f8868
+
+		changedProperty = FormatString
+
+	measure _MasterPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_MasterPER] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR MasterPER =
+			    COUNTROWS ( FilteredPartners )
+			VAR MasterRank =
+			    RANKX ( FilteredPartners, [_MasterPER],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_MasterPER] <= 0
+			            || [_Date range] = 0
+			            || [_TotalAvantCost] < 500,
+			        BLANK (),
+			        DIVIDE ( MasterRank, MasterPER )
+			    )
+		formatString: 0%;-0%;0%
+		lineageTag: a431475d-970f-41e8-858b-b8b7d7e8d9ce
+
+		changedProperty = FormatString
+
+	measure '_12MExpected Margin' =
+			
+			CALCULATE (
+			    SUM ( Opportunities[Expected Margin Comp (Converted)] ),
+			    Opportunities[Stage] == "Closed Won Approved",
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: ced8aa04-f09e-4b1b-ac7d-79a0b6b848f1
+
+	measure '_12MCount of Logins' =
+			
+			CALCULATE (
+			    DISTINCTCOUNTNOBLANK('DAU'[PeriodUserKey]),
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0.00
+		lineageTag: 98af9453-6246-480a-921b-09efecd9dcd5
+
+		changedProperty = FormatString
+
+	measure _12MMRC =
+			
+			CALCULATE (
+			    SUM ( Opportunities[Amount(Converted)] ),
+			    Opportunities[Stage] == "Closed Won Approved",
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 ) //DATESINPERIOD ( 'Calendar'[Date], TODAY(), -12, MONTH )
+			)
+		formatString: \$#,0.000;(\$#,0.000);\$#,0.000
+		lineageTag: 7de0dba3-9e2f-42fa-b395-97f356348063
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure _TotalAvantCost =
+			
+			VAR FSE =
+			    DIVIDE ( [_FSEBillableHours], [_AllFSEBillableHours], 0 ) * [_FSESal]
+			VAR ISE =
+			    DIVIDE ( [_ISEBillableHours], [_AllISEBillableHours], 0 ) * [_ISESal]
+			VAR LEAD1 =
+			    DIVIDE ( [_LEADBillableHours], [_AllLEADBillableHours], 0 ) * [_LEADSal]
+			VAR SE = FSE + ISE + LEAD1
+			VAR Comm =
+			    DIVIDE ( [_CommissionsCases], [_AllCommCases], 0 ) * [_CommSal]
+			VAR PA =
+			    DIVIDE ( [_PABillableHours], [_AllPABillableHours], 0 ) * [_PricingSal]
+			VAR OrderMgmt =
+			    DIVIDE ( [_OrderMgmtBillableHours], [_AllOrderMgmtBillableHours], 0 ) * [_OrderMgmtSal]
+			VAR PF =
+			    DIVIDE ( [_ActiveUserPeriod], [_AllPFLogin], 0 ) * 1800000
+			VAR PC =
+			    DIVIDE ( [_ProjectCordNetTotals], [_AllProjectCord], 0 ) * [_PCSal]
+			// VAR PSM =
+			//     DIVIDE ( [_PSMTotalHours], [_AllPSMHours], 0 ) * [_PSMSAl]
+			RETURN
+			    IF ( [_Date range] = 1, ( SE + Comm + PC + PA + OrderMgmt + PF) )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 167a5206-2369-4ff8-aefc-55dcda58929f
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure '_Date range' =
+			
+			VAR agreedate =
+			    DATEDIFF ( TODAY (), SELECTEDVALUE ( Partners[Agreement Date] ), MONTH )
+			VAR onboarddate =
+			    DATEDIFF ( TODAY (), SELECTEDVALUE ( Partners[Onboard Date] ), MONTH )
+			RETURN
+			    IF ( agreedate <= -6 , 1, 0 )
+		formatString: 0
+		lineageTag: 4f0f3b99-b8ef-407d-9e35-94076a14c7b5
+
+		changedProperty = Name
+
+	measure '_TAProfitability X' =
+			
+			
+			VAR oppterm = SUMX(Opportunities,[Expected Margin] * Opportunities[Opportunity Term])
+			
+			RETURN
+			CALCULATE (
+			    oppterm - [_TotalAvantCost],
+			    'Calendar'[CurMonthOffset] <= -1
+			        && 'Calendar'[CurMonthOffset] >= -12
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 00cc8121-cc3a-4eac-83a5-2c6f5066e595
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure _PopUp =
+			
+			IF (
+			    [_Selected_Seller] = "More than one",
+			    "",
+			    IF (
+			        [_MasterPER] <= 0
+			            || [_Date range] = 0
+			            || [_TotalAvantCost] < 500,
+			        "RCI not available for one or more of the following reasons: TA signed too recently; TA has not been onboarded; TA has not utilized significant volume of AVANT resources; TA has not closed any business through AVANT.",
+			        ""
+			    )
+			)
+		lineageTag: 084aebd7-ccc9-4d8a-b354-cad17b67721a
+
+		changedProperty = Name
+
+	measure _OppCreatedNewBusiness =
+			
+			CALCULATE (
+			    DISTINCTCOUNTNOBLANK ( Opportunities[Opportunity Id] ),
+			    USERELATIONSHIP ( Opportunities[Created Date], 'Calendar'[Date] ),
+			    Opportunities[Opportunity Type] = "New Business"
+			)
+		formatString: 0
+		lineageTag: 10d83494-efa3-4fb4-9dfa-55534fd7ec9f
+
+		changedProperty = Name
+
+	measure _12MOppCreated =
+			
+			CALCULATE (
+			    [_OppCreatedNewBusiness],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: 0
+		lineageTag: 397a2553-cf8c-4be3-9d7b-5320ab2e7c61
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+	measure _Funnel =
+			
+			CALCULATE (
+			    SUM ( Opportunities[Amount(Converted)] ),
+			    USERELATIONSHIP ( Opportunities[Created Date], 'Calendar'[Date] )
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: aaf19907-883d-465a-8f28-2d43889169df
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure _12MFunnel =
+			
+			CALCULATE (
+			    [_Funnel],
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: \$#,0.000;(\$#,0.000);\$#,0.000
+		lineageTag: ba724ad3-e1f3-44f5-9694-c150fc7252db
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure _NewPartner12Month =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( Partners[Partner] ),
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 ),
+			    USERELATIONSHIP ( 'Calendar'[Date], Partners[Agreement Date] )
+			)
+		formatString: 0
+		lineageTag: fc6180d0-f68f-4b81-9999-e86c5cef3618
+
+		changedProperty = Name
+
+	measure '_12MEM on Opps' =
+			
+			CALCULATE (
+			    SUM ( Opportunities[Expected Margin Comp (Converted)] ),
+			    Opportunities[Stage] = "Closed Won Approved",
+			    ( 'Calendar'[CurMonthOffset] <= -1 )
+			        && ( 'Calendar'[CurMonthOffset] >= -12 )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 174c6662-c1ba-4007-8baa-8957589cdc02
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 1 =
+			
+			1.00001
+		formatString: 0
+		lineageTag: 5243a8d0-eb25-466c-8a8c-f5b67462a134
+
+		changedProperty = Name
+
+	measure _MasterPercentileTable =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_MasterPER] > 0
+			            && [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR MasterPER =
+			    COUNTROWS ( FilteredPartners )
+			VAR MasterRank =
+			    RANKX ( FilteredPartners, [_MasterPER],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_MasterPER] <= 0
+			            || [_Date range] = 0
+			            || [_TotalAvantCost] < 500,
+			        "N/A",
+			        DIVIDE ( MasterRank, MasterPER )
+			    )
+		formatString: 0%;-0%;0%
+		lineageTag: b9721ae2-a81d-4e3a-8a8b-6ff14e3c78e2
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure _MasterLeaninginPercentileTable =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR MasterPER =
+			    COUNTROWS ( FilteredPartners )
+			VAR MasterRank =
+			    RANKX ( FilteredPartners, [_TotalAvantCost],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500,
+			        "N/A",
+			        ( MasterRank / MasterPER )
+			    )
+		formatString: 0%;-0%;0%
+		lineageTag: efcdd9c6-f524-445f-b729-2336c290e7ce
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure _OppCreatedExistingBusiness =
+			
+			CALCULATE (
+			    DISTINCTCOUNTNOBLANK ( Opportunities[Opportunity Id] ),
+			    USERELATIONSHIP ( Opportunities[Created Date], 'Calendar'[Date] ),
+			    Opportunities[Opportunity Type] = "Existing Business"
+			)
+		formatString: 0
+		lineageTag: 615b82dd-62ca-4a4b-ad8d-4be49d641310
+
+		changedProperty = Name
+
+	measure _FunnelNewBusiness =
+			
+			CALCULATE (
+			    SUM ( Opportunities[Amount(Converted)] ),
+			    USERELATIONSHIP ( Opportunities[Created Date], 'Calendar'[Date] ),
+			    Opportunities[Opportunity Type] = "New Business"
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 3fbc99d2-17c8-46d9-86ac-de1da99bb142
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure _FunnelExistingBusiness =
+			
+			CALCULATE (
+			    SUM ( Opportunities[Amount(Converted)] ),
+			    USERELATIONSHIP ( Opportunities[Created Date], 'Calendar'[Date] ),
+			    Opportunities[Opportunity Type] = "Existing Business"
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 13d559b9-c325-4d81-ba9a-3feeb4e5ab97
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure _MRCNewBusiness =
+			
+			CALCULATE ( [MRC], Opportunities[Opportunity Type] = "New Business" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 7aef4224-d226-4643-ae09-26f1f28cd882
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure _MRCExistingBusiness =
+			
+			CALCULATE ( [MRC], Opportunities[Opportunity Type] = "Existing Business" )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: c80b43f4-55cb-4161-9491-31313e0d98f3
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure _12MTotalAvantCost =
+			
+			VAR FSE = ( [_FSEBillableHours] / [_AllFSEBillableHours] ) * [_FSESal]
+			VAR ISE = ( [_ISEBillableHours] / [_AllISEBillableHours] ) * [_ISESal]
+			VAR LEAD1 =
+			    DIVIDE ( [_LEADBillableHours], [_AllLEADBillableHours], 0 ) * [_LEADSal]
+			VAR SE = FSE + ISE + LEAD1
+			VAR Comm = ( [_CommissionsCases] / [_AllCommCases] ) * [_CommSal]
+			VAR PA = ( [_PABillableHours] / [_AllPABillableHours] ) * [_PricingSal]
+			VAR OrderMgmt = ( [_OrderMgmtBillableHours] / [_AllOrderMgmtBillableHours] ) * [_OrderMgmtSal]
+			VAR PF = ( [_ActiveUserPeriod] / [_AllPFLogin] ) * 1800000
+			VAR PC = ( [_ProjectCordNetTotals] / [_AllProjectCord] ) * [_PCSal]
+			// VAR PSM = ( [_PSMTotalHours] / [_AllPSMHours] ) * [_PSMSAl]
+			RETURN
+			    CALCULATE (
+			        IF ( [_Date range] = 1, ( PA + Comm + SE + OrderMgmt + PF + PC) ),
+			        FILTER (
+			            'Calendar',
+			            'Calendar'[CurMonthOffset] <= -1
+			                && 'Calendar'[CurMonthOffset] >= -12
+			        )
+			    )
+		lineageTag: 697a4008-7381-4026-bb2b-b32cf9a734be
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _PSMUsageTable =
+			
+			DIVIDE ( [Expected Margin], [_PSMTotalHours] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 2fa5c347-442d-4215-b06a-adb826145ea8
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure _PPLink = "https://avantcommunications1.sharepoint.com/sites/corp.eng/Shared%20Documents/Engineering%20(External)/RCI%20(Evolocity%20Index)/Guide%20to%20RCI.pptx"
+		lineageTag: 31915784-e843-431d-a2f6-b617a99932ad
+		dataCategory: WebUrl
+
+	measure _MasterLeaninginPercentile =
+			
+			VAR FilteredPartners =
+			    FILTER (
+			        ALL ( Partners),
+			        [_Date range] = 1
+			            && [_TotalAvantCost] >= 500
+			    )
+			VAR MasterPER =
+			    COUNTROWS ( FilteredPartners )
+			VAR MasterRank =
+			    RANKX ( FilteredPartners, [_TotalAvantCost],, ASC, SKIP )
+			RETURN
+			    IF (
+			        [_Date range] = 0
+			            || [_TotalAvantCost] < 500,
+			        Blank(),
+			        ( MasterRank / MasterPER )
+			    )
+		formatString: 0%;-0%;0%
+		lineageTag: d0f0d5ba-8974-4d70-b049-dfcc59b65974
+
+	measure _RCIScore =
+			
+			IF (
+			    [_Selected_Seller] = "More than one",
+			    "",
+			    FORMAT(DIVIDE([_MasterPercentile] + [_MasterLeaninginPercentile], 2,0),"0%")
+			)
+		lineageTag: 284205b1-30ef-403e-845a-a8010b6fb33f
+
+	measure _info = ```
+			"?"
+			// "Leaning in = How much a TA leverages AVANT’s resources, stack-ranked against other TAs: lowest (0%) to highest (100%)." & UNICHAR(10) & UNICHAR(10) &
+			// "Productivity = TA’s production (MRR) relative to their resource usage, stack-ranked against other TAs: lowest (0%) to highest (100%)." & UNICHAR(10) & UNICHAR(10) &
+			// "Empty (white) bar = 0%. Full (blue) bar = 100%."
+			
+			```
+		lineageTag: ffff3aa1-e7df-4d3f-92b5-485ec990a81e
+
+	measure '_SE Hours' = "hours logged by the Engineering team in support of opportunities or trainings for this specific TA"
+		lineageTag: 76963b50-abe6-4267-8902-775f4cc4ca5f
+
+	measure '_MRC L12M (from Today)' = ```
+			
+			CALCULATE (
+			    [MRC],
+			    DATESINPERIOD ( 'Calendar'[Date], TODAY(), -12, MONTH ),
+			    REMOVEFILTERS ( 'Calendar' )  // optional, to fully ignore report date filters
+			)
+			
+			```
+		lineageTag: a7894553-279b-41fb-a3c8-9e7e656a7093
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_TAEM(TCV_12) X' =
+			
+			
+			VAR oppterm = SUMX(Opportunities,[Expected Margin] * Opportunities[Opportunity Term])
+			
+			RETURN
+			CALCULATE (
+			    oppterm ,
+			    'Calendar'[CurMonthOffset] <= -1
+			        && 'Calendar'[CurMonthOffset] >= -12
+			)
+		lineageTag: 39af7118-a55a-4fa1-97e4-163858471cfb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_TACost_12 X' =
+			
+			
+			CALCULATE (
+			    [_TotalAvantCost],
+			    'Calendar'[CurMonthOffset] <= -1
+			        && 'Calendar'[CurMonthOffset] >= -12
+			)
+		lineageTag: 3e535284-f446-4960-827c-c76a4ba1f491
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _CountLEADs =
+			
+			DISTINCTCOUNTNOBLANK ( _LEAD[LEAD Name])
+		formatString: 0
+		displayFolder: SE
+		lineageTag: a25f860e-98c7-44af-a61c-33a27fee8acc
+
+	measure _LEADSal = ```
+			
+			 343083 * [_CountLEADs]
+			```
+		formatString: 0
+		displayFolder: SE
+		lineageTag: 27672d59-c77e-485d-a6f7-ff3879e64fa4
+
+	measure _LEADBillableHours =
+			
+			VAR leadnames =
+			    VALUES ( _LEAD[LEAD Name] )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Maintenance Time'[Duration__c] ) / 60,
+			        'Cases'[Record_Type_Name__c] = "Sales Engineering",
+			        USERELATIONSHIP ( 'Calendar'[Date], 'Maintenance Time'[CreatedDate] ),
+			        'Cases'[RO_Case_Owner__c] IN leadnames
+			    )
+		displayFolder: SE
+		lineageTag: a9ce1875-fab6-4619-9540-393eee4ecd93
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _AllLEADBillableHours =
+			
+			CALCULATE ( [_LEADBillableHours], ALL ( 'Maintenance Time' ) )
+		displayFolder: SE
+		lineageTag: e01e5461-b607-43a7-b44d-384cce479db8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_LEADSal Orig' = ```
+			
+			 343083 * [_CountLEADs]
+			```
+		formatString: 0
+		displayFolder: SE
+		lineageTag: cf660294-a6a5-496d-bfcf-3493bbc88e7b
+
+	column Value
+		dataType: string
+		lineageTag: c5596832-8e7d-4fb8-93a6-88117b430a5b
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '_Local Measures' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Value = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Value", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

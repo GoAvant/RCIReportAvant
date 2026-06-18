@@ -1,0 +1,138 @@
+expression 'PSM Counts' =
+		let
+		    Source = Excel.Workbook(Web.Contents("https://avantcommunications1-my.sharepoint.com/personal/jochoa_goavant_net/Documents/PowerBI/Tables/Niko's%20Folder/Engineers%20by%20Month%20for%20SE%20Metrics.xlsx"), null, true),
+		    #"PSM Counts_Sheet" = Source{[Item="PSM Counts",Kind="Sheet"]}[Data],
+		    #"Changed Type" = Table.TransformColumnTypes(#"PSM Counts_Sheet",{{"Column1", type text}, {"Column2", type any}, {"Column3", type any}, {"Column4", type any}, {"Column5", type any}, {"Column6", type any}, {"Column7", type any}, {"Column8", type any}, {"Column9", type any}, {"Column10", type any}, {"Column11", type any}, {"Column12", type any}, {"Column13", type any}, {"Column14", type any}, {"Column15", type any}, {"Column16", type any}, {"Column17", type any}, {"Column18", type any}, {"Column19", type any}, {"Column20", type any}, {"Column21", type any}, {"Column22", type any}, {"Column23", type any}, {"Column24", type any}, {"Column25", type any}, {"Column26", type any}, {"Column27", type any}, {"Column28", type any}, {"Column29", type any}, {"Column30", type any}, {"Column31", type any}, {"Column32", type any}, {"Column33", type any}, {"Column34", type any}, {"Column35", type any}, {"Column36", type any}, {"Column37", type any}, {"Column38", type any}, {"Column39", type any}, {"Column40", type any}, {"Column41", type any}, {"Column42", type any}, {"Column43", type any}, {"Column44", type any}, {"Column45", type any}, {"Column46", type any}})
+		in
+		    #"Changed Type"
+	lineageTag: 3c18609f-dbe3-4ca8-9b36-7644d341e7b8
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Deal Doc - pre April 1 2017' =
+		let
+		    Source = PowerBI.Dataflows([]),
+		    #"6f46c9da-34db-46a0-8a03-583959040559" = Source{[workspaceId="6f46c9da-34db-46a0-8a03-583959040559"]}[Data],
+		    #"f13371bf-652b-4c26-9311-f3243bcfc768" = #"6f46c9da-34db-46a0-8a03-583959040559"{[dataflowId="f13371bf-652b-4c26-9311-f3243bcfc768"]}[Data],
+		    Sold = #"f13371bf-652b-4c26-9311-f3243bcfc768"{[entity="Sold"]}[Data],
+		    #"Added Conditional Column" = Table.AddColumn(Sold, "ActualCat", each if [Service] = "Hosted Contact Center" then "CCaaS" else [Bucket]),
+		    #"Created StageName" = Table.AddColumn(#"Added Conditional Column", "StageName", each if [Status] <> "Cancelled" and [#"Renewal?"] <> "x" then "Closed Won Approved" else if [#"Renewal?"] = "x" then "Renewal" else "Closed Lost"),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Created StageName",{"Status", "Seller ID", "Customer Name", "Vendor ID", "Term (months)", "Booked MRC", "Service", "Renewal?", "Booked Date", "AVANT Channel Manager", "ActualCat", "StageName"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Booked Date", type date}, {"Booked MRC", Currency.Type}, {"Term (months)", type number}}),
+		    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type", {"Term (months)"}),
+		    #"Removed Errors1" = Table.RemoveRowsWithErrors(#"Removed Errors", {"Booked Date"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Removed Errors1", each [Booked Date] <= #date(2017, 3, 31)),
+		    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"Customer Name", "Name"}, {"ActualCat", "Category"}, {"Seller ID", "Agent ID"}, {"AVANT Channel Manager", "Channel Manager"}, {"Booked MRC", "ActualMRC"}, {"Term (months)", "Opp Term"}, {"Service", "Subcategory"}, {"Status", "Order_Status__c"}}),
+		    #"SDWAN -> SD-WAN" = Table.ReplaceValue(#"Renamed Columns","SDWAN","SD-WAN",Replacer.ReplaceText,{"Category"}),
+		    #"Telecom -> Connectivity" = Table.ReplaceValue(#"SDWAN -> SD-WAN","Telecom","Connectivity",Replacer.ReplaceText,{"Category"}),
+		    #"MgdServices -> Managed Services" = Table.ReplaceValue(#"Telecom -> Connectivity","MgdServices","Managed Services",Replacer.ReplaceText,{"Category"}),
+		    #"ProServices -> Pro. Services" = Table.ReplaceValue(#"MgdServices -> Managed Services","ProServices","Pro. Services",Replacer.ReplaceText,{"Category"}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"ProServices -> Pro. Services",{"Name", "Booked Date", "Category", "Subcategory", "Vendor ID", "Opp Term", "Agent ID", "Channel Manager", "ActualMRC"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Reordered Columns",{{"Opp Term", Int64.Type}}),
+		    #"Filtered Rows2" = Table.SelectRows(#"Changed Type1", each ([Opp Term] <> null)),
+		    #"Reordered Columns1" = Table.ReorderColumns(#"Filtered Rows2",{"Name", "Booked Date", "Category", "Subcategory", "Vendor ID", "Opp Term", "Agent ID", "Channel Manager", "ActualMRC"}),
+		    #"Cancelled #2 -> Cancelled" = Table.ReplaceValue(#"Reordered Columns1","Cancelled #2","Cancelled",Replacer.ReplaceText,{"Order_Status__c"}),
+		    #"One-time -> Sold" = Table.ReplaceValue(#"Cancelled #2 -> Cancelled","One-time","Sold",Replacer.ReplaceText,{"Order_Status__c"}),
+		    #"Auto-Renew -> Sold" = Table.ReplaceValue(#"One-time -> Sold","Auto-Renew","Sold",Replacer.ReplaceText,{"Order_Status__c"}),
+		    #"Do Not Reconcile -> Installed" = Table.ReplaceValue(#"Auto-Renew -> Sold","Do Not Reconcile","Installed",Replacer.ReplaceText,{"Order_Status__c"}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Do Not Reconcile -> Installed",{{"Name", "OppName"}, {"Vendor ID", "Provider__c"}, {"Agent ID", "Seller__c"}, {"Opp Term", "OppTerm"}, {"ActualMRC", "OppMRC"}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Renamed Columns2", "Id", 0, 1),
+		    #"Added Custom" = Table.AddColumn(#"Added Index", "CurrencyIsoCode", each "USD"),
+		    #"Replaced Value" = Table.ReplaceValue(#"Added Custom","Sam Carfagnini","Samantha Carfagnini",Replacer.ReplaceText,{"Channel Manager"}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value",{{"StageName", type text}, {"CurrencyIsoCode", type text}})
+		in
+		    #"Changed Type2"
+	lineageTag: 691207e1-7152-46ba-9a6c-19c8cae7c0b0
+	queryGroup: 'Import Tables'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'International Opportunitites' =
+		let
+		    Source = PowerBI.Dataflows(null),
+		    #"6f46c9da-34db-46a0-8a03-583959040559" = Source{[workspaceId="6f46c9da-34db-46a0-8a03-583959040559"]}[Data],
+		    #"8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8" = #"6f46c9da-34db-46a0-8a03-583959040559"{[dataflowId="8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8"]}[Data],
+		    #"International Opps" = #"8c0fc70b-9deb-42a4-ace0-c20bccbfd6f8"{[entity="International Opps"]}[Data]
+		in
+		    #"International Opps"
+	lineageTag: 0dfb9857-bb98-498f-a2cf-3d5664adec5a
+	queryGroup: 'Import Tables'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'CM Start/End Date' =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("pVddc9pIEPwrFM9JSatvPYLBEGPuLkCOS1x5WIsN7CG0qZUIxf36mxlJCNnYx3LlKhZhVWvo6e4Znp66c9v2nLD7oTtPVFHA2UsLofFaZFLpzt2GZ5lIO1Oe8bXQnY+dr/DPKZxTngq8/24Br4HlMMuxHQbvu98/PHX/spnHArga8F9yBWef62IjUrE7wsWVqKHF4hZqL/ZjJ0a0lG/xvv7fSqcyux7Stdp1jkLX91y4euC5Qpz+viiykgHdGciGgTnA5G/BAmjUwp1FtufZWBfXKX3llB8LdV5pL0mKznRdl3oP573YtVAdC/5sFjes2p7rEKuZFCmCaZXR9/+f/ZqGIQuRh1620uJQNS43BgYWglbJD1HouxHeKhPoP906EMVBpkTyZdgLXEQWs7FiuwaeQOcc6pzIMvmD0EYcHrBW8G7462dnsNOdP3lT+pvYgYXNs0819wCaIfRvMlF034hrLdfcrH0xaY2Fp4qRivic45GQuTBQ70USQkYAQh9REGOebK9ldjGcTVFmrGoatsmzXLtUBuIPAD/wSL4yKwj+mImcPlD7VaOK9YWaK3jX8mtF1OA2gX9C7/nw8YwnG05yHotsJXRu6JPAYi4+IjiJLgxY4FCapVIQrs44QP9jRExoxXXlQFHc0DKLQxY7JGqKobF8fpYUn2Zu8V4G3H0IqRlUbqkoUau1uAE5atlwjI3E/n7KueQbwl0/C702DTpWcX1S9QKQfY8AD1xj1I/3QhfcuGRAJqH4NfIjihtZHqZgE8ronWxr4z9jA/I+RFDvFKGR4zObvL3dSjgnQpipzaVQbjy4wBGK1A53kqJ+osTGMN1e5fESWUWOH48ZljfZa5VTve+SegEainVbtN6jFFBjD2qD0I/qZ8sXLxi4MDv8OixKG0esTMt6hZgmw/QgzDXrWG6L2LvIcWg36e3AuyioP0RyzPiV3apM7FgsqmGBZr9xMcZ8gIz3OYF+5vlm/74fLg1pu4z5U/h8Q1h82kwmWzyEWBm6zC1zoeF4iesUdrCvIWd4hjKb7YuNkXBfrVNoXTs469ycH443bH+sktgpE74gMF5N5A7RCq7VDdI9mxz1wAhJaRMt80JmJLG9UaSfQfonz9ECFAeRT+uEypHW+UFkZdYYR7rT3oSBCxfjZwKbIBp4odaQY0adg03CaxGM0eh41DHwRrEhT3D9g69hG7wlJcAitGo69ROGOIlQcQ/7coR+wcl8UGplhF7RfjaOvDKRK9qXkRMFcSlsTnG05Knpnuye1opTyEcxmQcmBm0rS9jfhEkzq7or4gmZNUlCGsfYj4n3ndBU8VLhbxyDfe5V7PfhB46LD+ulxzzHri5h79wUhnS8AAVhh3YT+F9Fnt+w2oflfG5Y7jPHpf1tjgDEwO/6vfS4VnsEHLTVPVJ5vuMXuH0z9s/H3vd/AQ==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Employee ID" = _t, FirstName = _t, LastName = _t, #"Job Title" = _t, Gender = _t, Status = _t, Seniority = _t, Termination = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Employee ID", type text}, {"FirstName", type text}, {"LastName", type text}, {"Job Title", type text}, {"Gender", type text}, {"Status", type text}, {"Seniority", type date}, {"Termination", type date}}),
+		    #"Inserted Merged Column" = Table.AddColumn(#"Changed Type", "Channel Manager", each Text.Combine({[FirstName], [LastName]}, " "), type text)
+		in
+		    #"Inserted Merged Column"
+	lineageTag: e31a64f5-e675-4301-9341-cf43e730eed0
+	queryGroup: 'Import Tables'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression ExcludedServers_HostDomains =
+		let
+		    Source = SharePoint.Files("https://avantcommunications1.sharepoint.com/sites/corp.data", [ApiVersion = 15]),
+		    #"Filtered Rows" = Table.SelectRows(Source, each ([Name] = "ExcludedServers_HostDomains.xlsx")),
+		    #"ExcludedServers_HostDomains xlsx_https://avantcommunications1 sharepoint com/sites/corp data/Shared Documents/Source Data for PBI/" = #"Filtered Rows"{[Name="ExcludedServers_HostDomains.xlsx",#"Folder Path"="https://avantcommunications1.sharepoint.com/sites/corp.data/Shared Documents/Source Data for PBI/"]}[Content],
+		    #"Imported Excel Workbook" = Excel.Workbook(#"ExcludedServers_HostDomains xlsx_https://avantcommunications1 sharepoint com/sites/corp data/Shared Documents/Source Data for PBI/"),
+		    ExcludedServers_HostDomains_Sheet = #"Imported Excel Workbook"{[Item="ExcludedServers_HostDomains",Kind="Sheet"]}[Data],
+		    #"Cleaned Text" = Table.TransformColumns(ExcludedServers_HostDomains_Sheet,{{"Column1", Text.Clean, type text}}),
+		    #"Promoted Headers" = Table.PromoteHeaders(#"Cleaned Text", [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ExcludedServers_HostDomains", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: 9015be5c-d757-47df-83d6-2f4351133816
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Pendo DAU' =
+		let
+		    Source = Sql.Database("synapse-workspace-prod-av-ondemand.sql.azuresynapse.net", "PathfinderAnalyticsLakeDB", [Query="SELECT#(lf)    periodId,#(lf)    [server],#(lf)    accountId AS 'Account Name',#(lf)    SalesforceAccountID,#(lf)    salesforceuseridentifier,#(lf)    COUNT(DISTINCT SalesforceUserIdentifier) AS DailyActiveUser,#(lf)tenantdomain#(lf)FROM #(lf)    dbo.allevents#(lf)WHERE#(lf)     accountId NOT IN (#(lf)     'Dev Tenant', #(lf)     'Local Dev Tenant', #(lf)     'Test Tenant',#(lf)     'Default-Account', #(lf)     'AVANT Pathfinder Demo', #(lf)     'AVANT EMEA Pathfinder Demo', #(lf)     'Product Tenant',#(lf)     'Cassidy Test Seller Account',#(lf)     'Local Tenant'#(lf) )#(lf)GROUP BY#(lf)    periodId,#(lf)    accountId,#(lf)    SalesforceAccountID,#(lf)    salesforceuseridentifier#(lf)    ,[server]#(lf),tenantdomain#(lf)"]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"periodId", type date}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([salesforceuseridentifier] <> null) ),
+		    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "PeriodUserKey", each Date.ToText([periodId],"yyyy-MM-dd") & "|" &[salesforceuseridentifier]),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"DailyActiveUser", Int64.Type}}),
+		    #"Merged Queries" = Table.NestedJoin(#"Changed Type1", {"server"}, TenantMaster, {"server"}, "TenantMaster", JoinKind.LeftOuter),
+		    #"Sorted Rows" = Table.Sort(#"Merged Queries",{{"Account Name", Order.Ascending}}),
+		    #"Expanded TenantMaster" = Table.ExpandTableColumn(#"Sorted Rows", "TenantMaster", {"TenantID", "TenantName", "server", "SalesforceAccountID"}, {"TenantMaster.TenantID", "TenantMaster.TenantName", "TenantMaster.server", "TenantMaster.SalesforceAccountID"}),
+		    #"Added Custom1" = Table.AddColumn(#"Expanded TenantMaster", "SalesforceAccountIDwDomain", each if [SalesforceAccountID] = null or Text.Trim([SalesforceAccountID]) = "" then [TenantMaster.SalesforceAccountID] else [SalesforceAccountID])
+		in
+		    #"Added Custom1"
+	lineageTag: 15a96a78-c73a-4ae8-8d77-13862516cba3
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression TenantMaster =
+		let
+		    Source = Sql.Database("db-server-prod-eastus-dw-01.database.windows.net", "AvantDW", [Query="SELECT #(lf)    tm.TenantID,#(lf)    tm.TenantName,#(lf)    tm.TenantDomain,#(lf)    tm.SalesforceAccountID,#(lf)    tm.SalesforceAccountType,#(lf)    tm.Status,#(lf)    tm.StyleTemplate,#(lf)    tm.LogoFileName,#(lf)    tm.IsTenantProvisioned,#(lf)    tm.IsUserMigrationRequired,#(lf)    tm.CreatedDate,#(lf)    tm.LastModifiedDate,#(lf)    tm.RegionID,#(lf)    tm.dwPipelineRunId,#(lf)    tm.dwCreatedDatetime#(lf)FROM #(lf)    land_core.TenantMaster tm#(lf)WHERE #(lf)    tm.dwCreatedDatetime = (#(lf)        SELECT #(lf)            MAX(sub.dwCreatedDatetime)#(lf)        FROM #(lf)            land_core.TenantMaster sub#(lf)        WHERE #(lf)            sub.TenantID = tm.TenantID#(lf)    );"]),
+		    #"Removed Columns" = Table.RemoveColumns(Source,{"SalesforceAccountType", "Status", "StyleTemplate", "LogoFileName", "IsTenantProvisioned", "IsUserMigrationRequired", "CreatedDate", "LastModifiedDate", "RegionID", "dwPipelineRunId", "dwCreatedDatetime"}),
+		    #"Trimmed Text" = Table.TransformColumns(#"Removed Columns",{{"TenantID", Text.Trim, type text}}),
+		    #"Uppercased Text" = Table.TransformColumns(#"Trimmed Text",{{"TenantID", Text.Upper, type text}}),
+		    #"Split Column by Delimiter" = Table.SplitColumn(#"Uppercased Text", "TenantDomain", Splitter.SplitTextByDelimiter("//", QuoteStyle.Csv), {"TenantDomain.1", "TenantDomain.2"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"TenantDomain.1", type text}, {"TenantDomain.2", type text}}),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type",{"TenantDomain.1"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns1",{{"TenantDomain.2", "server"}}),
+		    #"Lowercased Text" = Table.TransformColumns(#"Renamed Columns",{{"server", Text.Lower, type text}})
+		in
+		    #"Lowercased Text"
+	lineageTag: aec0553f-c429-48a3-8f50-d2ade80b237f
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,133 @@
+table Vendors
+	lineageTag: cdcb948d-096e-47e7-ac44-4d8e9b306c86
+
+	column 'Vendor Id'
+		dataType: string
+		lineageTag: 0044b9ac-6a0f-4899-8008-054033ce39e2
+		summarizeBy: none
+		sourceColumn: Vendor Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendor
+		dataType: string
+		lineageTag: d4a3b633-5ca4-4379-ad28-19fe60127c31
+		summarizeBy: none
+		sourceColumn: Vendor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing State'
+		dataType: string
+		lineageTag: 25f125bc-f31a-40ec-bc10-282ff3409f88
+		summarizeBy: none
+		sourceColumn: Billing State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing Country'
+		dataType: string
+		lineageTag: 2d9a52cf-5648-431a-a954-32234da15481
+		summarizeBy: none
+		sourceColumn: Billing Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Master Agent'
+		dataType: string
+		lineageTag: 934d1ef0-6a07-4ca5-a130-94b92cd06a2b
+		summarizeBy: none
+		sourceColumn: Master Agent
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Created Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0998110f-3461-49a6-aaaa-979dfaab87cf
+		summarizeBy: none
+		sourceColumn: Created Date
+
+		variation Variation
+			isDefault
+			relationship: 97110b43-68b3-470d-9b59-5d5793d86303
+			defaultHierarchy: LocalDateTable_6f45f3df-b277-43d2-9ef3-d3f724d27fa3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Contract_Signed__c
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e9d887bc-c759-4d41-948c-5ab15baaa324
+		summarizeBy: none
+		sourceColumn: Contract_Signed__c
+
+		annotation SummarizationSetBy = Automatic
+
+	column Contract_Signed_Date__c
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0b170d71-226b-4a2b-9d23-737b86ff2ae0
+		summarizeBy: none
+		sourceColumn: Contract_Signed_Date__c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CurrencyIsoCode
+		dataType: string
+		lineageTag: 0604f18e-6d1e-4502-9d9d-0bdcebab6069
+		summarizeBy: none
+		sourceColumn: CurrencyIsoCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordTypeId
+		dataType: string
+		lineageTag: d564d563-3bb0-4959-869f-4fa3ff9ceb2c
+		summarizeBy: none
+		sourceColumn: RecordTypeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing City'
+		dataType: string
+		lineageTag: 632eb2f6-4c93-4695-af6e-705057496d7e
+		summarizeBy: none
+		sourceColumn: Billing City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing Postal Code'
+		dataType: string
+		lineageTag: c062b66b-a741-406f-a0a2-7f76e5a8050f
+		summarizeBy: none
+		sourceColumn: Billing Postal Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing Street'
+		dataType: string
+		lineageTag: 2c5d5155-ab9c-4ed2-abbf-047671ef1f09
+		summarizeBy: none
+		sourceColumn: Billing Street
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Vendors = m
+		mode: import
+		queryGroup: 'Import Tables'
+		source =
+				let
+				    Source = Sql.Database("db-server-prod-eastus-dw-01.database.windows.net", "AvantDW"),
+				    pbi_Vendors = Source{[Schema="pbi",Item="Vendors"]}[Data]
+				in
+				    pbi_Vendors
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

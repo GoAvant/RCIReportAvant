@@ -1,0 +1,76 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Import Tables'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["_PSM","PSM Counts","_FSE","_ISE","_LEAD","_Local Measures","Calendar","Partners","Channel Managers","Vendors","Last Month Close Date","Cases","Opportunities","Maintenance Time","Leading Providers","Deal Doc - pre April 1 2017","International Opportunitites","CM Start/End Date","User","Pendo DAU","TenantMaster","DAU","ExcludedServers_HostDomains"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
+
+annotation __TEdtr = 1
+
+ref table DateTableTemplate_70f90795-d4b4-4552-9813-68fc5304e38e
+ref table _PSM
+ref table _FSE
+ref table _ISE
+ref table '_Local Measures'
+ref table Calendar
+ref table LocalDateTable_59275887-931c-42e8-bbc2-e30c40d78d00
+ref table LocalDateTable_7809a66c-85a3-40ad-aa1b-8e3bb7925b7b
+ref table Partners
+ref table LocalDateTable_6475f7a2-26ea-4b4d-a250-37f983379e8e
+ref table LocalDateTable_a45c4b34-ab03-4467-89c8-5dcafbec7d27
+ref table LocalDateTable_62aa98f4-8a43-4d8c-bf0e-eb75715c2419
+ref table LocalDateTable_15edddc3-c409-4a4c-99c4-6fdbb595d3b2
+ref table LocalDateTable_acd5bcab-09a0-448c-8443-4abc65707c82
+ref table 'Channel Managers'
+ref table Vendors
+ref table LocalDateTable_6f45f3df-b277-43d2-9ef3-d3f724d27fa3
+ref table 'Last Month Close Date'
+ref table LocalDateTable_8fddb526-4655-47a3-8d3c-1879290d05b5
+ref table LocalDateTable_9b458538-171c-4fa9-bb2d-982caaa3557c
+ref table Cases
+ref table LocalDateTable_32b4b744-bec4-4aeb-9102-fcfca89a7bfa
+ref table LocalDateTable_44e8a597-47df-4281-b9ed-0e926a2770e1
+ref table LocalDateTable_6529be5e-61ec-4f76-8699-57b31eaba06f
+ref table LocalDateTable_cf19a17e-639f-44eb-998e-deba7699b75d
+ref table LocalDateTable_883b0ca2-5a6c-4e07-a548-3d3e45b4e567
+ref table LocalDateTable_a3abc61d-6075-42c5-b5eb-41bf7ca25743
+ref table LocalDateTable_b7b2da9e-2559-4a31-8980-6ddd90761f42
+ref table LocalDateTable_2aab01ef-7dc6-4d42-99a8-69843bb90da0
+ref table LocalDateTable_45aacde9-9c96-44ae-b3e5-2c4052dfa590
+ref table LocalDateTable_d93a2278-3c80-459b-b52c-8cb2fa93b2f7
+ref table LocalDateTable_1c7c50c6-3345-42a7-866b-ae54f744e0b3
+ref table Opportunities
+ref table 'Maintenance Time'
+ref table LocalDateTable_f0e620d7-478e-4509-80cd-acf8899f08fb
+ref table LocalDateTable_906079de-1f73-4f96-8e96-ff7f6860bb4b
+ref table LocalDateTable_144b82de-9ed0-4fb9-9ac2-285f9748d437
+ref table 'Leading Providers'
+ref table LocalDateTable_09569c25-acc7-41b8-ad57-7602718889cc
+ref table LocalDateTable_9cb9bfdb-5d6f-4c6b-9338-ac240ec6958e
+ref table LocalDateTable_d4abe518-00a7-47d2-ba07-397ee7668206
+ref table LocalDateTable_e7ab6e8e-6dde-49d1-8d48-f759e026f63c
+ref table User
+ref table LocalDateTable_3ffc353c-53fd-4603-b37b-a9b7635d864f
+ref table LocalDateTable_c54fe461-3ada-4b05-be8b-d232177ace1b
+ref table LocalDateTable_e3c59c20-827e-4a69-8ced-5b6fffd46b59
+ref table DAU
+ref table SellerSelection
+ref table 'Partner A Selector'
+ref table 'Partner B Selector'
+ref table 'MRC Bins'
+ref table _LEAD
+
+ref cultureInfo en-US
+

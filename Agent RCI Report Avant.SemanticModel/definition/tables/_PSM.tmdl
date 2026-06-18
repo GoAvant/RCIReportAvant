@@ -1,0 +1,232 @@
+table _PSM
+	lineageTag: 0bf09e9d-6290-4a1f-97a8-7c28b717c3d7
+
+	column ICM
+		dataType: string
+		lineageTag: 97610c01-5af7-4ab3-acf9-3ee7b19572b4
+		summarizeBy: none
+		sourceColumn: ICM
+
+		annotation SummarizationSetBy = Automatic
+
+	column Role
+		dataType: string
+		lineageTag: 920c2c44-73a3-437c-8056-178206a41323
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opportunity Creation (Min/opp))'
+		dataType: int64
+		formatString: 0
+		lineageTag: 74bc29ad-36eb-4050-b2ae-9aa3d6ca8812
+		summarizeBy: sum
+		sourceColumn: Opportunity Creation (Min/opp))
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opp Time %'
+		dataType: double
+		lineageTag: 05f87929-330e-4767-a02b-63029e245753
+		summarizeBy: sum
+		sourceColumn: Opp Time %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Closed Won Time (min/opp)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6658694b-ca7b-4bb9-929f-11f1573dbc76
+		summarizeBy: sum
+		sourceColumn: Closed Won Time (min/opp)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column6
+		dataType: double
+		lineageTag: bfe0a608-a0ab-4302-83db-984cb34356fb
+		summarizeBy: sum
+		sourceColumn: Column6
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Tasks (Forthcoming) (hrs)'
+		dataType: int64
+		formatString: 0
+		lineageTag: aa55b815-b781-4f90-a649-88fcd695aa26
+		summarizeBy: sum
+		sourceColumn: Tasks (Forthcoming) (hrs)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tasks (Forthcoming)'
+		dataType: double
+		lineageTag: b55f6424-7f5a-4212-910f-800af02b6009
+		summarizeBy: sum
+		sourceColumn: Tasks (Forthcoming)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Opportunity Qualification'
+		dataType: double
+		lineageTag: e2325fbd-4494-4e5d-87a9-dd47b3031a17
+		summarizeBy: sum
+		sourceColumn: Opportunity Qualification
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Funnel Mgmt / Opp Mgmt'
+		dataType: double
+		lineageTag: bb0c594d-498c-4fcc-858b-16d1480b7fc6
+		summarizeBy: sum
+		sourceColumn: Funnel Mgmt / Opp Mgmt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cancellations / Escalations'
+		dataType: double
+		lineageTag: 48ed44ce-0bb1-4905-a980-09e6b291a99b
+		summarizeBy: sum
+		sourceColumn: Cancellations / Escalations
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'PTO hrs'
+		dataType: double
+		lineageTag: a9a76596-e898-429a-b41e-9bba6d8fb5c3
+		summarizeBy: sum
+		sourceColumn: PTO hrs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PTO
+		dataType: double
+		lineageTag: 2989e0ce-6f3c-423b-ad4d-40e42ca63a5d
+		summarizeBy: sum
+		sourceColumn: PTO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Holiday Hrs'
+		dataType: double
+		lineageTag: 9de60930-0c5c-4e75-b5c1-428b2183f85f
+		summarizeBy: sum
+		sourceColumn: Holiday Hrs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Holiday
+		dataType: double
+		lineageTag: e12f4fa5-3e20-4271-ac68-f829408d75e3
+		summarizeBy: sum
+		sourceColumn: Holiday
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Training (hrs)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 17beebbe-4635-4247-b023-084ff62b4898
+		summarizeBy: sum
+		sourceColumn: Training (hrs)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Training
+		dataType: double
+		lineageTag: bec1eb67-6a47-41b0-80ab-5b71babcf675
+		summarizeBy: sum
+		sourceColumn: Training
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Meetings
+		dataType: int64
+		formatString: 0
+		lineageTag: e12ba820-99cb-4f29-bd03-b07826a4f41f
+		summarizeBy: sum
+		sourceColumn: Meetings
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% of time'
+		dataType: double
+		lineageTag: efe73473-d7d2-437e-a9c9-a9a51837e1a3
+		summarizeBy: sum
+		sourceColumn: % of time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total (non-opp qual/creation)'
+		dataType: double
+		lineageTag: 32502f44-042a-4518-bf14-b1d50e55be6a
+		summarizeBy: sum
+		sourceColumn: Total (non-opp qual/creation)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'ICM Available Utilization'
+		dataType: string
+		lineageTag: 7c20b1a0-5321-48ad-adab-062d4bb883de
+		summarizeBy: none
+		sourceColumn: ICM Available Utilization
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hypothetical Utilization'
+		dataType: double
+		lineageTag: d0932c21-6a0b-447b-9b64-67691bd2c4f3
+		summarizeBy: sum
+		sourceColumn: Hypothetical Utilization
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition _PSM = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(Web.Contents("https://avantcommunications1-my.sharepoint.com/personal/jochoa_goavant_net/Documents/PowerBI/Tables/ICM%20Utilization.xlsx"), null, false),
+				    Monthly_sheet = Source{[Item="Monthly",Kind="Sheet"]}[Data],
+				    FilterNullAndWhitespace = each List.Select(_, each _ <> null and (not (_ is text) or Text.Trim(_) <> "")),
+				    #"Removed Bottom Rows" = Table.RemoveLastN(Monthly_sheet, each try List.IsEmpty(List.Skip(FilterNullAndWhitespace(Record.FieldValues(_)), 1)) otherwise false),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Removed Bottom Rows", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ICM", type text}, {"Role", type text}, {"Opportunity Creation (Min/opp))", Int64.Type}, {"Opp Time %", type number}, {"Closed Won Time (min/opp)", Int64.Type}, {"Column6", type number}, {"Tasks (Forthcoming) (hrs)", Int64.Type}, {"Tasks (Forthcoming)", type number}, {"Opportunity Qualification", type number}, {"Funnel Mgmt / Opp Mgmt", type number}, {"Cancellations / Escalations", type number}, {"PTO hrs", type number}, {"PTO", type number}, {"Holiday Hrs", type number}, {"Holiday", type number}, {"Training (hrs)", Int64.Type}, {"Training", type number}, {"Meetings", Int64.Type}, {"% of time", type number}, {"Total (non-opp qual/creation)", type number}, {"ICM Available Utilization", type text}, {"Hypothetical Utilization", type number}}),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Changed Type", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Trimmed Text" = Table.TransformColumns(#"Removed Blank Rows",{{"ICM", Text.Trim, type text}}),
+				    #"Cleaned Text" = Table.TransformColumns(#"Trimmed Text",{{"ICM", Text.Clean, type text}})
+				in
+				    #"Cleaned Text"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

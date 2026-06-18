@@ -1,0 +1,35 @@
+table SellerSelection
+	lineageTag: 8290ebb2-d1ac-4f99-b449-2d78f11c1e48
+
+	column Role
+		lineageTag: a71006a4-4ad7-4b75-883e-a60878f12f37
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Role]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Seller
+		lineageTag: d607a943-5f8f-428a-ab03-a4876fcb033f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Seller]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SellerSelection = calculated
+		mode: import
+		source = ```
+				DATATABLE(
+				    "Role", STRING,
+				    "Seller", STRING,
+				    {
+				        {"A", BLANK()},
+				        {"B", BLANK()}
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = c6904b0040f441f089403e0f31f0df87
+

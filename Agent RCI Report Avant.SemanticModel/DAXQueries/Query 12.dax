@@ -1,0 +1,4 @@
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "_MasterPER", '_Local Measures'[_MasterPER]
+    )
